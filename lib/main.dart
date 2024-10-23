@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare/view/screens/home_page.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:healthcare/core/routes.dart';
+import 'package:healthcare/core/utils/app_constanses.dart';
+import 'package:healthcare/core/utils/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-SharedPreferences? sharedPreferences;
-
 void main(List<String> args) async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await initialServices();
+  await Future.delayed(Duration(seconds: 1));
+  FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
 
@@ -19,10 +24,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {'/': (context) => const HomePage()},
-      initialRoute: '/',
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: Themes().mainTheme,
+          initialRoute: sharedPreferences!.getBool("firstTime") == false
+              ? "/home"
+              : "/OnboardingScreen",
+          getPages: getpage,
+        );
+      },
     );
   }
 }
