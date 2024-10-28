@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/view/components/primary_button.dart';
-import 'package:healthcare/view/screens/home_page.dart';
+import 'package:healthcare/view/screens/login_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -18,6 +17,7 @@ class OnboardingScreen extends StatelessWidget {
           centerTitle: true,
         ),
         body: Container(
+          
           padding: EdgeInsets.symmetric(horizontal: mainPagePading),
           width: ScreenUtil().screenWidth,
           height: ScreenUtil().screenHeight,
@@ -61,7 +61,7 @@ class OnboardingScreen extends StatelessWidget {
                           width: ScreenUtil().screenWidth,
                           height: 450.h,
                           decoration: const BoxDecoration(
-                              gradient: const LinearGradient(
+                              gradient:  LinearGradient(
                                   begin: Alignment.bottomCenter,
                                   end: Alignment.topCenter,
                                   colors: [
@@ -92,9 +92,8 @@ class OnboardingScreen extends StatelessWidget {
                                     onPressed: () {
                                       sharedPreferences!
                                           .setBool('firstTime', false);
-
                                       Get.offAll(
-                                        HomePage(),
+                                        const LoginScreen(),
                                         transition: Transition.upToDown,
                                       );
                                     },

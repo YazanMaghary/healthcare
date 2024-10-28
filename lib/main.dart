@@ -8,9 +8,9 @@ import 'package:healthcare/core/utils/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main(List<String> args) async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await initialServices();
-  await Future.delayed(Duration(seconds: 1));
+  await Future.delayed(const Duration(seconds: 1));
   FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: Themes().mainTheme,
           initialRoute: sharedPreferences!.getBool("firstTime") == false
-              ? "/home"
+              ? "/loginScreen"
               : "/OnboardingScreen",
           getPages: getpage,
         );
