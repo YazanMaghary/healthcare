@@ -5,7 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 SharedPreferences? sharedPreferences;
 
-double mainPagePading = 12.w;
+EdgeInsetsGeometry mainPagePading =
+    EdgeInsets.symmetric(horizontal: 12.w, vertical: 24.h);
 const Color scaffoldBackgroundColor = Color(0xFFFFFFFF);
 const Color primaryColor = Color(0xff247CFF);
 const Color greyColor = Color(0xff9E9E9E);
