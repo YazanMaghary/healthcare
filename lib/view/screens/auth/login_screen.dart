@@ -8,6 +8,7 @@ import 'package:healthcare/view/components/custom_text_field.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/components/register_sup_title.dart';
 import 'package:healthcare/view/components/register_title.dart';
+import 'package:healthcare/view/screens/auth/Otp_verfication.dart';
 import 'package:healthcare/view/screens/auth/forgot_password_screen.dart';
 import 'package:healthcare/view/screens/auth/signup_screen.dart';
 
@@ -64,7 +65,10 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
               mediumSpace,
-              PrimaryButton(buttonText: "Login", onPressed: () {}),
+              PrimaryButton(buttonText: "Login", onPressed: () {
+                Get.to(() =>  OtpVerficationScreen(),
+                    transition: Transition.rightToLeft);
+              }),
               mediumSpace,
               const Spacer(),
               Center(
