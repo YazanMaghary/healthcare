@@ -7,6 +7,7 @@ import 'package:healthcare/view/components/custom_text_field.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/components/register_sup_title.dart';
 import 'package:healthcare/view/components/register_title.dart';
+import 'package:healthcare/view/screens/auth/Otp_verfication.dart';
 import 'package:healthcare/view/screens/auth/login_screen.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -32,6 +33,10 @@ class SignupScreen extends StatelessWidget {
               ),
               largeSpace,
               const CustomTextField(
+                hintText: 'Full Name',
+              ),
+              mediumSpace,
+              const CustomTextField(
                 hintText: 'Email',
               ),
               mediumSpace,
@@ -52,7 +57,12 @@ class SignupScreen extends StatelessWidget {
                     hintText: 'Your Number',
                   )),
               mediumSpace,
-              PrimaryButton(buttonText: "Create Account", onPressed: () {}),
+              PrimaryButton(
+                  buttonText: "Create Account",
+                  onPressed: () {
+                    Get.off(() => OtpVerficationScreen(),
+                        transition: Transition.rightToLeft);
+                  }),
               mediumSpace,
               const Spacer(),
               Center(
@@ -77,7 +87,6 @@ class SignupScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              largeSpace,
               Center(
                 child: RichText(
                   textAlign: TextAlign.center,

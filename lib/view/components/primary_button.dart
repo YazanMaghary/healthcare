@@ -5,7 +5,7 @@ import 'package:healthcare/core/utils/app_constanses.dart';
 class PrimaryButton extends StatelessWidget {
   final String buttonText;
   final void Function()? onPressed;
-  PrimaryButton({super.key, required this.buttonText, this.onPressed});
+  PrimaryButton({super.key, required this.buttonText, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
