@@ -66,14 +66,12 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
               mediumSpace,
-
               PrimaryButton(
                   buttonText: "Login",
                   onPressed: () {
-                    Get.to(() => const myMain(),
+                    Get.offAll(() => const myMain(),
                         transition: Transition.rightToLeft);
                   }),
-
               mediumSpace,
               const Spacer(),
               Center(
