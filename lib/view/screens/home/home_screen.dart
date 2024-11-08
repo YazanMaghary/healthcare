@@ -2,8 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
+import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/view/components/custom_card.dart';
-import 'package:healthcare/view/screens/home/main_app_screen.dart';
+import 'package:healthcare/view/screens/home/doctor_speciaity.dart';
+import 'package:healthcare/view/screens/home/notifications_screen.dart';
+import 'package:healthcare/view/screens/home/recommandation_doctor_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -50,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
           GestureDetector(
             onTap: () {
               Get.off(
-                () => const myMain(),
+                () => const NotificationsScreen(),
                 transition: Transition.rightToLeft,
               );
             },
@@ -60,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               padding: const EdgeInsets.all(16),
               decoration: const BoxDecoration(
-                color: appbarNotificationBackground,
+                color: greyBackground,
                 shape: BoxShape.circle,
               ),
               child: Stack(children: [
@@ -142,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     bottom: 0,
                     right: 0,
                     child: Image.asset(
-                      'assets/images/Image.png',
+                      nurseImage,
                       fit: BoxFit.contain,
                     ),
                   )
@@ -166,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Get.off(
-                                  () => const myMain(),
+                                  () => const DoctorSpeciality(),
                                   transition: Transition.rightToLeft,
                                 );
                               }),
@@ -218,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Get.off(
-                                  () => const myMain(),
+                                  () => const RecommandationDoctorScreen(),
                                   transition: Transition.rightToLeft,
                                 );
                               }),

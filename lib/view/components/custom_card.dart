@@ -17,7 +17,7 @@ class mySpeciailtyCard extends StatelessWidget {
       children: [
         Container(
           decoration: const BoxDecoration(
-              shape: BoxShape.circle, color: appbarNotificationBackground),
+              shape: BoxShape.circle, color: greyBackground),
           padding: const EdgeInsets.all(24),
           child: Image.asset(
             speciailtyImagePath,

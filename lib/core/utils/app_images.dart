@@ -1,3 +1,17 @@
 const String onBoardingAppBarImage = 'assets/images/appBarBoarding.png';
 const String vectorOnBoardingImage = 'assets/images/Vector.png';
 const String doctorOnBoardingImage = 'assets/images/ImageDoctor.png';
+const String nurseImage = 'assets/images/NurseImage.png';
+const String generalImage = 'assets/images/General.png';
+const String eNTImage = 'assets/images/ENT.png';
+const String pediatricImage = 'assets/images/Pediatric.png';
+const String urologistImage = 'assets/images/Urologist.png';
+const String dentistryImage = 'assets/images/Dentistry.png';
+const String intestineImage = 'assets/images/Intestine.png';
+const String histologistImage = 'assets/images/Histologist.png';
+const String hepatologyImage = 'assets/images/Hepatology.png';
+const String cardiologistImage = 'assets/images/Cardiologist.png';
+const String neurologicImage = 'assets/images/Neurologic.png';
+const String pulmonaryImage = 'assets/images/Pulmonary.png';
+const String optometryImage = 'assets/images/Optometry.png';
+const String searchImage = 'assets/images/search-normal.png';
