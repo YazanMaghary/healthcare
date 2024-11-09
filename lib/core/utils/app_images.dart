@@ -15,3 +15,6 @@ const String neurologicImage = 'assets/images/Neurologic.png';
 const String pulmonaryImage = 'assets/images/Pulmonary.png';
 const String optometryImage = 'assets/images/Optometry.png';
 const String searchImage = 'assets/images/search-normal.png';
+const String listviewItem1 ='assets/images/listviewItem1.png';
+const String messageText = 'assets/images/message-text.png';
+
