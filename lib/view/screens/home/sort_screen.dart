@@ -86,7 +86,9 @@ class _SortScreenState extends State<SortScreen> {
                     ),
                     child: Text(
                       index == 0 ? 'All' : specialities[index - 1],
-                      style: _isSelectedRaring != index ? semiBold4 : semiBold4,
+                      style: _isSelectedSpeciality != index
+                          ? semiBold4
+                          : semiBold5,
                     ),
                   ),
                 );
@@ -138,7 +140,7 @@ class _SortScreenState extends State<SortScreen> {
                           index == 0 ? 'All' : '${indexItem - index}',
                           style: _isSelectedRaring != index
                               ? semiBold4
-                              : semiBold4,
+                              : semiBold5,
                         ),
                       ],
                     ),
