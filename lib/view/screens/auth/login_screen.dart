@@ -94,7 +94,7 @@ class LoginScreen extends StatelessWidget {
                         await authController.login(
                             emailController.text, passwordController.text);
                       }
-                    }
+                    }}
                  ),
               mediumSpace,
               const Spacer(),
