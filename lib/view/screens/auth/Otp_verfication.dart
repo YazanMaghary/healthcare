@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/components/register_sup_title.dart';
 import 'package:healthcare/view/components/register_title.dart';
+import 'package:healthcare/view/screens/auth/profilePicture.dart';
 
 // ignore: must_be_immutable
 class OtpVerficationScreen extends StatelessWidget {
@@ -12,7 +14,7 @@ class OtpVerficationScreen extends StatelessWidget {
       List.generate(4, (index) => TextEditingController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Padding(
         padding: mainPagePading,
@@ -39,7 +41,7 @@ class OtpVerficationScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Container(
                     height: 80.w,
-                    width: 80.w,
+                    width: 80.w,alignment: Alignment.center,
                     margin: EdgeInsets.symmetric(horizontal: 4.w),
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
                     decoration: BoxDecoration(
@@ -69,7 +71,10 @@ class OtpVerficationScreen extends StatelessWidget {
             const Spacer(),
             PrimaryButton(
               buttonText: "Submit",
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() =>const ProfilePictureScreen(),
+                    transition: Transition.rightToLeft);
+              },
             )
           ],
         ),

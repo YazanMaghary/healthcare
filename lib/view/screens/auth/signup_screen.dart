@@ -16,7 +16,7 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: mainPagePading,
@@ -60,7 +60,7 @@ class SignupScreen extends StatelessWidget {
               PrimaryButton(
                   buttonText: "Create Account",
                   onPressed: () {
-                    Get.off(() => OtpVerficationScreen(),
+                    Get.to(() =>  OtpVerficationScreen(),
                         transition: Transition.rightToLeft);
                   }),
               mediumSpace,
@@ -99,7 +99,7 @@ class SignupScreen extends StatelessWidget {
                         style: const TextStyle(color: primaryColor),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.off(() => const LoginScreen(),
+                            Get.off(() =>  LoginScreen(),
                                 transition: Transition.rightToLeft);
                           },
                       ),

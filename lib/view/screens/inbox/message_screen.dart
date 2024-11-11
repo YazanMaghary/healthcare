@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
@@ -13,7 +12,7 @@ class _MessageScreenState extends State<MessageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('data'),
+        title: const Text('data'),
         centerTitle: false,
       ),
     );

@@ -80,7 +80,7 @@ class OnboardingScreen extends StatelessWidget {
                                         await sharedPreferences!
                                             .setBool('firstTime', false);
                                         Get.offAll(
-                                          () => const LoginScreen(),
+                                          () =>  LoginScreen(),
                                           transition: Transition.upToDown,
                                         );
                                       },
