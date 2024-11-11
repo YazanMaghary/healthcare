@@ -9,8 +9,10 @@ EdgeInsetsGeometry mainPagePading =
     EdgeInsets.symmetric(horizontal: 12.w, vertical: 24.h);
 const Color scaffoldBackgroundColor = Color(0xFFFFFFFF);
 const Color primaryColor = Color(0xff247CFF);
+
 const Color greyColor = Color(0xff9E9E9E);
-const Color appbarNotificationBackground = Color(0xffF5F5F5);
+const Color greyBackground = Color(0xffF5F5F5);
+const Color searchBackground = Color(0xffB3B1B0);
 const Color starsColor = Color(0xffFFD600);
 const Color textSecColor = Colors.white;
 
@@ -25,3 +27,11 @@ TextStyle smallNormal1 =
     GoogleFonts.inter(fontSize: 10, color: const Color(0xff757575));
 TextStyle semiBold1 = GoogleFonts.inter(
     fontSize: 16, color: scaffoldBackgroundColor, fontWeight: FontWeight.bold);
+TextStyle semiBold2 =
+    GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold);
+TextStyle semiBold3 =
+    GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold);
+TextStyle semiBold4 =
+    GoogleFonts.inter(color: const Color(0xffC2C2C2));
+TextStyle semiBold5 =
+    GoogleFonts.inter(color: Colors.white);

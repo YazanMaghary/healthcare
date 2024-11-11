@@ -83,6 +83,7 @@ class LoginScreen extends StatelessWidget {
               mediumSpace,
               PrimaryButton(
                   buttonText: "Login",
+
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       if (emailController.text.isEmpty ||
@@ -94,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                             emailController.text, passwordController.text);
                       }
                     }
-                  }),
+                 ),
               mediumSpace,
               const Spacer(),
               Center(
