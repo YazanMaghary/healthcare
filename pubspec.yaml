@@ -41,6 +41,9 @@ dependencies:
   flutter_screenutil: ^5.9.3
   flutter_native_splash: ^2.4.2
   intl_phone_field: ^3.2.0
+  dio: ^5.7.0
+  equatable: ^2.0.5
+  dartz: ^0.10.1
 
 
 dev_dependencies:

@@ -5,7 +5,7 @@ import 'package:healthcare/core/utils/app_constanses.dart';
 class PrimaryButton extends StatelessWidget {
   final String buttonText;
   final void Function()? onPressed;
-  PrimaryButton({super.key, required this.buttonText, required this.onPressed});
+  const PrimaryButton({super.key, required this.buttonText, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class PrimaryButton extends StatelessWidget {
       alignment: Alignment.center,
       width: double.infinity,
       height: 52.h,
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         height: 52.h,
         child: MaterialButton(

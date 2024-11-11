@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/custom_text_field.dart';
 import 'package:healthcare/view/components/primary_button.dart';
@@ -14,7 +13,7 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Padding(
         padding: mainPagePading,

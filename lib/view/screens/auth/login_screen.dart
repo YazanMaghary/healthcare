@@ -2,28 +2,31 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:healthcare/controller/auth_controller.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/custom_text_field.dart';
+import 'package:healthcare/view/components/failure.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/components/register_sup_title.dart';
 import 'package:healthcare/view/components/register_title.dart';
-import 'package:healthcare/view/screens/auth/Otp_verfication.dart';
 import 'package:healthcare/view/screens/auth/forgot_password_screen.dart';
 import 'package:healthcare/view/screens/auth/signup_screen.dart';
-import 'package:healthcare/view/screens/home/main_app_screen.dart';
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
+  LoginScreen({super.key});
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  final AuthController auth_controller = Get.put(AuthController());
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20.h),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               largeSpace,
@@ -34,14 +37,26 @@ class LoginScreen extends StatelessWidget {
                     "We're excited to have you back, can't wait to see what you've been up to since you last logged in.",
               ),
               largeSpace,
-              const CustomTextField(
-                hintText: 'Email',
-              ),
-              mediumSpace,
-              const CustomTextField(
-                hintText: 'Password',
-                obscureText: true,
-              ),
+              Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      CustomTextField(
+                        validator:auth_controller.validateEmail,
+                        keyboardType: TextInputType.emailAddress,
+                        controller: emailController,
+                        hintText: 'Email',
+                      ),
+                      mediumSpace,
+                      CustomTextField(
+                        validator:auth_controller.validatePassword,
+                        keyboardType: TextInputType.visiblePassword,
+                        controller: passwordController,
+                        hintText: 'Password',
+                        obscureText: true,
+                      ),
+                    ],
+                  )),
               mediumSpace,
               Row(
                 children: [
@@ -68,10 +83,19 @@ class LoginScreen extends StatelessWidget {
               mediumSpace,
               PrimaryButton(
                   buttonText: "Login",
-                  onPressed: () {
-                    Get.offAll(() => const myMain(),
-                        transition: Transition.rightToLeft);
-                  }),
+
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      if (emailController.text.isEmpty ||
+                          passwordController.text.isEmpty) {
+                        failureWidget("Error", "E-mail or Password is empty");
+                      } else {
+                        final authController = Get.put(AuthController());
+                        await authController.login(
+                            emailController.text, passwordController.text);
+                      }
+                    }
+                 ),
               mediumSpace,
               const Spacer(),
               Center(

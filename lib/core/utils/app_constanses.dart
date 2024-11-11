@@ -14,6 +14,9 @@ const Color greyColor = Color(0xff9E9E9E);
 const Color greyBackground = Color(0xffF5F5F5);
 const Color searchBackground = Color(0xffB3B1B0);
 const Color starsColor = Color(0xffFFD600);
+const Color textSecColor = Colors.white;
+
+const Color failureColor =  Color.fromARGB(255, 133, 49, 49);
 SizedBox largeSpace = SizedBox(height: 32.h);
 SizedBox smallSpace = SizedBox(height: 8.h);
 SizedBox mediumSpace = SizedBox(height: 20.h);
