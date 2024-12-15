@@ -82,7 +82,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               ]),
             ),
-          )
+          ),
+          GestureDetector(
+            onTap: () {
+          
+              box?.remove("Token");
+              Get.offNamed(
+                '/LoginScreen',
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.only(
+                right: 10,
+              ),
+              padding: const EdgeInsets.all(16),
+              decoration: const BoxDecoration(
+                color: greyBackground,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.logout_rounded,
+                size: 30,
+              ),
+            ),
+          ),
         ],
       ),
       body: SafeArea(

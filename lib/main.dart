@@ -5,18 +5,21 @@ import 'package:get/get.dart';
 import 'package:healthcare/core/routes.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialServices();
-  await Future.delayed(const Duration(seconds: 1));
+  await Future.delayed(const Duration(
+    seconds: 1,
+  ));
   FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
 
 Future<void> initialServices() async {
-  sharedPreferences = await SharedPreferences.getInstance();
+  await GetStorage.init();
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -24,6 +27,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   
+    print(box?.read("Token"));
+
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -32,9 +38,11 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: Themes().mainTheme,
-          initialRoute: sharedPreferences!.getBool("firstTime") == false
-              ? "/loginScreen"
-              : "/OnboardingScreen",
+          initialRoute: box?.read("Token") == null || box?.read("Token") == ""
+              ? box?.read("firstTime") == false
+                  ? "/LoginScreen"
+                  : "/OnboardingScreen"
+              : "/myMain",
           getPages: getpage,
         );
       },

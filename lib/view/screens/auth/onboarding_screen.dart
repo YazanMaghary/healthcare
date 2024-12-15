@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/view/components/primary_button.dart';
-import 'package:healthcare/view/screens/auth/login_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -77,11 +76,11 @@ class OnboardingScreen extends StatelessWidget {
                                   children: [
                                     PrimaryButton(
                                       onPressed: () async {
-                                        await sharedPreferences!
-                                            .setBool('firstTime', false);
-                                        Get.offAll(
-                                          () =>  LoginScreen(),
-                                          transition: Transition.upToDown,
+                                        await box
+                                            ?.write('firstTime', false);
+                                        Get.offAllNamed(
+                                          '/LoginScreen',
+                                        
                                         );
                                       },
                                       buttonText: 'Get Started',

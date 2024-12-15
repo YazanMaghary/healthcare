@@ -6,7 +6,6 @@ import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/components/register_sup_title.dart';
 import 'package:healthcare/view/components/register_title.dart';
 
-import 'Otp_verfication.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
@@ -32,8 +31,8 @@ class ForgotPasswordScreen extends StatelessWidget {
             PrimaryButton(
               buttonText: "Reset Password",
               onPressed: () {
-                Get.to(() => OtpVerficationScreen(),
-                    transition: Transition.rightToLeft);
+                Get.toNamed('/OtpVerficationScreen',
+                   );
               },
             )
           ],
