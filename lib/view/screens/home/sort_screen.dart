@@ -130,7 +130,7 @@ class _SortScreenState extends State<SortScreen> {
                         Icon(
                           Icons.star,
                           color: _isSelectedRaring != index
-                              ? Color(0xffC2C2C2)
+                              ? const Color(0xffC2C2C2)
                               : Colors.white,
                         ),
                         const SizedBox(

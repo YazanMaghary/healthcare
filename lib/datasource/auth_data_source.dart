@@ -1,33 +1,88 @@
 import 'package:dio/dio.dart';
 import 'package:dartz/dartz.dart';
+import 'package:get/get.dart';
 import 'package:healthcare/core/network/api_constances.dart';
+import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/model/error_model.dart';
 import 'package:healthcare/model/user_model.dart';
 
 // next task : token vaerfication add when open app  when remmeber me active do it with sharedPref
 //use either
 class AuthDataSource {
+  final dio = Dio();
   Future<Either<String, UserModel>> login(Map<String, String> data) async {
     try {
-      final dio = Dio();
-      // check url is correct
-      ApiConstances().configureDio(dio);
       final response = await dio.post(ApiConstances.loginUrl, data: data);
       //the error from here
       print("Test auth data source ");
       print(UserModel.fromJson(response.data).user?.email);
       UserModel user = UserModel.fromJson(response.data);
       // print(user.user.email);
-      return Right(UserModel.fromJson(response.data));
+      return Right(user);
     } on DioException catch (e) {
       print("Dio Exception Error");
-      ErrorModel errorModel2 = ErrorModel.fromJson(
-          e.response?.data ?? {
-            'message' :  "No Internet Connection",
-            'Error'  : "Internet related"
-          });
+      ErrorModel errorModel2 = ErrorModel.fromJson(e.response?.data ??
+          {'message': "No Internet Connection", 'Error': "Internet related"});
       print(errorModel2.message);
-      return Left(errorModel2.message ?? 'Connection error');
+      if (e.response?.statusCode == 403) {
+        Get.toNamed("/OtpVerficationScreen");
+        return Left(errorModel2.message ?? 'Connection error');
+      } else {
+        return Left(errorModel2.message ?? 'Connection error');
+      }
+    } catch (e) {
+      print("Global catch Error");
+      print(e.toString());
+      return const Left('An unexpected error occurred');
+    }
+  }
+
+  Future<Either<String, void>> verficationCode(Map<String, String> data) async {
+    try {
+      final response = await dio.post(ApiConstances.confirmEmail, data: data);
+      box?.write("Token2", response.data['token']);
+      return const Right(null);
+    } on DioException catch (e) {
+      print("Dio Exception Error");
+      ErrorModel errorModel2 = ErrorModel.fromJson(e.response?.data ??
+          {'message': "No Internet Connection", 'Error': "Internet related"});
+      print(errorModel2.message);
+      return Left(
+          errorModel2.message ?? 'String must contain exactly 6 character(s)');
+    } catch (e) {
+      print("Global catch Error");
+      print(e.toString());
+      return const Left('An unexpected error occurred');
+    }
+  }
+
+  Future<Either<String, UserModel>> register(Map<String, String> data) async {
+    try {
+      final response = await dio.post(
+        ApiConstances.registerUrl,
+        data: data,
+      );
+
+      UserModel user = UserModel.fromJson(response.data);
+      print(user.user?.email);
+      print(user.token);
+
+      return Right(user);
+    } on DioException catch (e) {
+      print("Dio Exception Error");
+      ErrorModel errorModel2 = ErrorModel.fromJson(e.response?.data ??
+          {'message': "No Internet Connection", 'Error': "Internet related"});
+      print(errorModel2.message);
+      if (e.response?.statusCode == 403) {
+        Get.toNamed("/OtpVerficationScreen");
+        return Left(errorModel2.message ?? 'Connection error');
+      } else {
+        print("object");
+         ErrorModel errorModel2 = ErrorModel.fromJson(e.response?.data ??
+          {'message': "No Internet Connection", 'Error': "Internet related"});
+        print(e.response);
+        return Left(errorModel2.message ?? 'Connection error');
+      }
     } catch (e) {
       print("Global catch Error");
       print(e.toString());
@@ -35,6 +90,7 @@ class AuthDataSource {
     }
   }
 }
+
 
 
 // Example usage in a repository or service class

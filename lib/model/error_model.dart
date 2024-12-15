@@ -8,8 +8,8 @@ ErrorModel errorModel2FromJson(String str) => ErrorModel.fromJson(json.decode(st
 
 String errorModel2ToJson(ErrorModel data) => json.encode(data.toJson());
 
-class ErrorModel<T> {
-    T? message;
+class ErrorModel {
+    String? message;
     String? error;
 
     ErrorModel({

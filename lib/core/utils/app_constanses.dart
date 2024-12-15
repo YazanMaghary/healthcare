@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
-SharedPreferences? sharedPreferences;
+GetStorage? box = GetStorage();
 
 EdgeInsetsGeometry mainPagePading =
     EdgeInsets.symmetric(horizontal: 12.w, vertical: 24.h);
@@ -17,6 +17,7 @@ const Color starsColor = Color(0xffFFD600);
 const Color textSecColor = Colors.white;
 
 const Color failureColor =  Color.fromARGB(255, 133, 49, 49);
+const Color successfullyColor =  Color.fromARGB(255, 44, 207, 23);
 SizedBox largeSpace = SizedBox(height: 32.h);
 SizedBox smallSpace = SizedBox(height: 8.h);
 SizedBox mediumSpace = SizedBox(height: 20.h);

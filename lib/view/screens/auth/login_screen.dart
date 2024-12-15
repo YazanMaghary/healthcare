@@ -5,19 +5,17 @@ import 'package:get/get.dart';
 import 'package:healthcare/controller/auth_controller.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/custom_text_field.dart';
-import 'package:healthcare/view/components/failure.dart';
+import 'package:healthcare/view/components/bottomsheet.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/components/register_sup_title.dart';
 import 'package:healthcare/view/components/register_title.dart';
-import 'package:healthcare/view/screens/auth/forgot_password_screen.dart';
-import 'package:healthcare/view/screens/auth/signup_screen.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final AuthController auth_controller = Get.put(AuthController());
+  final AuthController authController = Get.put(AuthController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -42,28 +40,45 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       CustomTextField(
-                        validator:auth_controller.validateEmail,
+                        validator: authController.validateEmail,
                         keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                         hintText: 'Email',
                       ),
                       mediumSpace,
-                      CustomTextField(
-                        validator:auth_controller.validatePassword,
-                        keyboardType: TextInputType.visiblePassword,
-                        controller: passwordController,
-                        hintText: 'Password',
-                        obscureText: true,
+                      GetBuilder(
+                        init: authController,
+                        builder: (controller) {
+                          return CustomTextField(
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  authController.showPasswordCheck();
+                                },
+                                icon: const Icon(Icons.visibility_sharp)),
+                            obscureText: authController.showPassword,
+                            validator: authController.validatePassword,
+                            keyboardType: TextInputType.visiblePassword,
+                            controller: passwordController,
+                            hintText: 'Password',
+                          );
+                        },
                       ),
                     ],
                   )),
               mediumSpace,
               Row(
                 children: [
-                  Checkbox(
-                    value: false,
-                    side: const BorderSide(color: greyColor),
-                    onChanged: (value) {},
+                  GetBuilder(
+                    init: authController,
+                    builder: (GetxController controller) {
+                      return Checkbox(
+                        value: authController.remmeberPassword,
+                        side: const BorderSide(color: greyColor),
+                        onChanged: (value) {
+                          authController.checkBoxState();
+                        },
+                      );
+                    },
                   ),
                   const Text(
                     'Remember me',
@@ -72,8 +87,9 @@ class LoginScreen extends StatelessWidget {
                   const Spacer(),
                   TextButton(
                     onPressed: () {
-                      Get.to(() => const ForgotPasswordScreen(),
-                          transition: Transition.rightToLeft);
+                      Get.toNamed(
+                        '/ForgotPasswordScreen',
+                      );
                     },
                     style: TextButton.styleFrom(foregroundColor: primaryColor),
                     child: const Text('Forgot Password?'),
@@ -83,19 +99,19 @@ class LoginScreen extends StatelessWidget {
               mediumSpace,
               PrimaryButton(
                   buttonText: "Login",
-
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       if (emailController.text.isEmpty ||
                           passwordController.text.isEmpty) {
                         failureWidget("Error", "E-mail or Password is empty");
                       } else {
-                        final authController = Get.put(AuthController());
+                        box?.write("email", emailController.text);
                         await authController.login(
                             emailController.text, passwordController.text);
+                        box?.write("register", false);
                       }
                     }
-                 ),
+                  }),
               mediumSpace,
               const Spacer(),
               Center(
@@ -133,8 +149,9 @@ class LoginScreen extends StatelessWidget {
                         style: const TextStyle(color: primaryColor),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.off(() => const SignupScreen(),
-                                transition: Transition.rightToLeft);
+                            Get.offNamed(
+                              '/SignupScreen',
+                            );
                           },
                       ),
                     ],

@@ -9,14 +9,14 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
-
+  final Widget? suffixIcon ;
   const CustomTextField({ 
     super.key,
     required this.hintText,
     this.obscureText = false,
     this.controller,
     this.onChanged,
-    this.keyboardType, this.validator,
+    this.keyboardType, this.validator, this.suffixIcon,
   });
 
   @override
@@ -26,7 +26,10 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscureText,
       onChanged: onChanged,
       keyboardType: keyboardType,
-      decoration: InputDecoration(
+      decoration: InputDecoration(suffixIcon: suffixIcon,focusedBorder:OutlineInputBorder(
+          borderSide: const BorderSide(color: primaryColor),
+          borderRadius: BorderRadius.circular(16.r),
+        ),
         hintStyle: const TextStyle(color: greyColor),
         hintText: hintText,
         border: OutlineInputBorder(
