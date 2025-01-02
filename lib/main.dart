@@ -12,7 +12,7 @@ void main(List<String> args) async {
   await initialServices();
   await Future.delayed(const Duration(
     seconds: 1,
-  ));
+  )); 
   FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
