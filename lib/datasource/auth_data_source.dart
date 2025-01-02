@@ -48,7 +48,7 @@ class AuthDataSource {
           {'message': "No Internet Connection", 'Error': "Internet related"});
       print(errorModel2.message);
       return Left(
-          errorModel2.message ?? 'String must contain exactly 6 character(s)');
+          errorModel2.message ?? 'String must contain exactly 4 character(s)');
     } catch (e) {
       print("Global catch Error");
       print(e.toString());
@@ -78,8 +78,8 @@ class AuthDataSource {
         return Left(errorModel2.message ?? 'Connection error');
       } else {
         print("object");
-         ErrorModel errorModel2 = ErrorModel.fromJson(e.response?.data ??
-          {'message': "No Internet Connection", 'Error': "Internet related"});
+        ErrorModel errorModel2 = ErrorModel.fromJson(e.response?.data ??
+            {'message': "No Internet Connection", 'Error': "Internet related"});
         print(e.response);
         return Left(errorModel2.message ?? 'Connection error');
       }
@@ -88,6 +88,24 @@ class AuthDataSource {
       print(e.toString());
       return const Left('An unexpected error occurred');
     }
+  }
+
+  Future<Either<String, void>> forgotPassword(Map<String, String> data) async {
+    try {
+      final response = await dio.post(ApiConstances.forgotPassword, data: data);
+      print(response.data);
+      return const Right(null);
+    } on DioException catch (e) {
+      print("Dio Exception Error");
+      ErrorModel errorModel = ErrorModel.fromJson(e.response?.data ??
+          {'message': "No Internet Connection", 'Error': "Internet related"});
+      print(errorModel.message);
+      return Left(errorModel.message ?? 'Connection Error');
+    }catch (e) {
+    print("Global catch Error");
+    print(e.toString());
+    return const Left('An unexpected error occurred');
+  }
   }
 }
 

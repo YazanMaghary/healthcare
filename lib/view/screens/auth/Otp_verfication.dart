@@ -11,7 +11,7 @@ import 'package:healthcare/view/components/register_title.dart';
 class OtpVerficationScreen extends StatelessWidget {
   OtpVerficationScreen({super.key});
   List<TextEditingController> otpController =
-      List.generate(6, (index) => TextEditingController());
+      List.generate(4, (index) => TextEditingController());
   String otpCode = "";
   AuthController authController = Get.find();
   @override
@@ -39,7 +39,7 @@ class OtpVerficationScreen extends StatelessWidget {
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 6,
+                itemCount: 4,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return Container(
@@ -58,7 +58,7 @@ class OtpVerficationScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                       onChanged: (value) {
                         if (value.isEmpty || value.trim().isNotEmpty) {
-                          if (value.length == 1 && index < 5) {
+                          if (value.length == 1 && index < 3) {
                             // Move to the next field when a character is entered
                             FocusScope.of(context).nextFocus();
                           } else if (value.isEmpty) {

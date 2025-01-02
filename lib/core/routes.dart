@@ -22,7 +22,7 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/ForgotPasswordScreen',
-      page: () => const ForgotPasswordScreen(),
+      page: () =>  ForgotPasswordScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/OtpVerficationScreen',
