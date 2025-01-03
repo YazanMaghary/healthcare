@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare/controller/auth_controller.dart';
 import 'package:healthcare/core/routes.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/theme.dart';
@@ -12,24 +13,22 @@ void main(List<String> args) async {
   await initialServices();
   await Future.delayed(const Duration(
     seconds: 1,
-  )); 
+  ));
   FlutterNativeSplash.remove();
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 Future<void> initialServices() async {
   await GetStorage.init();
-  
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  MyApp({super.key});
+  final  authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
-   
     print(box?.read("Token"));
-
+   
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,

@@ -57,7 +57,15 @@ class LoginScreen extends StatelessWidget {
                                 },
                                 icon: const Icon(Icons.visibility_sharp)),
                             obscureText: authController.showPassword,
-                            validator: authController.validatePassword,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              }
+                              if (value.length < 6) {
+                                return 'Password must be at least 6 characters long';
+                              }
+                              return null;
+                            },
                             keyboardType: TextInputType.visiblePassword,
                             controller: passwordController,
                             hintText: 'Password',

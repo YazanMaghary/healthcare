@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/controller/auth_controller.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
-import 'package:healthcare/view/components/bottomsheet.dart';
 import 'package:healthcare/view/components/custom_text_field.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/components/register_sup_title.dart';

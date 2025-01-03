@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/datasource/auth_data_source.dart';
 import 'package:healthcare/view/components/bottomsheet.dart';
@@ -197,5 +198,46 @@ class AuthController extends GetxController {
         });
       },
     );
+  }
+
+  Future<void> tookenExpired() async {
+    final result = await authDataSource.tokenExpired();
+    result.fold((failure) {
+      // Show dialog on failure
+      print(failure);
+      if (box?.read("Token") != "" || box?.read("Token") != null) {
+        print("Here");
+        print(failure);
+        print(box?.read("Token"));
+        Get.dialog(
+          AlertDialog(
+            title: const Text('Error',
+                style:
+                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+            content: const Text(
+                'Your session has expired. Please log in again.',
+                style: TextStyle(color: Colors.black)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            backgroundColor: Colors.white,
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.offAllNamed("/LoginScreen");
+                },
+                child: const Text('OK', style: TextStyle(color: Colors.blue)),
+              ),
+            ],
+          ),
+          barrierDismissible: false,
+        );
+      }
+      box?.remove("Token");
+    }, (success) {
+      // Do nothing on success
+      print("Tooken is not Expired");
+
+    });
   }
 }
