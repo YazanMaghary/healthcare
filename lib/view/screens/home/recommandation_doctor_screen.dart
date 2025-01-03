@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
@@ -184,43 +185,43 @@ class _RecommandationDoctorScreenState
                               children: [
                                 Text(
                                   'Dr. Randy Wigham',
-                                  style: semiBold2,
+                                  style: semiBold3,
                                 ),
                                 smallSpace,
-                                const Row(
+                                Row(
                                   children: [
-                                    Text('General'),
-                                    SizedBox(
-                                      width: 8,
+                                    Text('General',style: smallNormal2,),
+                                     SizedBox(
+                                      width: 8.w,
                                     ),
-                                    Text('|'),
-                                    SizedBox(
-                                      width: 8,
+                                     Text('|' ,style: smallNormal2,),
+                                     SizedBox(
+                                      width: 8.w,
                                     ),
-                                    Text('RSUD Gatot Subroto')
+                                     Text('RSUD Gatot Subroto' ,style: smallNormal2,)
                                   ],
                                 ),
                                 smallSpace,
-                                const Row(
+                                 Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       color: starsColor,
-                                      size: 16,
+                                      size: 12,
                                     ),
                                     SizedBox(
-                                      width: 4,
+                                      width: 4.w,
                                     ),
                                     Text(
                                       '4.8',
-                                      style: TextStyle(fontSize: 12),
+                                      style: smallNormal2,
                                     ),
                                     SizedBox(
-                                      width: 4,
+                                      width: 4.w,
                                     ),
                                     Text(
                                       '(4,279 reviews)',
-                                      style: TextStyle(fontSize: 12),
+                                      style: smallNormal2,
                                     )
                                   ],
                                 )

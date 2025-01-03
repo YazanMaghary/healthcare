@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_images.dart';
 import '../../components/custom_card.dart';
@@ -89,13 +90,13 @@ class _DoctorSpecialityState extends State<DoctorSpeciality> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
+        padding:  EdgeInsets.symmetric(
+          horizontal: 16.h,
+          vertical: 16.w,
         ),
         child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, crossAxisSpacing: 25.0, mainAxisSpacing: 25.0),
+          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3, crossAxisSpacing: 8.h, mainAxisSpacing: 8.h),
           itemCount: specialities.length,
           itemBuilder: (BuildContext context, int index) {
             return Column(
