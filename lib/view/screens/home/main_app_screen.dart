@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'package:healthcare/controller/auth_controller.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/nav_bar_item.dart';
 import 'package:healthcare/view/screens/appointment/appointment_screen.dart';
@@ -17,7 +20,7 @@ class myMain extends StatefulWidget {
 
 class _myMainState extends State<myMain> {
   int _selectedIndex = 0;
-
+  final authController = Get.put(AuthController());
   static final List<Widget> _screens = [
     const HomeScreen(),
     const MessageScreen(),
@@ -25,6 +28,12 @@ class _myMainState extends State<myMain> {
     const AppointmentScreen(),
     const ProfileScreen(),
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    authController.tookenExpired();
+    super.initState();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -97,6 +106,7 @@ class _myMainState extends State<myMain> {
                   icon: CupertinoIcons.profile_circled,
                   index: 4,
                 ),
+               
               ],
             ),
           ),

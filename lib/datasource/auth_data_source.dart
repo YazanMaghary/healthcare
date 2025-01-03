@@ -101,11 +101,36 @@ class AuthDataSource {
           {'message': "No Internet Connection", 'Error': "Internet related"});
       print(errorModel.message);
       return Left(errorModel.message ?? 'Connection Error');
-    }catch (e) {
-    print("Global catch Error");
-    print(e.toString());
-    return const Left('An unexpected error occurred');
+    } catch (e) {
+      print("Global catch Error");
+      print(e.toString());
+      return const Left('An unexpected error occurred');
+    }
   }
+
+  Future<Either<String, void>> tokenExpired() async {
+    try {
+      final response = await dio.get(
+        ApiConstances.tookenExpired,
+        options: Options(
+          headers: {
+            'Authorization': "Bearer ${box?.read("Token")}",
+          },
+        ),
+      );
+      print(response.data);
+      return const Right(null);
+    } on DioException catch (e) {
+      print("Dio Exception Error");
+      ErrorModel errorModel = ErrorModel.fromJson(e.response?.data ??
+          {'message': "No Internet Connection", 'Error': "Internet related"});
+      print(errorModel.message);
+      return Left(errorModel.message ?? 'Connection Error');
+    } catch (e) {
+      print("Global catch Error");
+      print(e.toString());
+      return const Left('An unexpected error occurred');
+    }
   }
 }
 

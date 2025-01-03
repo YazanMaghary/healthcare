@@ -5,6 +5,7 @@ class ApiConstances {
   static const String registerUrl = "$baseUrl/api/auth/register";
   static const String confirmEmail = "$baseUrl/api/auth/verify-email";
   static const String forgotPassword = "$baseUrl/api/auth/forgot-password";
+  static const String tookenExpired = "$baseUrl/api/users/me";
   static String updateUser = "$baseUrl/api/users";
 
 }
