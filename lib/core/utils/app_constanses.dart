@@ -10,6 +10,7 @@ EdgeInsetsGeometry mainPagePading =
 const Color scaffoldBackgroundColor = Color(0xFFFFFFFF);
 const Color primaryColor = Color(0xff247CFF);
 
+const Color greyColor2 = Color(0xffE0E0E0);
 const Color greyColor = Color(0xff9E9E9E);
 const Color greyBackground = Color(0xffF5F5F5);
 const Color searchBackground = Color(0xffB3B1B0);
@@ -29,6 +30,8 @@ TextStyle smallNormal1 =
     GoogleFonts.inter(fontSize: 10, color: const Color(0xff757575));
 TextStyle smallNormal2 =
     GoogleFonts.inter(fontSize: 10, color: greyColor1);
+TextStyle smallNormal3 =
+GoogleFonts.inter(fontSize: 10, color: greyColor);
 TextStyle semiBold1 = GoogleFonts.inter(
     fontSize: 16, color: scaffoldBackgroundColor, fontWeight: FontWeight.bold);
 TextStyle semiBold2 =
