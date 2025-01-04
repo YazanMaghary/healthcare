@@ -1,9 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/view/components/custom_card.dart';
+import 'package:healthcare/view/screens/home/doctor_details.dart';
 import 'package:healthcare/view/screens/home/doctor_speciaity.dart';
 import 'package:healthcare/view/screens/home/notifications_screen.dart';
 import 'package:healthcare/view/screens/home/recommandation_doctor_screen.dart';
@@ -115,15 +117,15 @@ class _HomeScreenState extends State<HomeScreen> {
             physics: const BouncingScrollPhysics(),
             children: [
               SizedBox(
-                height: 250,
+                height:250.h,
                 child: Stack(children: [
                   Positioned(
                     left: 0,
                     right: 0,
-                    top: 30,
+                    top: 35.w,
                     bottom: 0,
                     child: Container(
-                      height: 250,
+                      height: 250.h,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 16),
                       decoration: BoxDecoration(
@@ -135,23 +137,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                               Text(
                                 'Book and \nschedule with \nnearest doctor',
-                                style: TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                ),
+                                style:semiBoldWite
                               ),
                               mediumSpace,
                               ElevatedButton(
                                 onPressed: () {},
-                                child: const Padding(
+                                child:  Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 16),
-                                  child: Text(
+                                      horizontal: 12.h, vertical: 16.w),
+                                  child:const Text(
                                     'Find Nearby',
                                     style: TextStyle(
-                                        color: primaryColor, fontSize: 16),
+                                        color: primaryColor, fontSize: 12
+                                        ),
                                   ),
                                 ),
                               ),
@@ -163,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Positioned(
-                    left: 200,
+                    left: 180.h,
                     top: 0,
                     bottom: 0,
                     right: 0,
@@ -263,62 +263,67 @@ class _HomeScreenState extends State<HomeScreen> {
                   return smallSpace;
                 },
                 itemBuilder: (context, index) {
-                  return Row(
-                    key: ValueKey(index),
-                    children: [
-                      Image.asset(imagesPath[index]),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Dr. Randy Wigham',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          smallSpace,
-                          const Row(
-                            children: [
-                              Text('General'),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Text('|'),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Text('RSUD Gatot Subroto')
-                            ],
-                          ),
-                          smallSpace,
-                          const Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: starsColor,
-                                size: 16,
-                              ),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                '4.8',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                '(4,279 reviews)',
-                                style: TextStyle(fontSize: 12),
-                              )
-                            ],
-                          )
-                        ],
-                      )
-                    ],
+                  return GestureDetector(
+                    onTap: () {
+                       Get.offAll(const Doctordetails(),
+                          transition: Transition.rightToLeft);
+                    },
+                    child: Row(
+                      key: ValueKey(index),
+                      children: [
+                        Image.asset(imagesPath[index]),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                             Text(
+                              'Dr. Randy Wigham',
+                              style:semiBold3,
+                            ),
+                            smallSpace,
+                             Row(
+                              children: [
+                                Text('General' , style: smallNormal1,),
+                                SizedBox(
+                                  width: 8.w,
+                                ),
+                                Text('|', style: smallNormal1,),
+                                SizedBox(
+                                  width: 8.w,
+                                ),
+                                Text('RSUD Gatot Subroto' , style: smallNormal1,)
+                              ],
+                            ),
+                            smallSpace,
+                             Row(
+                              children: [
+                                const Icon(
+                                  Icons.star,
+                                  color: starsColor,
+                                  size: 12,
+                                ),
+                                SizedBox(
+                                  width: 4.w,
+                                ),
+                                Text(
+                                  '4.8',
+                                  style:smallNormal1,
+                                ),
+                                SizedBox(
+                                  width: 4.w,
+                                ),
+                                Text(
+                                  '(4,279 reviews)',
+                                  style: smallNormal1,
+                                )
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   );
                 },
               ),
