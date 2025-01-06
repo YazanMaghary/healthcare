@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/view/components/custom_card.dart';
+import 'package:healthcare/view/components/text_button.dart';
 import 'package:healthcare/view/screens/home/doctor_details.dart';
 import 'package:healthcare/view/screens/home/doctor_speciaity.dart';
 import 'package:healthcare/view/screens/home/notifications_screen.dart';
@@ -182,23 +183,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Doctor Speciality',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text: 'See All',
-                            style: const TextStyle(
-                                color: primaryColor, fontSize: 16),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Get.off(
-                                  () => const DoctorSpeciality(),
-                                  transition: Transition.rightToLeft,
-                                );
-                              }),
-                      ],
-                    ),
-                  ),
+                  myTextButton(title: 'See All', onTap: () {
+                    Get.off(
+                          () => const DoctorSpeciality(),
+                      transition: Transition.rightToLeft,
+                    );
+                  }),
                 ],
               ),
               smallSpace,
@@ -234,23 +224,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text: 'See All',
-                            style: const TextStyle(
-                                color: primaryColor, fontSize: 16),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Get.off(
-                                  () => const RecommandationDoctorScreen(),
-                                  transition: Transition.rightToLeft,
-                                );
-                              }),
-                      ],
-                    ),
-                  ),
+                  myTextButton(title: 'See All', onTap: () {
+                    Get.off(
+                          () => const RecommandationDoctorScreen(),
+                      transition: Transition.rightToLeft,
+                    );
+                  }),
+
                 ],
               ),
               smallSpace,

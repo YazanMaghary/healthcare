@@ -37,11 +37,13 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: Themes().mainTheme,
-          initialRoute: box?.read("Token") == null || box?.read("Token") == ""
-              ? box?.read("firstTime") == false
-                  ? "/LoginScreen"
-                  : "/OnboardingScreen"
-              : "/myMain",
+          initialRoute:
+          // box?.read("Token") == null || box?.read("Token") == ""
+          //     ? box?.read("firstTime") == false
+          //         ? "/LoginScreen"
+          //         : "/OnboardingScreen"
+          //     :
+          "/myMain",
           getPages: getpage,
         );
       },
