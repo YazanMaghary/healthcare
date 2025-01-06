@@ -12,6 +12,7 @@ const Color primaryColor = Color(0xff247CFF);
 
 const Color greyColor2 = Color(0xffE0E0E0);
 const Color greyColor = Color(0xff9E9E9E);
+const Color silverColor = Color(0xffF2F4F7);
 const Color greyBackground = Color(0xffF5F5F5);
 const Color searchBackground = Color(0xffB3B1B0);
 const Color starsColor = Color(0xffFFD600);
@@ -32,6 +33,8 @@ TextStyle smallNormal2 =
     GoogleFonts.inter(fontSize: 10, color: greyColor1);
 TextStyle smallNormal3 =
 GoogleFonts.inter(fontSize: 10, color: greyColor);
+TextStyle smallNormal4 =
+GoogleFonts.inter(fontSize: 10);
 TextStyle semiBold1 = GoogleFonts.inter(
     fontSize: 16, color: scaffoldBackgroundColor, fontWeight: FontWeight.bold);
 TextStyle semiBold2 =
@@ -47,6 +50,8 @@ TextStyle semiBold9 =
 GoogleFonts.inter(fontSize: 12 , color: const Color(0xff757575));
 TextStyle semiBold7 =
     GoogleFonts.inter(fontSize: 14 , color: const Color(0xff757575));
+TextStyle semiBold10 =
+GoogleFonts.inter(fontSize: 14 , color:  Colors.white);
 TextStyle semiBold5 =
     GoogleFonts.inter(color: Colors.white);
 TextStyle semiBoldWite =
