@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
-import 'package:healthcare/view/screens/home/doctor_details.dart';
-import 'package:healthcare/view/screens/home/main_app_screen.dart';
 import 'package:healthcare/view/screens/home/sort_screen.dart';
 
 class RecommandationDoctorScreen extends StatefulWidget {
@@ -45,9 +43,8 @@ class _RecommandationDoctorScreenState
             ),
             GestureDetector(
               onTap: () {
-                Get.offAll(
-                  const myMain(),
-                  transition: Transition.leftToRight,
+                Get.offNamed(
+                   '/MainAppScreen'
                 );
               },
               child: Container(
@@ -163,8 +160,7 @@ class _RecommandationDoctorScreenState
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Get.offAll(const Doctordetails(),
-                          transition: Transition.rightToLeft);
+                      Get.offNamed('/Doctordetails');
                     },
                     child: Material(
                       shadowColor: greyBackground,

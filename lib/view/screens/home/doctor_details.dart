@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/primary_button.dart';
-import 'package:healthcare/view/screens/home/booking_screen.dart';
 import 'package:healthcare/view/screens/home/recommandation_doctor_screen.dart';
 
 import '../../../core/utils/app_images.dart';
@@ -262,9 +261,8 @@ class _DoctordetailsState extends State<Doctordetails>
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: 16.h),
             child: PrimaryButton(buttonText: 'Make An Appointment', onPressed: () {
-              Get.offAll(
-                const BookingScreen(),
-                transition: Transition.leftToRight,
+              Get.offAllNamed(
+                '/BookingScreen'
               );
             },),
           ),

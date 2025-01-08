@@ -65,7 +65,9 @@ class _BookingScreenState extends State<BookingScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: PrimaryButton(buttonText: 'Continue', onPressed: () {
-
+           Get.offAllNamed(
+              '/BookingPay'
+                );
         },),
       ),
       body:Padding(
@@ -108,12 +110,13 @@ class _BookingScreenState extends State<BookingScreen> {
                     backgroundColor: greyColor2,),
                   SizedBox(width: 20.h,),
                 ],),
+             
               largeSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Select Date' , style: semiBold3,),
-                  myTextButton(
+                  CustumTextButton(
                     title: 'Set Manual',
                     onTap: (){},)
                 ],),

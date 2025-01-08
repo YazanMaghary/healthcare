@@ -8,14 +8,14 @@ import 'package:healthcare/view/screens/inbox/message_screen.dart';
 import 'package:healthcare/view/screens/profile/profile_screen.dart';
 import 'package:healthcare/view/screens/search/search_screen.dart';
 
-class myMain extends StatefulWidget {
-  const myMain({super.key});
+class MainAppScreen extends StatefulWidget {
+  const MainAppScreen({super.key});
 
   @override
-  State<myMain> createState() => _myMainState();
+  State<MainAppScreen> createState() => _MainAppScreenState();
 }
 
-class _myMainState extends State<myMain> {
+class _MainAppScreenState extends State<MainAppScreen> {
   int _selectedIndex = 0;
 
   static final List<Widget> _screens = [

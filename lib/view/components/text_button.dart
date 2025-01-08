@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:get/get.dart';
 import '../../core/utils/app_constanses.dart';
-import '../screens/home/doctor_speciaity.dart';
 
-class myTextButton extends StatelessWidget {
+class CustumTextButton extends StatelessWidget {
   final String title;
   final Function() onTap;
-  const myTextButton({super.key, required this.title, required this.onTap});
+  const CustumTextButton({super.key, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

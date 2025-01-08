@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,10 +5,6 @@ import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/view/components/custom_card.dart';
 import 'package:healthcare/view/components/text_button.dart';
-import 'package:healthcare/view/screens/home/doctor_details.dart';
-import 'package:healthcare/view/screens/home/doctor_speciaity.dart';
-import 'package:healthcare/view/screens/home/notifications_screen.dart';
-import 'package:healthcare/view/screens/home/recommandation_doctor_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -55,9 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           GestureDetector(
             onTap: () {
-              Get.off(
-                () => const NotificationsScreen(),
-                transition: Transition.rightToLeft,
+              Get.offNamed(
+              '/NotificationsScreen'
               );
             },
             child: Container(
@@ -183,10 +177,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Doctor Speciality',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  myTextButton(title: 'See All', onTap: () {
-                    Get.off(
-                          () => const DoctorSpeciality(),
-                      transition: Transition.rightToLeft,
+                  CustumTextButton(title: 'See All', onTap: () {
+                    Get.offNamed(
+                        '/DoctorSpeciality'
                     );
                   }),
                 ],
@@ -224,10 +217,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  myTextButton(title: 'See All', onTap: () {
-                    Get.off(
-                          () => const RecommandationDoctorScreen(),
-                      transition: Transition.rightToLeft,
+                  CustumTextButton(title: 'See All', onTap: () {
+                    Get.offNamed(
+                      '/RecommandationDoctorScreen'
                     );
                   }),
 
@@ -245,8 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                       Get.offAll(const Doctordetails(),
-                          transition: Transition.rightToLeft);
+                       Get.offNamed('/Doctordetails');
                     },
                     child: Row(
                       key: ValueKey(index),

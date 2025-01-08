@@ -59,7 +59,7 @@ class _DoctorSpecialityState extends State<DoctorSpeciality> {
             GestureDetector(
               onTap: () {
                 Get.offAll(
-                  const myMain(),
+                  const MainAppScreen(),
                   transition: Transition.leftToRight,
                 );
               },
