@@ -52,6 +52,8 @@ TextStyle semiBold7 =
     GoogleFonts.inter(fontSize: 14 , color: const Color(0xff757575));
 TextStyle semiBold10 =
 GoogleFonts.inter(fontSize: 14 , color:  Colors.white);
+TextStyle semiBold11 =
+GoogleFonts.inter(fontSize: 14 , fontWeight: FontWeight.w500);
 TextStyle semiBold5 =
     GoogleFonts.inter(color: Colors.white);
 TextStyle semiBoldWite =
