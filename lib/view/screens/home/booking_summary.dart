@@ -6,7 +6,7 @@ import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/booking_stage.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/screens/home/booking_pay.dart';
-
+//seaeae
 class BookingSummary extends StatefulWidget {
   const BookingSummary({super.key});
 
@@ -83,7 +83,7 @@ class _BookingSummaryState extends State<BookingSummary> {
                   BookingStage(
                     stageName: 'Date & Time',
                     stageNum: '1',
-                    style: smallNormal3,
+                    style: smallNormalGrey,
                     backgroundColor: greyColor2,),
                   SizedBox(width: 5.h,),
                   Container(
@@ -94,7 +94,7 @@ class _BookingSummaryState extends State<BookingSummary> {
                   BookingStage(
                     stageName: 'Payment',
                     stageNum: '2',
-                    style: smallNormal3 ,
+                    style: smallNormalGrey ,
                     backgroundColor: greyColor2,),
                   SizedBox(width: 5.h,),
                   Container(
@@ -105,12 +105,12 @@ class _BookingSummaryState extends State<BookingSummary> {
                   BookingStage(
                     stageName: 'Summary',
                     stageNum: '3',
-                    style: smallNormal4 ,
+                    style: smallNormal ,
                     backgroundColor: primaryColor,),
                   SizedBox(width: 20.h,),
                 ],),
                 largeSpace,
-                Text('Booking Information' ,style: semiBold3, ),
+                Text('Booking Information' ,style: semiBoldBlack16, ),
                 mediumSpace,
                  Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,9 +120,9 @@ class _BookingSummaryState extends State<BookingSummary> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Date & Time' ,style: semiBold11,),
-                        Text('Wednesday, 08 May 2023' ,style: semiBold9,),
-                        Text('08.30 AM' ,style: semiBold9,),
+                        Text('Date & Time' ,style: semiBoldBlack14,),
+                        Text('Wednesday, 08 May 2023' ,style: semiBoldGrey12,),
+                        Text('08.30 AM' ,style: semiBoldGrey12,),
                       ],
                     ),
                    
@@ -138,8 +138,8 @@ class _BookingSummaryState extends State<BookingSummary> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Appointment Type' ,style: semiBold11,),
-                        Text('In Person' ,style: semiBold9,),
+                        Text('Appointment Type' ,style: semiBoldBlack14,),
+                        Text('In Person' ,style: semiBoldGrey12,),
                       ],
                     ),
                    
@@ -147,7 +147,7 @@ class _BookingSummaryState extends State<BookingSummary> {
                 ),smallSpace,
                  const Divider(indent: 10,endIndent: 10,),
                    largeSpace,
-                Text('Payment Information' ,style: semiBold3, ),
+                Text('Payment Information' ,style: semiBoldBlack16, ),
                 mediumSpace,
                  Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,8 +157,8 @@ class _BookingSummaryState extends State<BookingSummary> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Paypal' ,style: semiBold11,),
-                        Text('***** ***** ***** 37842' ,style: semiBold9,),
+                        Text('Paypal' ,style: semiBoldBlack14,),
+                        Text('***** ***** ***** 37842' ,style: semiBoldGrey12,),
                        
                       ],
                     ), 

@@ -110,15 +110,15 @@ class _DoctordetailsState extends State<Doctordetails>
                     smallSpace,
                      Row(
                       children: [
-                        Text('General' , style:  smallNormal2),
+                        Text('General' , style:  smallNormalGrey),
                         SizedBox(
                           width: 8.w,
                         ),
-                        Text('|' , style: smallNormal2, ),
+                        Text('|' , style: smallNormalGrey, ),
                         SizedBox(
                           width: 8.w,
                         ),
-                        Text('RSUD Gatot Subroto' , style: smallNormal2,)
+                        Text('RSUD Gatot Subroto' , style: smallNormalGrey,)
                       ],
                     ),
                     smallSpace,
@@ -135,14 +135,14 @@ class _DoctordetailsState extends State<Doctordetails>
                         ),
                         Text(
                           '4.8',
-                          style: smallNormal2,
+                          style: smallNormalGrey,
                         ),
                         SizedBox(
                           width: 4.w,
                         ),
                         Text(
                           '(4,279 reviews)',
-                          style: smallNormal2,
+                          style: smallNormalGrey,
                         )
                       ],
                     )
@@ -185,34 +185,34 @@ class _DoctordetailsState extends State<Doctordetails>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                       mediumSpace,
-                      Text('About me' , style: semiBold6,),
+                      Text('About me' , style: semiBoldBlack16,),
                       smallSpace,
                        Text(
                         'Dr. Jenny Watson is the top most Immunologists specialist in Christ Hospital at London.',
-                        style: semiBold7,
+                        style: semiBoldGrey14,
                       ),
                       mediumSpace,
-                       Text('Working Time' , style: semiBold6,),
+                       Text('Working Time' , style: semiBoldBlack16,),
                        smallSpace,
                        Text(
                         'Monday - Friday, 08.00 AM - 20.00 PM',
-                        style: semiBold7
+                        style: semiBoldGrey14
                       ),
                       mediumSpace,
-                      Text('STR' , style: semiBold6,),
+                      Text('STR' , style: semiBoldBlack16,),
                       smallSpace,
                        Text(
                         '4726482464',
-                        style: semiBold7),
+                        style: semiBoldGrey14),
                       
                       mediumSpace,
-                      Text('Pengalaman Praktik' , style: semiBold6,),                    
+                      Text('Pengalaman Praktik' , style: semiBoldBlack16,),                    
                       mediumSpace,
                        const Text('RSPAD Gatot Soebroto' ,                      
                       style: TextStyle(fontSize: 14 ),),
                       smallSpace,
                        Text('2017 - sekarang' ,                      
-                      style: semiBold7,),
+                      style: semiBoldGrey14,),
                     ],),
                   ),
                 ),
@@ -230,7 +230,7 @@ class _DoctordetailsState extends State<Doctordetails>
                           const SizedBox(width: 8,),
                           Column(
                             children: [
-                              Text('Jane Cooper' , style: semiBold3,),
+                              Text('Jane Cooper' , style: semiBoldBlack16,),
                               smallSpace,
                               const Row(children: [
                                 Icon(Icons.star , color: starsColor),
@@ -244,14 +244,14 @@ class _DoctordetailsState extends State<Doctordetails>
                           const Spacer(),
                           Padding(
                             padding:  EdgeInsets.only(left: 8.w),
-                            child: Text('Today' , style: smallNormal2,),
+                            child: Text('Today' , style: smallNormalGrey,),
                           )
                           ],),
                       smallSpace,
                       Padding(
                         padding:  EdgeInsets.only(left: 48.w),
                         child: Text('As someone who lives in a remote area with limited access to healthcare, this telemedicine app has been a game changer for me. I can easily schedule virtual appointments with doctors and get the care I need without having to travel long distances.'
-                        ,style: semiBold9,
+                        ,style: semiBoldGrey12,
                         ),
                       )
                     ],);

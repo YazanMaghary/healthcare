@@ -12,9 +12,9 @@ const Color primaryColor = Color(0xff247CFF);
 
 const Color greyColor2 = Color(0xffE0E0E0);
 const Color greyColor = Color(0xff9E9E9E);
-
+const Color greyColor3 = Color(0xff757575);
+const Color silverColor = Color(0xffF2F4F7);
 const Color redColor = Color(0xffFF4C5E);
-const Color greyColor2 = Color(0xffE0E0E0);
 const Color inactiveTrackColor = Color(0xffD9DEE2);
 const Color inactiveThumbColor = Color(0xffD9DEE2);
 const Color lightgreyColor = Color(0xffEDEDED);
@@ -41,6 +41,8 @@ TextStyle smallNormalGrey =
 
 TextStyle smallNormalWhite =
     GoogleFonts.inter(fontSize: 10, color: const Color(0xffffffff));
+TextStyle smallNormal =
+    GoogleFonts.inter(fontSize: 10, );
 TextStyle mediumNormalGrey =
     GoogleFonts.inter(fontSize: 12, color: const Color(0xff757575));
 TextStyle mediumNormalBlack =
@@ -57,9 +59,12 @@ TextStyle verylargeNormalBlue=
     GoogleFonts.inter(fontSize: 16,color: primaryColor );
 TextStyle verylargeNormalBlack=
     GoogleFonts.inter(fontSize: 16,color: Colors.black );
-TextStyle semiBoldWhite = GoogleFonts.inter(
-
-
+TextStyle semiBoldWhite18 =
+    GoogleFonts.inter(fontSize: 18 ,color: Colors.white);
+TextStyle semiBoldWhite16 =
+    GoogleFonts.inter(fontSize: 16 ,color: Colors.white);
+TextStyle semiBoldWhite14 =
+    GoogleFonts.inter(fontSize: 14 ,color: Colors.white);
 TextStyle semiBoldBlack18 =
     GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold);
 
@@ -68,7 +73,10 @@ TextStyle semiBoldBlack20 =
 TextStyle semiBoldBlack16 =
     GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold);
 TextStyle semiBoldGrey = GoogleFonts.inter(color: const Color(0xffC2C2C2));
-TextStyle semiBoldWhite2 = GoogleFonts.inter(color: Colors.white);
+TextStyle semiBoldGrey12 = GoogleFonts.inter(fontSize: 12,color: const Color(0xffC2C2C2));
+TextStyle semiBoldGrey14 = GoogleFonts.inter(color: greyColor);
 TextStyle semiBoldBlack14 =
+    GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold);
+TextStyle semiBoldBlack12 =
     GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold);
 

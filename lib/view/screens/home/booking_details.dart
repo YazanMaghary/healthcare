@@ -87,7 +87,7 @@ class _BookingDetailsState extends State<BookingDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: 
             [
-              Text('Booking Information' ,style: semiBold3, ),
+              Text('Booking Information' ,style: semiBoldBlack16, ),
               mediumSpace,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,9 +97,9 @@ class _BookingDetailsState extends State<BookingDetails> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Date & Time' ,style: semiBold11,),
-                    Text('Wednesday, 08 May 2023' ,style: semiBold9,),
-                    Text('08.30 AM' ,style: semiBold9,),
+                    Text('Date & Time' ,style: semiBoldBlack14,),
+                    Text('Wednesday, 08 May 2023' ,style: semiBoldBlack12,),
+                    Text('08.30 AM' ,style: semiBoldBlack12,),
                   ]),
               ],),
               smallSpace,
@@ -113,14 +113,14 @@ class _BookingDetailsState extends State<BookingDetails> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Appointment Type' ,style: semiBold11,),
-                      Text('In Person' ,style: semiBold9,),
+                      Text('Appointment Type' ,style: semiBoldBlack14,),
+                      Text('In Person' ,style: semiBoldBlack12,),
                     ],), 
                     ],),
               smallSpace,
               const Divider(indent: 10,endIndent: 10,),
               mediumSpace,
-              Text('Doctor Information' , style: semiBold3,),
+              Text('Doctor Information' , style: semiBoldBlack16,),
               smallSpace,
               Padding(
               padding:  EdgeInsets.symmetric(horizontal:  32.h , vertical: 18.h),
@@ -141,20 +141,20 @@ class _BookingDetailsState extends State<BookingDetails> {
                     children: [
                       Text(
                         'Dr. Randy Wigham',
-                        style: semiBold3,
+                        style: semiBoldBlack16,
                       ),
                       smallSpace,
                        Row(
                         children: [
-                          Text('General' , style:  smallNormal2),
+                          Text('General' , style:  smallNormalGrey),
                           SizedBox(
                             width: 8.w,
                           ),
-                          Text('|' , style: smallNormal2, ),
+                          Text('|' , style: smallNormalGrey, ),
                           SizedBox(
                             width: 8.w,
                           ),
-                          Text('RSUD Gatot Subroto' , style: smallNormal2,)
+                          Text('RSUD Gatot Subroto' , style: smallNormalGrey,)
                         ],
                       ),
                       smallSpace,
@@ -171,14 +171,14 @@ class _BookingDetailsState extends State<BookingDetails> {
                           ),
                           Text(
                             '4.8',
-                            style: smallNormal2,
+                            style: smallNormalGrey,
                           ),
                           SizedBox(
                             width: 4.w,
                           ),
                           Text(
                             '(4,279 reviews)',
-                            style: smallNormal2,
+                            style: smallNormalGrey,
                           )
                         ],
                       )

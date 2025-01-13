@@ -13,6 +13,8 @@ import 'package:healthcare/view/screens/home/doctor_details.dart';
 import 'package:healthcare/view/screens/home/doctor_speciaity.dart';
 import 'package:healthcare/view/screens/home/home_screen.dart';
 import 'package:healthcare/view/screens/home/main_app_screen.dart';
+import 'package:healthcare/view/screens/home/notifications_screen.dart';
+import 'package:healthcare/view/screens/home/recommandation_doctor_screen.dart';
 
 import 'package:healthcare/view/screens/profile/medicalRecored_screen.dart';
 import 'package:healthcare/view/screens/profile/notificationSetting_screen.dart';

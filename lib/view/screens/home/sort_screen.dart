@@ -88,7 +88,7 @@ class _SortScreenState extends State<SortScreen> {
                       index == 0 ? 'All' : specialities[index - 1],
                       style: _isSelectedSpeciality != index
                           ? semiBoldGrey
-                          : semiBoldWhite2,
+                          : semiBoldWhite16,
                     ),
                   ),
                 );
@@ -140,7 +140,7 @@ class _SortScreenState extends State<SortScreen> {
                           index == 0 ? 'All' : '${indexItem - index}',
                           style: _isSelectedRaring != index
                               ? semiBoldGrey
-                              : semiBoldWhite2,
+                              : semiBoldWhite16,
                         ),
                       ],
                     ),

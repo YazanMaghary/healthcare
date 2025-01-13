@@ -78,7 +78,7 @@ class _BookingPayState extends State<BookingPay> {
                   BookingStage(
                     stageName: 'Date & Time',
                     stageNum: '1',
-                    style: smallNormal3,
+                    style: smallNormalGrey,
                     backgroundColor: greyColor2,),
                   SizedBox(width: 5.h,),
                   Container(
@@ -89,7 +89,7 @@ class _BookingPayState extends State<BookingPay> {
                   BookingStage(
                     stageName: 'Payment',
                     stageNum: '2',
-                    style: smallNormal4 ,
+                    style: smallNormal ,
                     backgroundColor: primaryColor,),
                   SizedBox(width: 5.h,),
                   Container(
@@ -100,7 +100,7 @@ class _BookingPayState extends State<BookingPay> {
                   BookingStage(
                     stageName: 'Summary',
                     stageNum: '3',
-                    style: smallNormal3 ,
+                    style: smallNormalGrey ,
                     backgroundColor: greyColor2,),
                   SizedBox(width: 20.h,),
                 ],),
