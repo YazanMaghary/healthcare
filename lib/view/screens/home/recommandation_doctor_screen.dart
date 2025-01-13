@@ -188,15 +188,15 @@ class _RecommandationDoctorScreenState
                                 smallSpace,
                                 Row(
                                   children: [
-                                    Text('General',style: smallNormal2,),
+                                    Text('General',style: smallNormalGrey,),
                                      SizedBox(
                                       width: 8.w,
                                     ),
-                                     Text('|' ,style: smallNormal2,),
+                                     Text('|' ,style: smallNormalGrey,),
                                      SizedBox(
                                       width: 8.w,
                                     ),
-                                     Text('RSUD Gatot Subroto' ,style: smallNormal2,)
+                                     Text('RSUD Gatot Subroto' ,style: smallNormalGrey,)
                                   ],
                                 ),
                                 smallSpace,
@@ -212,14 +212,14 @@ class _RecommandationDoctorScreenState
                                     ),
                                     Text(
                                       '4.8',
-                                      style: smallNormal2,
+                                      style: smallNormalGrey,
                                     ),
                                     SizedBox(
                                       width: 4.w,
                                     ),
                                     Text(
                                       '(4,279 reviews)',
-                                      style: smallNormal2,
+                                      style: smallNormalGrey,
                                     )
                                   ],
                                 )

@@ -19,7 +19,7 @@ class _BookingScreenState extends State<BookingScreen> {
   int _selectedIndex = 1;
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFFFF),
         surfaceTintColor: const Color(0xFFFFFFFF),
@@ -64,14 +64,15 @@ class _BookingScreenState extends State<BookingScreen> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: PrimaryButton(buttonText: 'Continue', onPressed: () {
-           Get.offAllNamed(
-              '/BookingPay'
-                );
-        },),
+        child: PrimaryButton(
+          buttonText: 'Continue',
+          onPressed: () {
+            Get.offAllNamed('/BookingPay');
+          },
+        ),
       ),
-      body:Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 28.w ,vertical: 8.h),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 8.h),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,48 +81,73 @@ class _BookingScreenState extends State<BookingScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(width: 20.h,),
+                  SizedBox(
+                    width: 20.h,
+                  ),
                   BookingStage(
                     stageName: 'Date & Time',
                     stageNum: '1',
-                    style: smallNormal4,
-                    backgroundColor: primaryColor,),
-                  SizedBox(width: 5.h,),
+                    style: smallNormal,
+                    backgroundColor: primaryColor,
+                  ),
+                  SizedBox(
+                    width: 5.h,
+                  ),
                   Container(
                     color: const Color(0xffE0E0E0),
-                    padding: EdgeInsets.symmetric(horizontal: 24.w ,vertical: 1.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 24.w, vertical: 1.h),
                   ),
-                  SizedBox(width: 5.h,),
+                  SizedBox(
+                    width: 5.h,
+                  ),
                   BookingStage(
                     stageName: 'Payment',
                     stageNum: '2',
-                    style: smallNormal3 ,
-                    backgroundColor: greyColor2,),
-                  SizedBox(width: 5.h,),
+                    style: smallNormalGrey,
+                    backgroundColor: greyColor2,
+                  ),
+                  SizedBox(
+                    width: 5.h,
+                  ),
                   Container(
                     color: const Color(0xffE0E0E0),
-                    padding: EdgeInsets.symmetric(horizontal: 24.w ,vertical: 1.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 24.w, vertical: 1.h),
                   ),
-                  SizedBox(width: 5.h,),
+                  SizedBox(
+                    width: 5.h,
+                  ),
                   BookingStage(
                     stageName: 'Summary',
                     stageNum: '3',
-                    style: smallNormal3 ,
-                    backgroundColor: greyColor2,),
-                  SizedBox(width: 20.h,),
-                ],),
-             
+                    style: smallNormalGrey,
+                    backgroundColor: greyColor2,
+                  ),
+                  SizedBox(
+                    width: 20.h,
+                  ),
+                ],
+              ),
               largeSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Select Date' , style: semiBold3,),
+                  Text(
+                    'Select Date',
+                    style: semiBoldBlack16,
+                  ),
                   CustumTextButton(
                     title: 'Set Manual',
-                    onTap: (){},)
-                ],),
+                    onTap: () {},
+                  )
+                ],
+              ),
               largeSpace,
-              Text('Available time' , style: semiBold3,),
+              Text(
+                'Available time',
+                style: semiBoldBlack16,
+              ),
               mediumSpace,
               GridView.builder(
                 shrinkWrap: true,
@@ -131,29 +157,41 @@ class _BookingScreenState extends State<BookingScreen> {
                     crossAxisCount: 2,
                     mainAxisSpacing: 10,
                     crossAxisSpacing: 10,
-                  childAspectRatio: 3
-                ),
+                    childAspectRatio: 3),
                 itemBuilder: (context, index) {
                   return Container(
                     height: 20.h,
                     width: 20.w,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(color:index!=1? silverColor: primaryColor ,borderRadius: BorderRadius.circular(20.r)),
-                    padding: EdgeInsets.symmetric(horizontal: 8.h , vertical: 16.w),
-                    child: Text('08:00 AM' , style: index!=1? semiBold7: semiBold10,),);
-                },),
+                    decoration: BoxDecoration(
+                        color: index != 1 ? silverColor : primaryColor,
+                        borderRadius: BorderRadius.circular(20.r)),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.h, vertical: 16.w),
+                    child: Text(
+                      '08:00 AM',
+                      style: index != 1 ? semiBoldGrey14 : semiBoldWhite14,
+                    ),
+                  );
+                },
+              ),
               largeSpace,
-              Text('Appointment Type' , style: semiBold3,),
+              Text(
+                'Appointment Type',
+                style: semiBoldBlack16,
+              ),
               mediumSpace,
               RadioListTile(
                 activeColor: primaryColor,
                 controlAffinity: ListTileControlAffinity.trailing,
-
                 value: _selectedIndex,
-                title:  Row(
+                title: Row(
                   children: [
-                    const Image(image: AssetImage('assets/images/inPerson.png')),
-                    SizedBox(width: 8.w,),
+                    const Image(
+                        image: AssetImage('assets/images/inPerson.png')),
+                    SizedBox(
+                      width: 8.w,
+                    ),
                     const Text('In Person'),
                   ],
                 ),
@@ -162,17 +200,23 @@ class _BookingScreenState extends State<BookingScreen> {
                   setState(() {
                     _selectedIndex = 1;
                   });
-              },),
-              Divider(indent: 20.w,endIndent: 20.w,),
-
+                },
+              ),
+              Divider(
+                indent: 20.w,
+                endIndent: 20.w,
+              ),
               RadioListTile(
                 controlAffinity: ListTileControlAffinity.trailing,
                 activeColor: primaryColor,
                 value: _selectedIndex,
                 title: Row(
                   children: [
-                    const Image(image: AssetImage('assets/images/vedioCall.png')),
-                    SizedBox(width: 8.w,),
+                    const Image(
+                        image: AssetImage('assets/images/vedioCall.png')),
+                    SizedBox(
+                      width: 8.w,
+                    ),
                     Text('Vedio Call'),
                   ],
                 ),
@@ -181,17 +225,23 @@ class _BookingScreenState extends State<BookingScreen> {
                   setState(() {
                     _selectedIndex = 2;
                   });
-                },),
-              Divider(indent: 20.w,endIndent: 20.w,),
+                },
+              ),
+              Divider(
+                indent: 20.w,
+                endIndent: 20.w,
+              ),
               RadioListTile(
                 controlAffinity: ListTileControlAffinity.trailing,
-
                 activeColor: primaryColor,
                 value: _selectedIndex,
                 title: Row(
                   children: [
-                    const Image(image: AssetImage('assets/images/phoneCall.png')),
-                    SizedBox(width: 8.w,),
+                    const Image(
+                        image: AssetImage('assets/images/phoneCall.png')),
+                    SizedBox(
+                      width: 8.w,
+                    ),
                     Text('Phone Call'),
                   ],
                 ),
@@ -200,12 +250,12 @@ class _BookingScreenState extends State<BookingScreen> {
                   setState(() {
                     _selectedIndex = 3;
                   });
-                },),
-
-            ],),
+                },
+              ),
+            ],
+          ),
         ),
-      ) ,
-      )
-      ;
+      ),
+    );
   }
 }

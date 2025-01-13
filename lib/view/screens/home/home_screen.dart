@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                                Text(
                                 'Book and \nschedule with \nnearest doctor',
-                                style:semiBoldWite
+                                style:semiBoldWhite18
                               ),
                               mediumSpace,
                               ElevatedButton(
@@ -251,20 +251,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                              Text(
                               'Dr. Randy Wigham',
-                              style:semiBold3,
+                              style:semiBoldBlack16,
                             ),
                             smallSpace,
                              Row(
                               children: [
-                                Text('General' , style: smallNormal1,),
+                                Text('General' , style: smallNormalGrey,),
                                 SizedBox(
                                   width: 8.w,
                                 ),
-                                Text('|', style: smallNormal1,),
+                                Text('|', style: smallNormalGrey,),
                                 SizedBox(
                                   width: 8.w,
                                 ),
-                                Text('RSUD Gatot Subroto' , style: smallNormal1,)
+                                Text('RSUD Gatot Subroto' , style: smallNormalGrey,)
                               ],
                             ),
                             smallSpace,
@@ -280,14 +280,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 Text(
                                   '4.8',
-                                  style:smallNormal1,
+                                  style:smallNormalGrey,
                                 ),
                                 SizedBox(
                                   width: 4.w,
                                 ),
                                 Text(
                                   '(4,279 reviews)',
-                                  style: smallNormal1,
+                                  style: smallNormalGrey,
                                 )
                               ],
                             )
