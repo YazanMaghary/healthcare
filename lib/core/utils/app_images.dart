@@ -17,4 +17,13 @@ const String optometryImage = 'assets/images/Optometry.png';
 const String searchImage = 'assets/images/search-normal.png';
 const String listviewItem1 ='assets/images/listviewItem1.png';
 const String messageText = 'assets/images/message-text.png';
+const String profileImage = 'assets/images/profileImage.png';
+const String personcard = 'assets/images/icons/personcard.png';
+const String testicon = 'assets/images/icons/testcard.png';
+const String paymentdard = 'assets/images/icons/paymentIcon.png';
+const String languageSquare = 'assets/images/icons/language-square.png';
+const String lock = 'assets/images/icons/lock.png';
+const String logout = 'assets/images/icons/logout.png';
+const String messageQuestion = 'assets/images/icons/message-question.png';
+const String notification = 'assets/images/icons/notification.png';
 

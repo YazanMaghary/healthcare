@@ -6,6 +6,12 @@ import 'package:healthcare/view/screens/auth/onboarding_screen.dart';
 import 'package:healthcare/view/screens/auth/profilePicture.dart';
 import 'package:healthcare/view/screens/auth/signup_screen.dart';
 import 'package:healthcare/view/screens/home/main_app_screen.dart';
+import 'package:healthcare/view/screens/profile/medicalRecored_screen.dart';
+import 'package:healthcare/view/screens/profile/notificationSetting_screen.dart';
+import 'package:healthcare/view/screens/appointment/payment_screen.dart';
+import 'package:healthcare/view/screens/profile/personal_information.dart';
+import 'package:healthcare/view/screens/profile/security_screen.dart';
+import 'package:healthcare/view/screens/profile/setting_screen.dart';
 
 List<GetPage> getpage = [
   GetPage(
@@ -14,7 +20,7 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/SignupScreen',
-      page: () =>  SignupScreen(),
+      page: () => SignupScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/OnboardingScreen',
@@ -22,7 +28,7 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/ForgotPasswordScreen',
-      page: () =>  ForgotPasswordScreen(),
+      page: () => ForgotPasswordScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/OtpVerficationScreen',
@@ -30,10 +36,34 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/ProfilePictureScreen',
-      page: () =>  ProfilePictureScreen(),
+      page: () => ProfilePictureScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/myMain',
       page: () => const myMain(),
+      transition: Transition.leftToRight),
+  GetPage(
+      name: '/SettingScreen',
+      page: () => const SettingScreen(),
+      transition: Transition.leftToRight),
+  GetPage(
+      name: '/notificationSettingScreen',
+      page: () => const NotificationSettingScreen(),
+      transition: Transition.leftToRight),
+  GetPage(
+      name: '/SecurityScreen',
+      page: () => const SecurityScreen(),
+      transition: Transition.leftToRight),
+  GetPage(
+      name: '/PersonalInformation',
+      page: () =>  PersonalInformation(),
+      transition: Transition.leftToRight),
+  GetPage(
+      name: '/MedicalRecoredScreen',
+      page: () =>  const MedicalrecoredScreen(),
+      transition: Transition.leftToRight),
+  GetPage(
+      name: '/PaymentScreen',
+      page: () =>  const PaymentScreen(),
       transition: Transition.leftToRight),
 ];

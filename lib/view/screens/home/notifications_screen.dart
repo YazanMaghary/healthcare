@@ -35,7 +35,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             ),
              Text(
               'Notification',
-              style: semiBold2,
+              style: semiBoldBlack18,
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

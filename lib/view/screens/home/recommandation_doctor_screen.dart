@@ -71,7 +71,7 @@ class _RecommandationDoctorScreenState
           ],
         ),
         centerTitle: true,
-        title: Text('Recommendation Doctor', style: semiBold2),
+        title: Text('Recommendation Doctor', style: semiBoldBlack18),
         actions: [
           Row(
             children: [
@@ -184,7 +184,7 @@ class _RecommandationDoctorScreenState
                               children: [
                                 Text(
                                   'Dr. Randy Wigham',
-                                  style: semiBold2,
+                                  style: semiBoldBlack18,
                                 ),
                                 smallSpace,
                                 const Row(

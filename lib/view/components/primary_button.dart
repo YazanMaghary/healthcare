@@ -30,7 +30,7 @@ class PrimaryButton extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16.0.r)),
                     child: Text(
                       buttonText,
-                      style: semiBold1,
+                      style: semiBoldWhite,
                     ),
                   ),
                 ),
