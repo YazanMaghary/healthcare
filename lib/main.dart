@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
               ? box?.read("firstTime") == false
                   ? "/LoginScreen"
                   : "/OnboardingScreen"
-              : "/myMain",
+              : "/MainAppScreen",
           getPages: getpage,
         );
       },

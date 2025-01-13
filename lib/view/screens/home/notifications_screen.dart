@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 
 import '../../components/custom_appBar_icon.dart';
-import 'main_app_screen.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -27,9 +26,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           children: [
             AppBarIcon(
               onTap: () {
-                Get.offAll(
-                  const myMain(),
-                  transition: Transition.leftToRight,
+                Get.offNamed(
+                  '/MainAppScreen'
                 );
               },
             ),

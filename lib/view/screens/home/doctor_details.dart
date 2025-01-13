@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
+import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/screens/home/recommandation_doctor_screen.dart';
 
 import '../../../core/utils/app_images.dart';
@@ -83,7 +85,7 @@ class _DoctordetailsState extends State<Doctordetails>
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(32.0),
+            padding:  EdgeInsets.symmetric(horizontal:  32.h , vertical: 18.h),
             child: Row(
               children: [
                 SizedBox(
@@ -101,43 +103,46 @@ class _DoctordetailsState extends State<Doctordetails>
                   children: [
                     Text(
                       'Dr. Randy Wigham',
+
                       style: semiBoldBlack18,
+
                     ),
                     smallSpace,
-                    const Row(
+                     Row(
                       children: [
-                        Text('General'),
+                        Text('General' , style:  smallNormal2),
                         SizedBox(
-                          width: 8,
+                          width: 8.w,
                         ),
-                        Text('|'),
+                        Text('|' , style: smallNormal2, ),
                         SizedBox(
-                          width: 8,
+                          width: 8.w,
                         ),
-                        Text('RSUD Gatot Subroto')
+                        Text('RSUD Gatot Subroto' , style: smallNormal2,)
                       ],
                     ),
                     smallSpace,
-                    const Row(
+                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: starsColor,
-                          size: 16,
+                          size: 12,
                         ),
                         SizedBox(
-                          width: 4,
+                          width: 4.w
+                          ,
                         ),
                         Text(
                           '4.8',
-                          style: TextStyle(fontSize: 12),
+                          style: smallNormal2,
                         ),
                         SizedBox(
-                          width: 4,
+                          width: 4.w,
                         ),
                         Text(
                           '(4,279 reviews)',
-                          style: TextStyle(fontSize: 12),
+                          style: smallNormal2,
                         )
                       ],
                     )
@@ -152,34 +157,120 @@ class _DoctordetailsState extends State<Doctordetails>
           ),
           TabBar(
             unselectedLabelColor: greyColor,
+
             unselectedLabelStyle: semiBoldBlack16,
             padding: const EdgeInsets.symmetric(horizontal: 32),
             indicatorColor: primaryColor,
             labelColor: primaryColor,
             labelStyle: semiBoldBlack16,
+
             indicatorSize: TabBarIndicatorSize.values.first,
             indicatorPadding: const EdgeInsets.symmetric(horizontal: 24),
             controller: _tabController,
             tabs: const [
               Tab(
-                text: 'Placeholder',
+                text: 'About'
               ),
-              Tab(text: 'Placeholder'),
+              Tab(text: 'Review'),
             ],
           ),
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: const [
-                Center(
-                  child: Text('Content of Page 1'),
+              children:  [
+                Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 32.h , vertical: 8.w),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                      mediumSpace,
+                      Text('About me' , style: semiBold6,),
+                      smallSpace,
+                       Text(
+                        'Dr. Jenny Watson is the top most Immunologists specialist in Christ Hospital at London.',
+                        style: semiBold7,
+                      ),
+                      mediumSpace,
+                       Text('Working Time' , style: semiBold6,),
+                       smallSpace,
+                       Text(
+                        'Monday - Friday, 08.00 AM - 20.00 PM',
+                        style: semiBold7
+                      ),
+                      mediumSpace,
+                      Text('STR' , style: semiBold6,),
+                      smallSpace,
+                       Text(
+                        '4726482464',
+                        style: semiBold7),
+                      
+                      mediumSpace,
+                      Text('Pengalaman Praktik' , style: semiBold6,),                    
+                      mediumSpace,
+                       const Text('RSPAD Gatot Soebroto' ,                      
+                      style: TextStyle(fontSize: 14 ),),
+                      smallSpace,
+                       Text('2017 - sekarang' ,                      
+                      style: semiBold7,),
+                    ],),
+                  ),
                 ),
-                Center(
-                  child: Text('Content of Page 2'),
-                ),
+                Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 32.h),
+                  child: ListView.builder(itemBuilder: (context, index) {
+                    return  Column(children: [
+                      mediumSpace,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                           const CircleAvatar(
+                             radius: 20,
+                             backgroundImage:AssetImage('assets/images/reviewPicture.png'),),
+                          const SizedBox(width: 8,),
+                          Column(
+                            children: [
+                              Text('Jane Cooper' , style: semiBold3,),
+                              smallSpace,
+                              const Row(children: [
+                                Icon(Icons.star , color: starsColor),
+                                Icon(Icons.star , color: starsColor),
+                                Icon(Icons.star , color: starsColor),
+                                Icon(Icons.star , color: starsColor),
+                                Icon(Icons.star , color: starsColor),
+                              ],)
+                            ],
+                          ),
+                          const Spacer(),
+                          Padding(
+                            padding:  EdgeInsets.only(left: 8.w),
+                            child: Text('Today' , style: smallNormal2,),
+                          )
+                          ],),
+                      smallSpace,
+                      Padding(
+                        padding:  EdgeInsets.only(left: 48.w),
+                        child: Text('As someone who lives in a remote area with limited access to healthcare, this telemedicine app has been a game changer for me. I can easily schedule virtual appointments with doctors and get the care I need without having to travel long distances.'
+                        ,style: semiBold9,
+                        ),
+                      )
+                    ],);
+                  },
+                   itemCount: 4),
+                )
               ],
             ),
           ),
+          mediumSpace,
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 16.h),
+            child: PrimaryButton(buttonText: 'Make An Appointment', onPressed: () {
+              Get.offAllNamed(
+                '/BookingScreen'
+              );
+            },),
+          ),
+          mediumSpace
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 
 class mySpeciailtyCard extends StatelessWidget {
@@ -18,16 +19,16 @@ class mySpeciailtyCard extends StatelessWidget {
         Container(
           decoration: const BoxDecoration(
               shape: BoxShape.circle, color: greyBackground),
-          padding: const EdgeInsets.all(24),
+          padding:  EdgeInsets.all(24.h),
           child: Image.asset(
             speciailtyImagePath,
             fit: BoxFit.cover,
-            width: 30,
-            height: 30,
+            width: 25.w,
+            height: 25.h,
           ),
         ),
-        const SizedBox(
-          height: 5,
+         SizedBox(
+          height: 5.h,
         ),
         Text(speciailtyType)
       ],

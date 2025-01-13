@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
-import 'package:healthcare/view/screens/home/doctor_details.dart';
-import 'package:healthcare/view/screens/home/main_app_screen.dart';
 import 'package:healthcare/view/screens/home/sort_screen.dart';
 
 class RecommandationDoctorScreen extends StatefulWidget {
@@ -44,9 +43,8 @@ class _RecommandationDoctorScreenState
             ),
             GestureDetector(
               onTap: () {
-                Get.offAll(
-                  const myMain(),
-                  transition: Transition.leftToRight,
+                Get.offNamed(
+                   '/MainAppScreen'
                 );
               },
               child: Container(
@@ -162,8 +160,7 @@ class _RecommandationDoctorScreenState
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Get.offAll(const Doctordetails(),
-                          transition: Transition.rightToLeft);
+                      Get.offNamed('/Doctordetails');
                     },
                     child: Material(
                       shadowColor: greyBackground,
@@ -184,43 +181,45 @@ class _RecommandationDoctorScreenState
                               children: [
                                 Text(
                                   'Dr. Randy Wigham',
+
                                   style: semiBoldBlack18,
+
                                 ),
                                 smallSpace,
-                                const Row(
+                                Row(
                                   children: [
-                                    Text('General'),
-                                    SizedBox(
-                                      width: 8,
+                                    Text('General',style: smallNormal2,),
+                                     SizedBox(
+                                      width: 8.w,
                                     ),
-                                    Text('|'),
-                                    SizedBox(
-                                      width: 8,
+                                     Text('|' ,style: smallNormal2,),
+                                     SizedBox(
+                                      width: 8.w,
                                     ),
-                                    Text('RSUD Gatot Subroto')
+                                     Text('RSUD Gatot Subroto' ,style: smallNormal2,)
                                   ],
                                 ),
                                 smallSpace,
-                                const Row(
+                                 Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       color: starsColor,
-                                      size: 16,
+                                      size: 12,
                                     ),
                                     SizedBox(
-                                      width: 4,
+                                      width: 4.w,
                                     ),
                                     Text(
                                       '4.8',
-                                      style: TextStyle(fontSize: 12),
+                                      style: smallNormal2,
                                     ),
                                     SizedBox(
-                                      width: 4,
+                                      width: 4.w,
                                     ),
                                     Text(
                                       '(4,279 reviews)',
-                                      style: TextStyle(fontSize: 12),
+                                      style: smallNormal2,
                                     )
                                   ],
                                 )
