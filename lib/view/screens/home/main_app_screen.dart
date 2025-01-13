@@ -7,7 +7,7 @@ import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/nav_bar_item.dart';
 import 'package:healthcare/view/screens/appointment/appointment_screen.dart';
 import 'package:healthcare/view/screens/home/home_screen.dart';
-import 'package:healthcare/view/screens/inbox/message_screen.dart';
+import 'package:healthcare/view/screens/inbox/inbox_screen.dart';
 import 'package:healthcare/view/screens/profile/profile_screen.dart';
 import 'package:healthcare/view/screens/search/search_screen.dart';
 
@@ -23,7 +23,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
   final authController = Get.put(AuthController());
   static final List<Widget> _screens = [
     const HomeScreen(),
-    const MessageScreen(),
+    const InboxScreen(),
     const SearchScreen(),
     const AppointmentScreen(),
     const ProfileScreen(),

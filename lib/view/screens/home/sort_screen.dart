@@ -43,7 +43,7 @@ class _SortScreenState extends State<SortScreen> {
           Center(
             child: Text(
               'SortBy',
-              style: semiBold2,
+              style: semiBoldBlack18,
             ),
           ),
           const Spacer(),
@@ -54,7 +54,7 @@ class _SortScreenState extends State<SortScreen> {
           const Spacer(),
           Text(
             'Speciality',
-            style: semiBold3,
+            style: semiBoldBlack16,
           ),
           const Spacer(),
           SizedBox(
@@ -87,8 +87,8 @@ class _SortScreenState extends State<SortScreen> {
                     child: Text(
                       index == 0 ? 'All' : specialities[index - 1],
                       style: _isSelectedSpeciality != index
-                          ? semiBold4
-                          : semiBold5,
+                          ? semiBoldGrey
+                          : semiBoldWhite2,
                     ),
                   ),
                 );
@@ -96,7 +96,7 @@ class _SortScreenState extends State<SortScreen> {
             ),
           ),
           const Spacer(),
-          Text('Rating', style: semiBold3),
+          Text('Rating', style: semiBoldBlack16),
           const Spacer(),
           SizedBox(
             height: 50,
@@ -139,8 +139,8 @@ class _SortScreenState extends State<SortScreen> {
                         Text(
                           index == 0 ? 'All' : '${indexItem - index}',
                           style: _isSelectedRaring != index
-                              ? semiBold4
-                              : semiBold5,
+                              ? semiBoldGrey
+                              : semiBoldWhite2,
                         ),
                       ],
                     ),

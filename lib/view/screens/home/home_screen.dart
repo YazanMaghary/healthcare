@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Text(
                 'How Are you Today?',
-                style: smallNormal1,
+                style: smallNormalGrey,
               ),
             ],
           ),

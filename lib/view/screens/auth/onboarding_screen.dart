@@ -67,7 +67,7 @@ class OnboardingScreen extends StatelessWidget {
                             children: [
                               Text(
                                 "Best Doctor Appointment App",
-                                style: largeBold1,
+                                style: largeBoldBlue,
                                 textAlign: TextAlign.center,
                               ),
                               Padding(
@@ -89,7 +89,7 @@ class OnboardingScreen extends StatelessWidget {
                                     Text(
                                       "Manage and schedule all of your medical appointments easily with Docdoc to get a new experience.",
                                       textAlign: TextAlign.center,
-                                      style: smallNormal1,
+                                      style: smallNormalGrey,
                                     )
                                   ],
                                 ),

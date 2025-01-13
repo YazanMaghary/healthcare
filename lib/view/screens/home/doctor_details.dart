@@ -53,7 +53,7 @@ class _DoctordetailsState extends State<Doctordetails>
             ),
             Text(
               'Dr. Randy Wigham',
-              style: semiBold2,
+              style: semiBoldBlack18,
             ),
             Row(
               children: [
@@ -103,7 +103,9 @@ class _DoctordetailsState extends State<Doctordetails>
                   children: [
                     Text(
                       'Dr. Randy Wigham',
-                      style: semiBold3,
+
+                      style: semiBoldBlack18,
+
                     ),
                     smallSpace,
                      Row(
@@ -155,11 +157,13 @@ class _DoctordetailsState extends State<Doctordetails>
           ),
           TabBar(
             unselectedLabelColor: greyColor,
-            unselectedLabelStyle: semiBold8,
+
+            unselectedLabelStyle: semiBoldBlack16,
             padding: const EdgeInsets.symmetric(horizontal: 32),
             indicatorColor: primaryColor,
             labelColor: primaryColor,
-            labelStyle: semiBold8,
+            labelStyle: semiBoldBlack16,
+
             indicatorSize: TabBarIndicatorSize.values.first,
             indicatorPadding: const EdgeInsets.symmetric(horizontal: 24),
             controller: _tabController,
