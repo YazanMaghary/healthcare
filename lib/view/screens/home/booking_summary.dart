@@ -6,7 +6,7 @@ import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/booking_stage.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/screens/home/booking_pay.dart';
-
+//seaeae
 class BookingSummary extends StatefulWidget {
   const BookingSummary({super.key});
 
