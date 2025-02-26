@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
+import 'package:healthcare/model/user_model.dart';
 import 'package:healthcare/view/components/appBar.dart';
 import 'package:healthcare/view/components/appbar_button.dart';
 import 'package:healthcare/view/components/customprofile_card.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-
+  // final AuthController authController = Get.put(AuthController());
+  // User user = box?.read("User");
   @override
   Widget build(BuildContext context) {
+    print(box?.read("User").image);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: primaryColor,
@@ -21,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
         tranparent: true,
         leadingWidget: AppBarButton(
             onTap: () {
-                 Get.offAllNamed("/myMain", arguments: 0); 
+              Get.offAllNamed("/MainAppScreen", arguments: 0);
             },
             icon: Icons.chevron_left,
             margin: EdgeInsets.only(left: 16.w)),
@@ -53,14 +57,14 @@ class ProfileScreen extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.only(top: (32 + 50).w),
                     child: Text(
-                      "Mohanad AlFaleet",
+                     "${box?.read("User").name}",
                       style: semiBoldBlack20,
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 8.h, bottom: 8.w),
                     child: Text(
-                      "mohannadalfaleet@gmail.com",
+                      box?.read("User").email ?? '',
                       style: largeNormalGrey,
                     ),
                   ),
@@ -99,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                          Get.toNamed("/MedicalRecoredScreen");
+                            Get.toNamed("/MedicalRecoredScreen");
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
@@ -119,8 +123,8 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 24.w, vertical: 8.w),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.w),
                       child: ListView(
                         shrinkWrap: true,
                         children: [
@@ -160,27 +164,19 @@ class ProfileScreen extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(100.r)),
-                child: Image.asset(profileImage, width: 120.w, height: 120.w),
+                child: ClipOval(
+                  child: box?.read("User").image != "" || box?.read("User").image != null
+                      ? Image.network(
+                          "${ApiConstances.baseUrl}/${box?.read("User").image}",
+                          width: 120.w,
+                          height: 120.w,
+                          fit: BoxFit.fill,
+                        )
+                      : Image.asset("assets/images/defaultProfile.jpg",
+                          width: 120.w, height: 120.w, fit: BoxFit.fill),
+                ),
               ),
-              Positioned(
-                  bottom: 10.w,
-                  right: 0,
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: searchBackground,
-                          borderRadius: BorderRadius.circular(24.r)),
-                      width: 30.w,
-                      height: 30.w,
-                      child: InkWell(
-                        onTap: () {
-                          print("Test");
-                        },
-                        child: Icon(
-                          Icons.edit_outlined,
-                          color: primaryColor,
-                          size: 20.sp,
-                        ),
-                      )))
+           
             ]),
           )
         ],

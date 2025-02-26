@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:healthcare/controller/profile_picture_controller.dart';
+import 'package:healthcare/controller/profile_controller.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/components/register_sup_title.dart';
@@ -9,8 +9,8 @@ import 'package:healthcare/view/components/register_title.dart';
 
 class ProfilePictureScreen extends StatelessWidget {
   ProfilePictureScreen({super.key});
-  final ProfilePictureController profilePictureController =
-      Get.put(ProfilePictureController());
+  final ProfileController profilePictureController =
+      Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class ProfilePictureScreen extends StatelessWidget {
               child: Column(
                 children: [
                   GetBuilder(
-                    init: ProfilePictureController(),
+                    init: ProfileController(),
                     builder: (controller) => Container(
                       width: 300.h,
                       height: 300.h,
@@ -55,7 +55,7 @@ class ProfilePictureScreen extends StatelessWidget {
                   ),
                   mediumSpace,
                   GetBuilder(
-                    init: ProfilePictureController(),
+                    init: ProfileController(),
                     builder: (controller) {
                       return IconButton(
                         onPressed: controller.pickImage,
@@ -74,8 +74,8 @@ class ProfilePictureScreen extends StatelessWidget {
               onPressed: () async {
                 print("submit");
 
-                await profilePictureController.updateUserProfile(
-                    "", "", profilePictureController.image);
+                await profilePictureController.updateUserProfileWithImage(
+                    "", "", profilePictureController.image,false);
                 box?.remove("Token2");
                 box?.remove("register");
                 // Get.offAllNamed('/myMain');

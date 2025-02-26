@@ -28,7 +28,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         foregroundColor: Colors.black,
         leadingWidget: AppBarButton(
             onTap: () {
-              Get.offAllNamed("/myMain", arguments: 3);
+              Get.offAllNamed("/MainAppScreen", arguments: 3);
             },
             icon: Icons.chevron_left,
             margin: EdgeInsets.only(left: 16.w)),
@@ -76,7 +76,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   setState(() {});
                 },
               ),
-              children: [CardFormField()],
+              children: const [CardFormField()],
             ),
             largeSpace,
             ExpansionTile(      shape: Border.all(width: 0),
@@ -105,7 +105,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   setState(() {});
                 },
               ),
-              children: [
+              children: const [
                 Text("Bank Transfer will be available in the future updates")
               ],
             ),
@@ -136,7 +136,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   setState(() {});
                 },
               ),
-              children: [
+              children: const [
                 Text("PayPal will be available in the future updates")
               ],
             ),

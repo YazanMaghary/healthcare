@@ -108,18 +108,19 @@ class AuthDataSource {
     }
   }
 
-  Future<Either<String, void>> tokenExpired() async {
+  Future<Either<String, User>> getMe() async {
     try {
       final response = await dio.get(
-        ApiConstances.tookenExpired,
+        ApiConstances.getMe,
         options: Options(
           headers: {
             'Authorization': "Bearer ${box?.read("Token")}",
           },
         ),
       );
+      User user = User.fromJson(response.data);
       print(response.data);
-      return const Right(null);
+      return Right(user);
     } on DioException catch (e) {
       print("Dio Exception Error");
       ErrorModel errorModel = ErrorModel.fromJson(e.response?.data ??

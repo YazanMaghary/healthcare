@@ -26,7 +26,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
     const InboxScreen(),
     const SearchScreen(),
     const AppointmentScreen(),
-    const ProfileScreen(),
+     ProfileScreen(),
   ];
   @override
   void initState() {
