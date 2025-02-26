@@ -7,8 +7,31 @@ import 'package:healthcare/model/error_model.dart';
 //permission problem
 
 class UserDataSource {
-  Future<Either<String, void>> updateUserProfile(
-      Map<String, dynamic> data, String? path) async {
+  // Future<Either<String, void>> updateUserData(Map<String, dynamic> data) async {
+  //   final dio = Dio();
+  //   try {
+  //     print("id");
+  //     print(box?.read("User").id);
+  //     print(box?.read("Token"));
+  //     print("id");
+  //     final response = await dio
+  //         .put("${ApiConstances.updateUser}/${box?.read("User").id}", data: data,options: Options(headers: {
+  //         'Authorization': "Bearer ${box?.read("Token")}"
+  //         }));
+  //     print("successful updated data");
+  //     return const Right(null);
+  //   } on DioException catch (e) {
+  //     print("Dio Exception error");
+  //     ErrorModel errorModel = ErrorModel.fromJson(e.response?.data ??
+  //         {'message': "No Internet Connection", 'Error': "Internet related"});
+  //     return left(errorModel.message ?? "Connection error");
+  //   } catch (e) {
+  //     return left(e.toString());
+  //   }
+  // }
+
+  Future<Either<String, void>> updateUserProfileWithImage(
+      Map<String, dynamic> data, String? path, bool logedIn) async {
     try {
       if (path == null) {
         return const Left('No image path provided');
@@ -62,14 +85,18 @@ class UserDataSource {
         requestHeader: true,
         responseHeader: true,
       ));
+      if (logedIn == false) {}
       print("id :${box?.read("id")}");
       print("Token :${box?.read("Token")}");
       final response = await dio.put(
-        "${ApiConstances.updateUser}/${box?.read("id")}",
+        logedIn
+            ? "${ApiConstances.updateUser}/${box?.read("User").id}"
+            : "${ApiConstances.updateUser}/${box?.read("id")}",
         data: formData,
         options: Options(
           headers: {
-            'Authorization': "Bearer ${box?.read("Token2")}",
+            'Authorization':
+                "Bearer ${logedIn ? box?.read("Token") : box?.read("Token2")}",
           },
           followRedirects: true,
           validateStatus: (status) {
@@ -97,6 +124,39 @@ class UserDataSource {
       print('Error data: ${e.response?.data}');
       // print('Request path: ${e.requestOptions.path}');
       // print('Request headers: ${e.requestOptions.headers}');
+
+      if (e.response != null) {
+        ErrorModel errorModel2 = ErrorModel.fromJson(e.response?.data ??
+            {'message': "No Internet Connection", 'Error': "Internet related"});
+        return Left(errorModel2.message ?? 'Connection error');
+      }
+      return Left(e.message ?? 'Connection error');
+    } catch (e) {
+      return const Left('An unexpected error occurred');
+    }
+  }
+
+  Future<Either<String, void>> updateUserProfile(
+    Map<String, String> data,
+  ) async {
+    try {
+      var datafordio =
+          FormData.fromMap(data);
+      final dio = Dio();
+      final response = await dio.put(
+          "${ApiConstances.updateUser}/${box?.read("User").id}",
+          data: datafordio,
+          options: Options(
+              headers: {'Authorization': "Bearer ${box?.read("Token")}"}));
+      if (response.statusCode == 200) {
+        return const Right(null);
+      }
+      return const Right(null);
+    } on DioException catch (e) {
+      print('=== Dio Exception Details ===');
+      print('Status code: ${e.response?.statusCode}');
+      print('Error message: ${e.message}');
+      print('Error data: ${e.response?.data}');
 
       if (e.response != null) {
         ErrorModel errorModel2 = ErrorModel.fromJson(e.response?.data ??

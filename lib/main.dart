@@ -15,7 +15,6 @@ void main(List<String> args) async {
   Stripe.publishableKey = StripeConstances.stripePublishKey;
   await Stripe.instance.applySettings();
   await initialServices();
-
   await Future.delayed(const Duration(
     seconds: 1,
   ));

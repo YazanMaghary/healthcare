@@ -4,6 +4,8 @@ import 'package:healthcare/core/utils/app_constanses.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
+  final bool? enabled;
+  final String? initialValue;
   final bool obscureText;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
@@ -16,15 +18,15 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.controller,
     this.onChanged,
-    this.keyboardType, this.validator, this.suffixIcon,
+    this.keyboardType, this.validator, this.suffixIcon, this.initialValue, this.enabled,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(validator: validator,
-      controller: controller,
+      controller: controller,enabled: enabled,
       obscureText: obscureText,
-      onChanged: onChanged,
+      onChanged: onChanged,initialValue: initialValue,
       keyboardType: keyboardType,
       decoration: InputDecoration(suffixIcon: suffixIcon,focusedBorder:OutlineInputBorder(
           borderSide: const BorderSide(color: primaryColor),

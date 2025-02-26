@@ -2,15 +2,53 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/datasource/user_data_source.dart';
 import 'package:healthcare/view/components/bottomsheet.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ProfilePictureController extends GetxController {
+class ProfileController extends GetxController {
   File? image;
+ 
+
   final UserDataSource userDataSource = UserDataSource();
   final ImagePicker _picker = ImagePicker();
+  
+
+  Future<void> updateUserProfile({String? name, String? phone}) async {
+    final result = await userDataSource.updateUserProfile({
+      "name": name!,
+      "phone": phone!,
+    });
+    result.fold((failure) {
+      failureWidget('Error', failure);
+    }, (success) {
+      successfullyWidget("Done", "User updated successfully");
+      Get.offAllNamed("/MainAppScreen");
+    });
+  }
+  // Future<User> getUserData() async {
+  //   final result = await AuthDataSource().getMe();
+  //   User? user;
+
+  //   result.fold((failure) {
+  //     failureWidget('Error', failure);
+  //   }, (success) {
+  //     user = success;
+  //   });
+  //   return user!;
+  // }
+  // Future<void> updateUserData(String? name, String? phone) async {
+  //   UserDataSource userDataSource = UserDataSource();
+  //   final result =
+  //       await userDataSource.updateUserData({"name": name, "phone": phone ,"image" : null});
+  //   result.fold((failure){
+  //     failureWidget("Error", failure);
+  //   },(success){
+  //     print("User updated Successfully");
+  //   });
+  // }
 
   void pickImage() async {
     Get.bottomSheet(
@@ -71,8 +109,8 @@ class ProfilePictureController extends GetxController {
     }
   }
 
-  Future<void> updateUserProfile(
-      String? name, String? phone, File? file) async {
+  Future<void> updateUserProfileWithImage(
+      String? name, String? phone, File? file, bool logedIn) async {
     if (file == null) {
       failureWidget("Error", "Please select an image");
       return;
@@ -92,8 +130,8 @@ class ProfilePictureController extends GetxController {
       // print('Image exists: ${await file.exists()}');
       // print('Image size: ${await file.length()} bytes');
 
-      final result =
-          await userDataSource.updateUserProfile(userData, file.path);
+      final result = await userDataSource.updateUserProfileWithImage(
+          userData, file.path, logedIn);
 
       result.fold(
         (failed) {
@@ -104,7 +142,11 @@ class ProfilePictureController extends GetxController {
             'Success',
             'Profile updated successfully',
           );
-          Get.offAllNamed("/LoginScreen");
+          if (logedIn == true) {
+            Get.offAllNamed("/MainAppScreen");
+          } else {
+            Get.offAllNamed("/LoginScreen");
+          }
         },
       );
     } catch (e) {

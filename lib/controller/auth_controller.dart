@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/datasource/auth_data_source.dart';
+import 'package:healthcare/model/user_model.dart';
 import 'package:healthcare/view/components/bottomsheet.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 
@@ -11,6 +12,14 @@ class AuthController extends GetxController {
   bool showPassword = true;
   bool isButtonEnabled = true;
   AuthDataSource authDataSource = AuthDataSource();
+  @override
+  //make user controller class and move getMe fucntion form here to there to init the controller of the user and take the data from it
+  void onInit() {
+    // TODO: implement onInit
+    print("USWERQWEQWEQWEW");
+    super.onInit();
+  }
+
   void checkButton() {
     if (isButtonEnabled) {
       enableButton();
@@ -44,6 +53,7 @@ class AuthController extends GetxController {
       }, (success) {
         // Handle successful login
         print("success");
+
         print(success.user?.name);
         print(success.token);
         if (remmeberPassword == true) {
@@ -52,7 +62,11 @@ class AuthController extends GetxController {
           box?.write("Token", "");
         }
         if (success.user?.isVerified == true) {
-          Get.offAllNamed("/myMain");
+          Get.offAllNamed("/MainAppScreen")?.whenComplete(
+            () {
+              print("ok route me");
+            },
+          );
         } else {
           Get.toNamed("/OtpVerficationScreen");
         }
@@ -201,7 +215,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> tookenExpired() async {
-    final result = await authDataSource.tokenExpired();
+    final result = await authDataSource.getMe();
     result.fold((failure) {
       // Show dialog on failure
       print(failure);
@@ -236,8 +250,22 @@ class AuthController extends GetxController {
       box?.remove("Token");
     }, (success) {
       // Do nothing on success
+      box?.write("User", success);
       print("Tooken is not Expired");
-
     });
+  }
+
+  Future<User> getMe() async {
+    User? user;
+    final result = await authDataSource.getMe();
+    result.fold((failure) {
+      return failureWidget("Error", failure);
+    }, (success) {
+      print(success.email);
+      user = success;
+      return user;
+    });
+    update();
+    return user ?? User();
   }
 }

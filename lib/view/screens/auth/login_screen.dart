@@ -115,6 +115,9 @@ class LoginScreen extends StatelessWidget {
                         failureWidget("Error", "E-mail or Password is empty");
                       } else {
                         box?.write("email", emailController.text);
+                        box?.write("password", passwordController.text);
+                        print("test1");
+                        
                         await authController.login(
                             emailController.text, passwordController.text);
                         box?.write("register", false);

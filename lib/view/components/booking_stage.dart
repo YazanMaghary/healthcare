@@ -22,7 +22,7 @@ class BookingStage extends StatelessWidget {
               shape: BoxShape.circle
           ),
           child:  Center(child:
-          Text(stageNum , style:TextStyle(color: Colors.white),
+          Text(stageNum , style:const TextStyle(color: Colors.white),
           )),
         ),
         smallSpace,

@@ -217,7 +217,7 @@ class _BookingScreenState extends State<BookingScreen> {
                     SizedBox(
                       width: 8.w,
                     ),
-                    Text('Vedio Call'),
+                    const Text('Vedio Call'),
                   ],
                 ),
                 groupValue: 2,
@@ -242,7 +242,7 @@ class _BookingScreenState extends State<BookingScreen> {
                     SizedBox(
                       width: 8.w,
                     ),
-                    Text('Phone Call'),
+                    const Text('Phone Call'),
                   ],
                 ),
                 groupValue: 3,

@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare/controller/auth_controller.dart';
+import 'package:healthcare/controller/profile_controller.dart';
+import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
-import 'package:healthcare/core/utils/app_images.dart';
+import 'package:healthcare/datasource/user_data_source.dart';
+import 'package:healthcare/model/user_model.dart';
 import 'package:healthcare/view/components/appBar.dart';
 import 'package:healthcare/view/components/appbar_button.dart';
 import 'package:healthcare/view/components/custom_text_field.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
+// ignore: must_be_immutable
 class PersonalInformation extends StatelessWidget {
   PersonalInformation({super.key});
+  final profileController = Get.put(ProfileController());
+  final authController = Get.put(
+    AuthController(),
+  );
+
+  User user = box?.read("User");
+  TextEditingController userName =
+      TextEditingController(text: box?.read("User").name);
+  TextEditingController phone =
+      TextEditingController(text: box?.read("User").phone);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -39,7 +54,33 @@ class PersonalInformation extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(100.r)),
-                  child: Image.asset(profileImage, width: 120.w, height: 120.w),
+                  child: GetBuilder<ProfileController>(
+                      init: ProfileController(),
+                      builder: (controller) {
+                        return ClipOval(
+                          child: controller.image != null
+                              ? Image.file(
+                                  controller.image!,
+                                  width: 120.w,
+                                  height: 120.w,
+                                  fit: BoxFit.fill,
+                                )
+                              : (box?.read("User").image != null ||
+                                      box?.read("User").image != "")
+                                  ? Image.network(
+                                      "${ApiConstances.baseUrl}/${box?.read("User").image}",
+                                      width: 120.w,
+                                      height: 120.w,
+                                      fit: BoxFit.fill,
+                                    )
+                                  : Image.asset(
+                                      "assets/images/defaultProfile.jpg",
+                                      width: 120.w,
+                                      height: 120.w,
+                                      fit: BoxFit.fill,
+                                    ),
+                        );
+                      }),
                 ),
                 Positioned(
                     right:
@@ -53,6 +94,9 @@ class PersonalInformation extends StatelessWidget {
                         height: 30.w,
                         child: InkWell(
                           onTap: () {
+                            profileController.pickImage();
+                            print(
+                                "Profile image : ${profileController.image};");
                             print("Test");
                           },
                           child: Icon(
@@ -70,20 +114,25 @@ class PersonalInformation extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CustomTextField(
+                  CustomTextField(
+                    controller: userName,
                     hintText: 'Full Name',
                   ),
                   mediumSpace,
-                  const CustomTextField(
+                  CustomTextField(
                     hintText: 'Email',
+                    initialValue: user.email,
+                    enabled: false,
                   ),
                   mediumSpace,
-                  const CustomTextField(
+                  CustomTextField(
+                    enabled: false,
                     hintText: 'Password',
-                    obscureText: true,
+                    initialValue: box?.read("password"),
                   ),
                   mediumSpace,
                   IntlPhoneField(
+                      controller: phone,
                       initialCountryCode: "PS",
                       autovalidateMode: AutovalidateMode.onUnfocus,
                       autofocus: false,
@@ -117,7 +166,25 @@ class PersonalInformation extends StatelessWidget {
                   ),
                   largeSpace,
                   largeSpace,
-                  PrimaryButton(buttonText: "Save", onPressed: () async {}),
+                  PrimaryButton(
+                      buttonText: "Save",
+                      onPressed: () async {
+                        print(userName.text);
+                        print(phone.text);
+                        print(profileController.image);
+                        if (profileController.image == null ||
+                            profileController.image == "") {
+                          print("Edited succesfully");
+                          await ProfileController().updateUserProfile(
+                              name: userName.text, phone: phone.text);
+                        } else {
+                          await ProfileController().updateUserProfileWithImage(
+                              userName.text,
+                              phone.text,
+                              profileController.image,
+                              true);
+                        }
+                      }),
 
                   // const Spacer(),
                 ],
