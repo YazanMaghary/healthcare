@@ -49,20 +49,20 @@ class SignupScreen extends StatelessWidget {
                       validator: authController.validateName,
                       hintText: 'Full Name',
                     ),
-                    mediumSpace,
+                    mediumSpace20,
                     CustomTextField(
                       controller: emailController,
                       validator: authController.validateEmail,
                       hintText: 'Email',
                     ),
-                    mediumSpace,
+                    mediumSpace20,
                     CustomTextField(
                       controller: passwordController,
                       validator: authController.validatePassword,
                       hintText: 'Password',
                       obscureText: true,
                     ),
-                    mediumSpace,
+                    mediumSpace20,
                     IntlPhoneField(
                         controller: phoneController,
                         initialCountryCode: "PS",
@@ -91,7 +91,7 @@ class SignupScreen extends StatelessWidget {
                                   BorderRadius.all(Radius.circular(16.r))),
                           hintText: 'Your Number',
                         )),
-                    mediumSpace,
+                    mediumSpace20,
 
                     PrimaryButton(
                         buttonText: "Create Account",
@@ -108,7 +108,7 @@ class SignupScreen extends StatelessWidget {
                             box?.write("register", true);
                           }
                         }),
-                    mediumSpace,
+                    mediumSpace20,
 
                     const Spacer(),
                     Center(

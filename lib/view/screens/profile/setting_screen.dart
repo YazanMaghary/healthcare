@@ -30,26 +30,26 @@ class SettingScreen extends StatelessWidget {
                   Get.toNamed("/notificationSettingScreen");
                 },
                 imageString: notification,
-                title: "Notification",style: largeNormalBlack,
+                title: "Notification",style: largeNormalBlack14,
                 trailingWidget:const Icon(Icons.chevron_right)),
             divider,
             SettingWidget(
                 onTap: () {},
                 imageString: messageQuestion,
-                title: "FAQ",style: largeNormalBlack,
+                title: "FAQ",style: largeNormalBlack14,
                 trailingWidget:const Icon(Icons.chevron_right)),
             divider,
             SettingWidget(
                 onTap: () {
                     Get.toNamed("/SecurityScreen");
                 },
-                imageString: lock,style: largeNormalBlack,
+                imageString: lock,style: largeNormalBlack14,
                 title: "Security",
                 trailingWidget:const Icon(Icons.chevron_right)),
             divider,
             SettingWidget(
                 onTap: () {},
-                imageString: languageSquare,style: largeNormalBlack,
+                imageString: languageSquare,style: largeNormalBlack14,
                 title: "Language",
                 trailingWidget:const Icon(Icons.chevron_right)),
             divider,
@@ -68,7 +68,7 @@ class SettingScreen extends StatelessWidget {
                           },
                         ),
                         TextButton(
-                          child: Text("Logout", style: verylargeNormalRed),
+                          child: Text("Logout", style: verylargeNormalRed16),
                           onPressed: () {
                             // Add your logout logic here
                             Get.back(); // Close the dialog
@@ -79,7 +79,7 @@ class SettingScreen extends StatelessWidget {
                     ),
                   );
                 },
-                imageString: logout, style: largeNormalRed,
+                imageString: logout, style: largeNormalRed14,
                 title: "Logout",
                 trailingWidget: const Icon(Icons.chevron_right)),
             divider,

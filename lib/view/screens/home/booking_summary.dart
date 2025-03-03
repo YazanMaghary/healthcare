@@ -75,7 +75,7 @@ class _BookingSummaryState extends State<BookingSummary> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          mediumSpace,
+          mediumSpace20,
              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -111,7 +111,7 @@ class _BookingSummaryState extends State<BookingSummary> {
                 ],),
                 largeSpace,
                 Text('Booking Information' ,style: semiBoldBlack16, ),
-                mediumSpace,
+                mediumSpace20,
                  Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -148,7 +148,7 @@ class _BookingSummaryState extends State<BookingSummary> {
                  const Divider(indent: 10,endIndent: 10,),
                    largeSpace,
                 Text('Payment Information' ,style: semiBoldBlack16, ),
-                mediumSpace,
+                mediumSpace20,
                  Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

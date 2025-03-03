@@ -7,14 +7,14 @@ import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/screens/home/booking_summary.dart';
 
-class BookingDetails extends StatefulWidget {
-  const BookingDetails({super.key});
+class AppointmentRescheduleScreen extends StatefulWidget {
+  const AppointmentRescheduleScreen({super.key});
 
   @override
-  State<BookingDetails> createState() => _BookingDetailsState();
+  State<AppointmentRescheduleScreen> createState() => _AppointmentRescheduleScreenState();
 }
 
-class _BookingDetailsState extends State<BookingDetails> {
+class _AppointmentRescheduleScreenState extends State<AppointmentRescheduleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +64,7 @@ class _BookingDetailsState extends State<BookingDetails> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: PrimaryButton(buttonText: 'Done', onPressed: () {
-          Get.offAllNamed('/Doctordetails');
+          Get.back();
         },),
       ),
      body: Padding(
@@ -87,7 +87,7 @@ class _BookingDetailsState extends State<BookingDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: 
             [
-              Text('Booking Information' ,style: semiBoldBlack16, ),
+              Text('Booking has been rescheduled' ,style: semiBoldBlack20, ),
               mediumSpace20,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,8 +98,8 @@ class _BookingDetailsState extends State<BookingDetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Date & Time' ,style: semiBoldBlack14,),
-                    Text('Wednesday, 08 May 2023' ,style: semiBoldBlack12,),
-                    Text('08.30 AM' ,style: semiBoldBlack12,),
+                    Text('Wednesday, 08 May 2023' ,style: smallNormalGrey12,),
+                    Text('08.30 AM' ,style: smallNormalGrey12,),
                   ]),
               ],),
               smallSpace,
@@ -114,7 +114,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Appointment Type' ,style: semiBoldBlack14,),
-                      Text('In Person' ,style: semiBoldBlack12,),
+                      Text('In Person' ,style: smallNormalGrey12,),
                     ],), 
                     ],),
               smallSpace,

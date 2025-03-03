@@ -61,7 +61,7 @@ class _SortScreenState extends State<SortScreen> {
             height: 50,
             child: ListView.separated(
               separatorBuilder: (context, index) {
-                return mediumSpace;
+                return mediumSpace20;
               },
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
@@ -102,7 +102,7 @@ class _SortScreenState extends State<SortScreen> {
             height: 50,
             child: ListView.separated(
               separatorBuilder: (context, index) {
-                return mediumSpace;
+                return mediumSpace20;
               },
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,

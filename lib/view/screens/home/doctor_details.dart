@@ -46,7 +46,7 @@ class _DoctordetailsState extends State<Doctordetails>
             AppBarIcon(
               onTap: () {
                 Get.offAll(
-                  const RecommandationDoctorScreen(),
+                   const RecommandationDoctorScreen(),
                   transition: Transition.leftToRight,
                 );
               },
@@ -184,30 +184,30 @@ class _DoctordetailsState extends State<Doctordetails>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                      mediumSpace,
+                      mediumSpace20,
                       Text('About me' , style: semiBoldBlack16,),
                       smallSpace,
                        Text(
                         'Dr. Jenny Watson is the top most Immunologists specialist in Christ Hospital at London.',
                         style: semiBoldGrey14,
                       ),
-                      mediumSpace,
+                      mediumSpace20,
                        Text('Working Time' , style: semiBoldBlack16,),
                        smallSpace,
                        Text(
                         'Monday - Friday, 08.00 AM - 20.00 PM',
                         style: semiBoldGrey14
                       ),
-                      mediumSpace,
+                      mediumSpace20,
                       Text('STR' , style: semiBoldBlack16,),
                       smallSpace,
                        Text(
                         '4726482464',
                         style: semiBoldGrey14),
                       
-                      mediumSpace,
+                      mediumSpace20,
                       Text('Pengalaman Praktik' , style: semiBoldBlack16,),                    
-                      mediumSpace,
+                      mediumSpace20,
                        const Text('RSPAD Gatot Soebroto' ,                      
                       style: TextStyle(fontSize: 14 ),),
                       smallSpace,
@@ -220,7 +220,7 @@ class _DoctordetailsState extends State<Doctordetails>
                   padding:  EdgeInsets.symmetric(horizontal: 32.h),
                   child: ListView.builder(itemBuilder: (context, index) {
                     return  Column(children: [
-                      mediumSpace,
+                      mediumSpace20,
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -261,7 +261,7 @@ class _DoctordetailsState extends State<Doctordetails>
               ],
             ),
           ),
-          mediumSpace,
+          mediumSpace20,
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: 16.h),
             child: PrimaryButton(buttonText: 'Make An Appointment', onPressed: () {
@@ -270,7 +270,7 @@ class _DoctordetailsState extends State<Doctordetails>
               );
             },),
           ),
-          mediumSpace
+          mediumSpace20
         ],
       ),
     );

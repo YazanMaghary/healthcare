@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
-import 'package:healthcare/model/user_model.dart';
 import 'package:healthcare/view/components/appBar.dart';
 import 'package:healthcare/view/components/appbar_button.dart';
 import 'package:healthcare/view/components/customprofile_card.dart';
@@ -68,7 +67,7 @@ class ProfileScreen extends StatelessWidget {
                       style: largeNormalGrey,
                     ),
                   ),
-                  mediumSpace,
+                  mediumSpace20,
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 24.w),
                     decoration: BoxDecoration(

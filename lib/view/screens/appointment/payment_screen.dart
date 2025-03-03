@@ -19,7 +19,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool _isCardExpanded = false;
   bool _isPayPalExpanded = false;
   bool _isBankTransferExpanded = false;
-
+  ExpansionTileController cardController = ExpansionTileController();
+  ExpansionTileController bankTransfeerController = ExpansionTileController();
+  ExpansionTileController paybalController = ExpansionTileController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,12 +50,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
               "Payment Option",
               style: semiBoldBlack16,
             ),
-            mediumSpace,
+            mediumSpace20,
             ExpansionTile(
+              controller: cardController,
               tilePadding: const EdgeInsets.symmetric(horizontal: 0),
               shape: Border.all(width: 0),
               onExpansionChanged: (value) {
                 _isCardExpanded = value;
+                bankTransfeerController.collapse();
+                paybalController.collapse();
                 if (value) {
                   _selectedOption = "card";
                 } else {
@@ -79,10 +84,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
               children: const [CardFormField()],
             ),
             largeSpace,
-            ExpansionTile(      shape: Border.all(width: 0),
+            ExpansionTile(
+              controller: bankTransfeerController,
+              shape: Border.all(width: 0),
               tilePadding: const EdgeInsets.symmetric(horizontal: 0),
               onExpansionChanged: (value) {
                 _isPayPalExpanded = value;
+                cardController.collapse();
+                paybalController.collapse();
                 if (value) {
                   _selectedOption = "BankTransfer";
                 } else {
@@ -110,10 +119,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ],
             ),
             largeSpace,
-            ExpansionTile(      shape: Border.all(width: 0),
+            ExpansionTile(
+              controller: paybalController,
+              shape: Border.all(width: 0),
               tilePadding: const EdgeInsets.symmetric(horizontal: 0),
               onExpansionChanged: (value) {
                 _isPayPalExpanded = value;
+                bankTransfeerController.collapse();
+                cardController.collapse();
                 if (value) {
                   _selectedOption = "PayPal";
                 } else {

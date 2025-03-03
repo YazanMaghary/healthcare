@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:healthcare/view/screens/appointment/appointment_reschedule_screen.dart';
+import 'package:healthcare/view/screens/appointment/reschedule_screen.dart';
 import 'package:healthcare/view/screens/auth/Otp_verfication.dart';
 import 'package:healthcare/view/screens/auth/forgot_password_screen.dart';
 import 'package:healthcare/view/screens/auth/login_screen.dart';
@@ -22,7 +24,6 @@ import 'package:healthcare/view/screens/appointment/payment_screen.dart';
 import 'package:healthcare/view/screens/profile/personal_information.dart';
 import 'package:healthcare/view/screens/profile/security_screen.dart';
 import 'package:healthcare/view/screens/profile/setting_screen.dart';
-
 
 List<GetPage> getpage = [
   GetPage(
@@ -63,7 +64,7 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/RecommandationDoctorScreen',
-      page: () => const RecommandationDoctorScreen(),
+      page: () => RecommandationDoctorScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/Doctordetails',
@@ -103,14 +104,22 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/PersonalInformation',
-      page: () =>  PersonalInformation(),
+      page: () => PersonalInformation(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/MedicalRecoredScreen',
-      page: () =>  const MedicalrecoredScreen(),
+      page: () => const MedicalrecoredScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/PaymentScreen',
-      page: () =>  const PaymentScreen(),
+      page: () => const PaymentScreen(),
+      transition: Transition.leftToRight),
+  GetPage(
+      name: '/RescheduleScreen',
+      page: () => RescheduleScreen(),
+      transition: Transition.leftToRight),
+  GetPage(
+      name: '/AppointmentRescheduleScreen',
+      page: () => AppointmentRescheduleScreen(),
       transition: Transition.leftToRight),
 ];
