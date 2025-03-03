@@ -53,7 +53,7 @@ class ProfilePictureScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  mediumSpace,
+                  mediumSpace20,
                   GetBuilder(
                     init: ProfileController(),
                     builder: (controller) {

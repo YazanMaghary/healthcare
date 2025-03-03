@@ -5,11 +5,12 @@ class AppBarButton extends StatelessWidget {
   final void Function() onTap;
   final IconData icon;
   final EdgeInsetsGeometry? margin;
+  final Color? color;
   const AppBarButton(
       {super.key,
       required this.onTap,
       required this.icon,
-      required this.margin});
+      required this.margin, this.color});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +23,7 @@ class AppBarButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Icon(
-            icon,
+            icon,color: color,
             size: 24,
           ),
         ));

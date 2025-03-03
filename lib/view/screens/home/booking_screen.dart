@@ -77,7 +77,7 @@ class _BookingScreenState extends State<BookingScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              mediumSpace,
+              mediumSpace20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -148,7 +148,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 'Available time',
                 style: semiBoldBlack16,
               ),
-              mediumSpace,
+              mediumSpace20,
               GridView.builder(
                 shrinkWrap: true,
                 itemCount: 6,
@@ -180,7 +180,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 'Appointment Type',
                 style: semiBoldBlack16,
               ),
-              mediumSpace,
+              mediumSpace20,
               RadioListTile(
                 activeColor: primaryColor,
                 controlAffinity: ListTileControlAffinity.trailing,

@@ -16,7 +16,7 @@ void main(List<String> args) async {
   await Stripe.instance.applySettings();
   await initialServices();
   await Future.delayed(const Duration(
-    seconds: 1,
+    seconds: 1, 
   ));
   FlutterNativeSplash.remove();
   runApp(MyApp());

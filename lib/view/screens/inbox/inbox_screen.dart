@@ -41,7 +41,7 @@ class _InboxScreenState extends State<InboxScreen> {
                             const SearchWidget(
                               hintText: "Search Message",
                             ),
-                            mediumSpace,
+                            mediumSpace20,
                             Expanded(
                               child: ListView.builder(
                                 itemCount: 10,
@@ -109,7 +109,7 @@ class _InboxScreenState extends State<InboxScreen> {
             const SearchWidget(
               hintText: "Search Message",
             ),
-            mediumSpace,
+            mediumSpace20,
             Expanded(
               child: ListView.builder(
                 itemCount: 10,
@@ -154,10 +154,10 @@ class _InboxScreenState extends State<InboxScreen> {
                                 width: 200.w,
                                 child: Text(
                                   "Fine, I'll do a check. Does the patient have a history of certain diseases?",
-                                  style: mediumNormalGrey,
+                                  style: smallNormalGrey12,
                                 ),
                               ),
-                              mediumSpace
+                              mediumSpace20
                             ],
                           ),
                           Expanded(

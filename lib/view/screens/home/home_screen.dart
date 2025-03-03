@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Hi Momon!',
+                "Yazan Maghary",
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
@@ -50,9 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           GestureDetector(
             onTap: () {
-              Get.offNamed(
-              '/NotificationsScreen'
-              );
+              Get.offNamed('/NotificationsScreen');
             },
             child: Container(
               margin: const EdgeInsets.only(
@@ -82,7 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           GestureDetector(
             onTap: () {
-          
               box?.remove("Token");
               Get.offNamed(
                 '/LoginScreen',
@@ -112,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
             physics: const BouncingScrollPhysics(),
             children: [
               SizedBox(
-                height:250.h,
+                height: 250.h,
                 child: Stack(children: [
                   Positioned(
                     left: 0,
@@ -132,21 +129,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                               Text(
-                                'Book and \nschedule with \nnearest doctor',
-                                style:semiBoldWhite18
-                              ),
-                              mediumSpace,
+                              Text('Book and \nschedule with \nnearest doctor',
+                                  style: semiBoldWhite18),
+                              mediumSpace20,
                               ElevatedButton(
                                 onPressed: () {},
-                                child:  Padding(
+                                child: Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 12.h, vertical: 16.w),
-                                  child:const Text(
+                                  child: const Text(
                                     'Find Nearby',
                                     style: TextStyle(
-                                        color: primaryColor, fontSize: 12
-                                        ),
+                                        color: primaryColor, fontSize: 12),
                                   ),
                                 ),
                               ),
@@ -169,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ]),
               ),
-              mediumSpace,
+              mediumSpace20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -177,11 +171,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Doctor Speciality',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  CustumTextButton(title: 'See All', onTap: () {
-                    Get.offNamed(
-                        '/DoctorSpeciality'
-                    );
-                  }),
+                  CustumTextButton(
+                      title: 'See All',
+                      onTap: () {
+                        Get.offNamed('/DoctorSpeciality');
+                      }),
                 ],
               ),
               smallSpace,
@@ -206,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              mediumSpace,
+              mediumSpace20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -217,12 +211,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  CustumTextButton(title: 'See All', onTap: () {
-                    Get.offNamed(
-                      '/RecommandationDoctorScreen'
-                    );
-                  }),
-
+                  CustumTextButton(
+                      title: 'See All',
+                      onTap: () {
+                        Get.offNamed('/RecommandationDoctorScreen');
+                      }),
                 ],
               ),
               smallSpace,
@@ -237,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                       Get.offNamed('/Doctordetails');
+                      Get.offNamed('/Doctordetails');
                     },
                     child: Row(
                       key: ValueKey(index),
@@ -249,26 +242,35 @@ class _HomeScreenState extends State<HomeScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                             Text(
+                            Text(
                               'Dr. Randy Wigham',
-                              style:semiBoldBlack16,
+                              style: semiBoldBlack16,
                             ),
                             smallSpace,
-                             Row(
+                            Row(
                               children: [
-                                Text('General' , style: smallNormalGrey,),
+                                Text(
+                                  'General',
+                                  style: smallNormalGrey,
+                                ),
                                 SizedBox(
                                   width: 8.w,
                                 ),
-                                Text('|', style: smallNormalGrey,),
+                                Text(
+                                  '|',
+                                  style: smallNormalGrey,
+                                ),
                                 SizedBox(
                                   width: 8.w,
                                 ),
-                                Text('RSUD Gatot Subroto' , style: smallNormalGrey,)
+                                Text(
+                                  'RSUD Gatot Subroto',
+                                  style: smallNormalGrey,
+                                )
                               ],
                             ),
                             smallSpace,
-                             Row(
+                            Row(
                               children: [
                                 const Icon(
                                   Icons.star,
@@ -280,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 Text(
                                   '4.8',
-                                  style:smallNormalGrey,
+                                  style: smallNormalGrey,
                                 ),
                                 SizedBox(
                                   width: 4.w,

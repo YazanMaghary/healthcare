@@ -9,6 +9,7 @@ EdgeInsetsGeometry mainPagePading =
     EdgeInsets.symmetric(horizontal: 12.w, vertical: 24.h);
 const Color scaffoldBackgroundColor = Color(0xFFFFFFFF);
 const Color primaryColor = Color(0xff247CFF);
+const Color greenLightColors = Color(0xff22C55E);
 
 const Color greyColor2 = Color(0xffE0E0E0);
 const Color greyColor = Color(0xff9E9E9E);
@@ -32,7 +33,10 @@ const Color successfullyColor = Color.fromARGB(255, 44, 207, 23);
 SizedBox largeSpace = SizedBox(height: 32.h);
 SizedBox smallSpace = SizedBox(height: 8.h);
 SizedBox smallSpace12 = SizedBox(height: 12.h);
-SizedBox mediumSpace = SizedBox(height: 20.h);
+SizedBox smallSpace14 = SizedBox(height: 14.h);
+SizedBox smallSpace16 = SizedBox(height: 16.h);
+SizedBox mediumSpace20 = SizedBox(height: 20.h);
+SizedBox mediumSpace24 = SizedBox(height: 24.h);
 //Text And String styles
 TextStyle largeBoldBlue = GoogleFonts.inter(
     fontSize: 32, fontWeight: FontWeight.bold, color: const Color(0xff247CFF));
@@ -43,20 +47,34 @@ TextStyle smallNormalWhite =
     GoogleFonts.inter(fontSize: 10, color: const Color(0xffffffff));
 TextStyle smallNormal =
     GoogleFonts.inter(fontSize: 10, );
-TextStyle mediumNormalGrey =
+TextStyle smallNormalGrey12 =
     GoogleFonts.inter(fontSize: 12, color: const Color(0xff757575));
+TextStyle smallboldGrey12 =
+    GoogleFonts.inter(fontSize: 12, color: const Color(0xff757575),fontWeight: FontWeight.bold);
 TextStyle mediumNormalBlack =
     GoogleFonts.inter(fontSize: 12,color: Colors.black);
 TextStyle largeNormalGrey =
     GoogleFonts.inter(fontSize: 14, color: const Color(0xff757575));
-TextStyle largeNormalBlack=
+TextStyle largeNormalBlack14=
     GoogleFonts.inter(fontSize: 14, );
-TextStyle largeNormalRed=
+TextStyle largeboldBlack16=
+    GoogleFonts.inter(fontSize: 16,fontWeight: FontWeight.bold );
+TextStyle largeNormalRed14=
     GoogleFonts.inter(fontSize: 14,color: redColor );
-TextStyle verylargeNormalRed=
+TextStyle smallNormalRed12=
+    GoogleFonts.inter(fontSize: 12,color: redColor );
+TextStyle verylargeNormalRed16=
     GoogleFonts.inter(fontSize: 16,color: redColor );
 TextStyle verylargeNormalBlue=
     GoogleFonts.inter(fontSize: 16,color: primaryColor );
+TextStyle smallboldblue12=
+    GoogleFonts.inter(fontSize: 12,color: primaryColor,fontWeight: FontWeight.bold );
+TextStyle smallnormallblue12=
+    GoogleFonts.inter(fontSize: 12,color: primaryColor );
+TextStyle smallnormallgreen12=
+    GoogleFonts.inter(fontSize: 12,color: greenLightColors, );
+TextStyle largeBoldBlue14=
+    GoogleFonts.inter(fontSize: 14,color: primaryColor,fontWeight: FontWeight.bold );
 TextStyle verylargeNormalBlack=
     GoogleFonts.inter(fontSize: 16,color: Colors.black );
 TextStyle semiBoldWhite18 =
@@ -64,7 +82,9 @@ TextStyle semiBoldWhite18 =
 TextStyle semiBoldWhite16 =
     GoogleFonts.inter(fontSize: 16 ,color: Colors.white);
 TextStyle semiBoldWhite14 =
-    GoogleFonts.inter(fontSize: 14 ,color: Colors.white);
+    GoogleFonts.inter(fontSize: 14 ,color: Colors.white,fontWeight: FontWeight.bold);
+TextStyle semiBoldWhite12 =
+    GoogleFonts.inter(fontSize: 12 ,color: Colors.white,fontWeight: FontWeight.bold);
 TextStyle semiBoldBlack18 =
     GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold);
 

@@ -46,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                         controller: emailController,
                         hintText: 'Email',
                       ),
-                      mediumSpace,
+                      mediumSpace20,
                       GetBuilder(
                         init: authController,
                         builder: (controller) {
@@ -74,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ],
                   )),
-              mediumSpace,
+              mediumSpace20,
               Row(
                 children: [
                   GetBuilder(
@@ -105,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              mediumSpace,
+              mediumSpace20,
               PrimaryButton(
                   buttonText: "Login",
                   onPressed: () async {
@@ -124,7 +124,7 @@ class LoginScreen extends StatelessWidget {
                       }
                     }
                   }),
-              mediumSpace,
+              mediumSpace20,
               const Spacer(),
               Center(
                 child: RichText(

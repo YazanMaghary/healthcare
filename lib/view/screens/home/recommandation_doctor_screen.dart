@@ -26,8 +26,33 @@ class _RecommandationDoctorScreenState
     'assets/images/listviewItem2.png',
     'assets/images/listviewItem3.png',
   ];
+  List<String> doctorName = [
+    'Dr.Randy Morton',
+    'Dr.YazanM',
+    'Dr.Hamdan Khattab',
+    'Dr.Jameel Awoda',
+    'Dr.Solimann Rami',
+    'Dr.Mike Ahmed',
+    'Dr.Jehad ELTaweel',
+    'Dr.YazanR',
+    'Dr.Anas Khrad',
+  ];
 
   final TextEditingController _controller = TextEditingController();
+  List<String> resultName = [];
+  List<String> resultImage = [];
+  void handleSearch(String input) {
+    resultName.clear();
+    resultImage.clear();
+    for (var i = 0; i < doctorName.length; i++) {
+      if (doctorName[i].toLowerCase().contains(input.toLowerCase())) {
+        resultName.add(doctorName[i]);
+        resultImage.add(imagesPath[i]);
+      }
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +68,7 @@ class _RecommandationDoctorScreenState
             ),
             GestureDetector(
               onTap: () {
-                Get.offNamed(
-                   '/MainAppScreen'
-                );
+                Get.offNamed('/MainAppScreen');
               },
               child: Container(
                 padding: const EdgeInsets.all(8),
@@ -104,12 +127,13 @@ class _RecommandationDoctorScreenState
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Column(
           children: [
-            mediumSpace,
+            mediumSpace20,
             Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: _controller,
+                    onChanged: handleSearch,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(12),
                       prefixIcon: Image.asset(searchImage),
@@ -148,91 +172,194 @@ class _RecommandationDoctorScreenState
                     }),
               ],
             ),
-            mediumSpace,
+            mediumSpace20,
             Expanded(
-              child: ListView.separated(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                itemCount: imagesPath.length,
-                separatorBuilder: (context, index) {
-                  return mediumSpace;
-                },
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Get.offNamed('/Doctordetails');
-                    },
-                    child: Material(
-                      shadowColor: greyBackground,
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          key: ValueKey(index),
-                          children: [
-                            Image.asset(imagesPath[index]),
-                            const SizedBox(
-                              width: 16,
+              child: resultName.isEmpty && resultImage.isEmpty
+                  ? ListView.separated(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      itemCount: imagesPath.length,
+                      separatorBuilder: (context, index) {
+                        return mediumSpace20;
+                      },
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Get.offNamed('/Doctordetails');
+                          },
+                          child: Material(
+                            shadowColor: greyBackground,
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                            elevation: 4,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Image.asset(imagesPath[index]),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        doctorName[index],
+                                        style: semiBoldBlack18,
+                                      ),
+                                      smallSpace,
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'General',
+                                            style: smallNormalGrey,
+                                          ),
+                                          SizedBox(
+                                            width: 8.w,
+                                          ),
+                                          Text(
+                                            '|',
+                                            style: smallNormalGrey,
+                                          ),
+                                          SizedBox(
+                                            width: 8.w,
+                                          ),
+                                          Text(
+                                            'RSUD Gatot Subroto',
+                                            style: smallNormalGrey,
+                                          )
+                                        ],
+                                      ),
+                                      smallSpace,
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.star,
+                                            color: starsColor,
+                                            size: 12,
+                                          ),
+                                          SizedBox(
+                                            width: 4.w,
+                                          ),
+                                          Text(
+                                            '4.8',
+                                            style: smallNormalGrey,
+                                          ),
+                                          SizedBox(
+                                            width: 4.w,
+                                          ),
+                                          Text(
+                                            '(4,279 reviews)',
+                                            style: smallNormalGrey,
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Dr. Randy Wigham',
-
-                                  style: semiBoldBlack18,
-
-                                ),
-                                smallSpace,
-                                Row(
-                                  children: [
-                                    Text('General',style: smallNormalGrey,),
-                                     SizedBox(
-                                      width: 8.w,
-                                    ),
-                                     Text('|' ,style: smallNormalGrey,),
-                                     SizedBox(
-                                      width: 8.w,
-                                    ),
-                                     Text('RSUD Gatot Subroto' ,style: smallNormalGrey,)
-                                  ],
-                                ),
-                                smallSpace,
-                                 Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.star,
-                                      color: starsColor,
-                                      size: 12,
-                                    ),
-                                    SizedBox(
-                                      width: 4.w,
-                                    ),
-                                    Text(
-                                      '4.8',
-                                      style: smallNormalGrey,
-                                    ),
-                                    SizedBox(
-                                      width: 4.w,
-                                    ),
-                                    Text(
-                                      '(4,279 reviews)',
-                                      style: smallNormalGrey,
-                                    )
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+                          ),
+                        );
+                      },
+                    )
+                  : ListView.separated(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      itemCount: resultName.length,
+                      separatorBuilder: (context, index) {
+                        return mediumSpace20;
+                      },
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Get.offNamed('/Doctordetails');
+                          },
+                          child: Material(
+                            shadowColor: greyBackground,
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                            elevation: 4,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Image.asset(resultImage[index]),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        resultName[index],
+                                        style: semiBoldBlack18,
+                                      ),
+                                      smallSpace,
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'General',
+                                            style: smallNormalGrey,
+                                          ),
+                                          SizedBox(
+                                            width: 8.w,
+                                          ),
+                                          Text(
+                                            '|',
+                                            style: smallNormalGrey,
+                                          ),
+                                          SizedBox(
+                                            width: 8.w,
+                                          ),
+                                          Text(
+                                            'RSUD Gatot Subroto',
+                                            style: smallNormalGrey,
+                                          )
+                                        ],
+                                      ),
+                                      smallSpace,
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.star,
+                                            color: starsColor,
+                                            size: 12,
+                                          ),
+                                          SizedBox(
+                                            width: 4.w,
+                                          ),
+                                          Text(
+                                            '4.8',
+                                            style: smallNormalGrey,
+                                          ),
+                                          SizedBox(
+                                            width: 4.w,
+                                          ),
+                                          Text(
+                                            '(4,279 reviews)',
+                                            style: smallNormalGrey,
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             ),
+            // Shimmer(child: Container(width: 200,height: 50,color: Colors.black,child: Text("data"),),enabled: true, gradient: LinearGradient(colors: [
+            //   Colors.red,
+            //   Colors.black,
+            // ]))
           ],
         ),
       ),

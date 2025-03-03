@@ -5,7 +5,6 @@ import 'package:healthcare/controller/auth_controller.dart';
 import 'package:healthcare/controller/profile_controller.dart';
 import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
-import 'package:healthcare/datasource/user_data_source.dart';
 import 'package:healthcare/model/user_model.dart';
 import 'package:healthcare/view/components/appBar.dart';
 import 'package:healthcare/view/components/appbar_button.dart';
@@ -118,19 +117,19 @@ class PersonalInformation extends StatelessWidget {
                     controller: userName,
                     hintText: 'Full Name',
                   ),
-                  mediumSpace,
+                  mediumSpace20,
                   CustomTextField(
                     hintText: 'Email',
                     initialValue: user.email,
                     enabled: false,
                   ),
-                  mediumSpace,
+                  mediumSpace20,
                   CustomTextField(
                     enabled: false,
                     hintText: 'Password',
                     initialValue: box?.read("password"),
                   ),
-                  mediumSpace,
+                  mediumSpace20,
                   IntlPhoneField(
                       controller: phone,
                       initialCountryCode: "PS",
