@@ -1,48 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare/controller/doctors_controller.dart';
 import 'package:healthcare/core/utils/app_images.dart';
+import 'package:healthcare/view/components/shimmer_wdget.dart';
 import '../../components/custom_card.dart';
 import 'main_app_screen.dart';
 
-class DoctorSpeciality extends StatefulWidget {
-  const DoctorSpeciality({super.key});
-
-  @override
-  State<DoctorSpeciality> createState() => _DoctorSpecialityState();
-}
-
-class _DoctorSpecialityState extends State<DoctorSpeciality> {
-  final List<String> specialities = [
-    'Optometry',
-    'ENT',
-    'Pediatric',
-    'Urologist',
-    'Dentistry',
-    'Intestine',
-    'Histologist',
-    'Hepatology',
-    'Cardiologist',
-    'Neurologic',
-    'Pulmonary',
-    'Optometry',
-  ];
-
-  final List<String> icons = [
-    optometryImage,
-    eNTImage,
-    pediatricImage,
-    urologistImage,
-    dentistryImage,
-    intestineImage,
-    histologistImage,
-    hepatologyImage,
-    cardiologistImage,
-    neurologicImage,
-    pulmonaryImage,
-    optometryImage,
-  ];
-
+class DoctorSpeciality extends StatelessWidget {
+  DoctorSpeciality({super.key});
+  DoctorsController doctorsController = Get.put(DoctorsController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,25 +57,37 @@ class _DoctorSpecialityState extends State<DoctorSpeciality> {
         ),
       ),
       body: Padding(
-        padding:  EdgeInsets.symmetric(
+        padding: EdgeInsets.symmetric(
           horizontal: 16.h,
           vertical: 16.w,
         ),
-        child: GridView.builder(
-          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, crossAxisSpacing: 8.h, mainAxisSpacing: 8.h),
-          itemCount: specialities.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Column(
-              children: [
-                mySpeciailtyCard(
-                  speciailtyImagePath: icons[index],
-                  speciailtyType: specialities[index],
-                ),
-              ],
-            );
-          },
-        ),
+        child: GetBuilder(
+            init: doctorsController,
+            builder: (controller) {
+              return GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 8.h,
+                    mainAxisSpacing: 8.h),
+                itemCount: doctorsController.categoriesList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  if (doctorsController.isCategoriesLoading) {
+                    return SpecialityShimmer();
+                  } else {
+                    return Column(
+                      children: [
+                        mySpeciailtyCard(
+                          speciailtyImagePath:
+                              doctorsController.categoriesList[index].image!,
+                          speciailtyType:
+                              doctorsController.categoriesList[index].name!,
+                        ),
+                      ],
+                    );
+                  }
+                },
+              );
+            }),
       ),
     );
   }

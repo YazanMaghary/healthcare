@@ -16,7 +16,7 @@ class AuthController extends GetxController {
   //make user controller class and move getMe fucntion form here to there to init the controller of the user and take the data from it
   void onInit() {
     // TODO: implement onInit
-    print("USWERQWEQWEQWEW");
+
     super.onInit();
   }
 

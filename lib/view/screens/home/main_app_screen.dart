@@ -22,7 +22,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
   int _selectedIndex = 0;
   final authController = Get.put(AuthController());
   static final List<Widget> _screens = [
-    const HomeScreen(),
+     HomeScreen(),
     const InboxScreen(),
     const SearchScreen(),
     const AppointmentScreen(),

@@ -125,7 +125,7 @@ class _RescheduleScreenState extends State<RescheduleScreen> {
                       child: ListView.builder(
                         itemCount: days.length,
                         controller: _scrollController,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {

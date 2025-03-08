@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 
 class mySpeciailtyCard extends StatelessWidget {
@@ -17,20 +18,22 @@ class mySpeciailtyCard extends StatelessWidget {
     return Column(
       children: [
         Container(
-          decoration: const BoxDecoration(
-              shape: BoxShape.circle, color: greyBackground),
-          padding:  EdgeInsets.all(24.h),
-          child: Image.asset(
-            speciailtyImagePath,
-            fit: BoxFit.cover,
-            width: 25.w,
-            height: 25.h,
-          ),
+          width: 50.w,
+          height: 50.w,
+          decoration:  BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                    "${ApiConstances.baseUrl}/${speciailtyImagePath}",
+                  )),
+              shape: BoxShape.circle,
+              color: greyBackground),
+          padding: EdgeInsets.all(24.h),
         ),
-         SizedBox(
+        SizedBox(
           height: 5.h,
         ),
-        Text(speciailtyType)
+        Text(speciailtyType,style: smallnormallBlack12,)
       ],
     );
   }

@@ -1,57 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare/controller/doctors_controller.dart';
+import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/view/screens/home/sort_screen.dart';
 
-class RecommandationDoctorScreen extends StatefulWidget {
-  const RecommandationDoctorScreen({super.key});
-
-  @override
-  State<RecommandationDoctorScreen> createState() =>
-      _RecommandationDoctorScreenState();
-}
-
-class _RecommandationDoctorScreenState
-    extends State<RecommandationDoctorScreen> {
-  List<String> imagesPath = [
-    'assets/images/listviewItem1.png',
-    'assets/images/listviewItem2.png',
-    'assets/images/listviewItem3.png',
-    'assets/images/listviewItem1.png',
-    'assets/images/listviewItem2.png',
-    'assets/images/listviewItem3.png',
-    'assets/images/listviewItem1.png',
-    'assets/images/listviewItem2.png',
-    'assets/images/listviewItem3.png',
-  ];
-  List<String> doctorName = [
-    'Dr.Randy Morton',
-    'Dr.YazanM',
-    'Dr.Hamdan Khattab',
-    'Dr.Jameel Awoda',
-    'Dr.Solimann Rami',
-    'Dr.Mike Ahmed',
-    'Dr.Jehad ELTaweel',
-    'Dr.YazanR',
-    'Dr.Anas Khrad',
-  ];
+class RecommandationDoctorScreen extends StatelessWidget {
+  RecommandationDoctorScreen({super.key});
 
   final TextEditingController _controller = TextEditingController();
-  List<String> resultName = [];
-  List<String> resultImage = [];
-  void handleSearch(String input) {
-    resultName.clear();
-    resultImage.clear();
-    for (var i = 0; i < doctorName.length; i++) {
-      if (doctorName[i].toLowerCase().contains(input.toLowerCase())) {
-        resultName.add(doctorName[i]);
-        resultImage.add(imagesPath[i]);
-      }
-    }
-    setState(() {});
-  }
+
+  final DoctorsController doctorsController = Get.put(DoctorsController());
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +94,7 @@ class _RecommandationDoctorScreenState
                 Expanded(
                   child: TextField(
                     controller: _controller,
-                    onChanged: handleSearch,
+                    onChanged: doctorsController.handleSearch,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(12),
                       prefixIcon: Image.asset(searchImage),
@@ -173,188 +134,227 @@ class _RecommandationDoctorScreenState
               ],
             ),
             mediumSpace20,
-            Expanded(
-              child: resultName.isEmpty && resultImage.isEmpty
-                  ? ListView.separated(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      itemCount: imagesPath.length,
-                      separatorBuilder: (context, index) {
-                        return mediumSpace20;
-                      },
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Get.offNamed('/Doctordetails');
+            GetBuilder(
+              init: doctorsController,
+              builder: (GetxController controller) {
+                return Expanded(
+                  child: doctorsController.doctorsListFilter.isEmpty
+                      ? ListView.separated(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          itemCount: doctorsController.doctorsList.length,
+                          separatorBuilder: (context, index) {
+                            return mediumSpace20;
                           },
-                          child: Material(
-                            shadowColor: greyBackground,
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                            elevation: 4,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Image.asset(imagesPath[index]),
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Get.offNamed('/Doctordetails');
+                              },
+                              child: Material(
+                                shadowColor: greyBackground,
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15),
+                                elevation: 4,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
                                     children: [
-                                      Text(
-                                        doctorName[index],
-                                        style: semiBoldBlack18,
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                fit: BoxFit.fill,
+                                                image: NetworkImage(
+                                                    "${ApiConstances.baseUrl}/${doctorsController.doctorsList[index].user?.image}")),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20.r))),
+                                        width: 110.w,
+                                        height: 110.w,
                                       ),
-                                      smallSpace,
-                                      Row(
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'General',
-                                            style: smallNormalGrey,
+                                            doctorsController
+                                                .doctorsList[index].user!.name!,
+                                            style: semiBoldBlack18,
                                           ),
-                                          SizedBox(
-                                            width: 8.w,
+                                          smallSpace,
+                                          Row(
+                                            children: [
+                                              Text(
+                                                doctorsController
+                                                    .doctorsList[index]
+                                                    .specialization!
+                                                    .name!,
+                                                style: smallNormalGrey,
+                                              ),
+                                              SizedBox(
+                                                width: 8.w,
+                                              ),
+                                              Text(
+                                                '|',
+                                                style: smallNormalGrey,
+                                              ),
+                                              SizedBox(
+                                                width: 8.w,
+                                              ),
+                                              Text(
+                                                doctorsController
+                                                    .doctorsList[index]
+                                                    .hospital!,
+                                                style: smallNormalGrey,
+                                              )
+                                            ],
                                           ),
-                                          Text(
-                                            '|',
-                                            style: smallNormalGrey,
-                                          ),
-                                          SizedBox(
-                                            width: 8.w,
-                                          ),
-                                          Text(
-                                            'RSUD Gatot Subroto',
-                                            style: smallNormalGrey,
-                                          )
-                                        ],
-                                      ),
-                                      smallSpace,
-                                      Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.star,
-                                            color: starsColor,
-                                            size: 12,
-                                          ),
-                                          SizedBox(
-                                            width: 4.w,
-                                          ),
-                                          Text(
-                                            '4.8',
-                                            style: smallNormalGrey,
-                                          ),
-                                          SizedBox(
-                                            width: 4.w,
-                                          ),
-                                          Text(
-                                            '(4,279 reviews)',
-                                            style: smallNormalGrey,
+                                          smallSpace,
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.star,
+                                                color: starsColor,
+                                                size: 12,
+                                              ),
+                                              SizedBox(
+                                                width: 4.w,
+                                              ),
+                                              Text(
+                                                "${doctorsController.doctorsList[index].rating?.averageRating}",
+                                                style: smallNormalGrey,
+                                              ),
+                                              SizedBox(
+                                                width: 4.w,
+                                              ),
+                                              Text(
+                                                "${doctorsController.doctorsList[index].rating?.numberOfReviews}",
+                                                style: smallNormalGrey,
+                                              )
+                                            ],
                                           )
                                         ],
                                       )
                                     ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    )
-                  : ListView.separated(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      itemCount: resultName.length,
-                      separatorBuilder: (context, index) {
-                        return mediumSpace20;
-                      },
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Get.offNamed('/Doctordetails');
-                          },
-                          child: Material(
-                            shadowColor: greyBackground,
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                            elevation: 4,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Image.asset(resultImage[index]),
-                                  const SizedBox(
-                                    width: 16,
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      : ListView.separated(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          itemCount: doctorsController.doctorsListFilter.length,
+                          separatorBuilder: (context, index) {
+                            return mediumSpace20;
+                          },
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Get.offNamed('/Doctordetails');
+                              },
+                              child: Material(
+                                shadowColor: greyBackground,
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15),
+                                elevation: 4,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
                                     children: [
-                                      Text(
-                                        resultName[index],
-                                        style: semiBoldBlack18,
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                fit: BoxFit.fill,
+                                                image: NetworkImage(
+                                                    "${ApiConstances.baseUrl}/${doctorsController.doctorsListFilter[index].user?.image}")),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20.r))),
+                                        width: 110.w,
+                                        height: 110.w,
                                       ),
-                                      smallSpace,
-                                      Row(
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'General',
-                                            style: smallNormalGrey,
+                                            doctorsController
+                                                .doctorsListFilter[index]
+                                                .user!
+                                                .name!,
+                                            style: semiBoldBlack18,
                                           ),
-                                          SizedBox(
-                                            width: 8.w,
+                                          smallSpace,
+                                          Row(
+                                            children: [
+                                              Text(
+                                                doctorsController
+                                                    .doctorsListFilter[index]
+                                                    .specialization!
+                                                    .name!,
+                                                style: smallNormalGrey,
+                                              ),
+                                              SizedBox(
+                                                width: 8.w,
+                                              ),
+                                              Text(
+                                                '|',
+                                                style: smallNormalGrey,
+                                              ),
+                                              SizedBox(
+                                                width: 8.w,
+                                              ),
+                                              Text(
+                                                doctorsController
+                                                    .doctorsListFilter[index]
+                                                    .hospital!,
+                                                style: smallNormalGrey,
+                                              )
+                                            ],
                                           ),
-                                          Text(
-                                            '|',
-                                            style: smallNormalGrey,
-                                          ),
-                                          SizedBox(
-                                            width: 8.w,
-                                          ),
-                                          Text(
-                                            'RSUD Gatot Subroto',
-                                            style: smallNormalGrey,
-                                          )
-                                        ],
-                                      ),
-                                      smallSpace,
-                                      Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.star,
-                                            color: starsColor,
-                                            size: 12,
-                                          ),
-                                          SizedBox(
-                                            width: 4.w,
-                                          ),
-                                          Text(
-                                            '4.8',
-                                            style: smallNormalGrey,
-                                          ),
-                                          SizedBox(
-                                            width: 4.w,
-                                          ),
-                                          Text(
-                                            '(4,279 reviews)',
-                                            style: smallNormalGrey,
+                                          smallSpace,
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.star,
+                                                color: starsColor,
+                                                size: 12,
+                                              ),
+                                              SizedBox(
+                                                width: 4.w,
+                                              ),
+                                              Text(
+                                                "${doctorsController.doctorsListFilter[index].rating!.averageRating}",
+                                                style: smallNormalGrey,
+                                              ),
+                                              SizedBox(
+                                                width: 4.w,
+                                              ),
+                                              Text(
+                                                "${doctorsController.doctorsListFilter[index].rating!.numberOfReviews}",
+                                                style: smallNormalGrey,
+                                              )
+                                            ],
                                           )
                                         ],
                                       )
                                     ],
-                                  )
-                                ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                            );
+                          },
+                        ),
+                );
+              },
             ),
             // Shimmer(child: Container(width: 200,height: 50,color: Colors.black,child: Text("data"),),enabled: true, gradient: LinearGradient(colors: [
             //   Colors.red,
