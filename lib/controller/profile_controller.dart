@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare/controller/doctors_controller.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/datasource/user_data_source.dart';
 import 'package:healthcare/view/components/bottomsheet.dart';
@@ -9,12 +10,10 @@ import 'package:image_picker/image_picker.dart';
 
 class ProfileController extends GetxController {
   File? image;
- 
 
   final UserDataSource userDataSource = UserDataSource();
   final ImagePicker _picker = ImagePicker();
-  
-
+  final doctorsController = Get.put(DoctorsController());
   Future<void> updateUserProfile({String? name, String? phone}) async {
     final result = await userDataSource.updateUserProfile({
       "name": name!,
@@ -22,8 +21,10 @@ class ProfileController extends GetxController {
     });
     result.fold((failure) {
       failureWidget('Error', failure);
-    }, (success) {
+    }, (success) async {
       successfullyWidget("Done", "User updated successfully");
+      await doctorsController.GetDoctors();
+
       Get.offAllNamed("/MainAppScreen");
     });
   }

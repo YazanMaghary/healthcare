@@ -7,4 +7,6 @@ class ApiConstances {
   static const String forgotPassword = "$baseUrl/api/auth/forgot-password";
   static const String getMe = "$baseUrl/api/users/me";
   static const String updateUser = "$baseUrl/api/users"; 
+  static const String getDoctors = "$baseUrl/api/doctors/"; 
+  static const String getDoctorsSpecality = "$baseUrl/api/categories"; 
 }

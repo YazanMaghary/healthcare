@@ -46,7 +46,7 @@ class _DoctordetailsState extends State<Doctordetails>
             AppBarIcon(
               onTap: () {
                 Get.offAll(
-                   const RecommandationDoctorScreen(),
+                    RecommandationDoctorScreen(),
                   transition: Transition.leftToRight,
                 );
               },

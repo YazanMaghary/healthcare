@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:healthcare/controller/doctors_controller.dart';
 import 'package:healthcare/view/screens/appointment/appointment_reschedule_screen.dart';
 import 'package:healthcare/view/screens/appointment/reschedule_screen.dart';
 import 'package:healthcare/view/screens/auth/Otp_verfication.dart';
@@ -52,19 +53,24 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/MainAppScreen',
+      binding: BindingsBuilder(
+        () {
+          Get.put(DoctorsController());
+        },
+      ),
       page: () => const MainAppScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/HomeScreen',
-      page: () => const HomeScreen(),
+      page: () => HomeScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/DoctorSpeciality',
-      page: () => const DoctorSpeciality(),
+      page: () =>  DoctorSpeciality(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/RecommandationDoctorScreen',
-      page: () => RecommandationDoctorScreen(),
+      page: () =>  RecommandationDoctorScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/Doctordetails',
@@ -116,10 +122,10 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/RescheduleScreen',
-      page: () => RescheduleScreen(),
+      page: () => const RescheduleScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/AppointmentRescheduleScreen',
-      page: () => AppointmentRescheduleScreen(),
+      page: () => const AppointmentRescheduleScreen(),
       transition: Transition.leftToRight),
 ];

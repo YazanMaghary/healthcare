@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/utils.dart';
-import 'package:healthcare/controller/auth_controller.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
-import 'package:healthcare/view/components/primary_button.dart';
 
 class AppointmentUpcoming extends StatelessWidget {
   const AppointmentUpcoming({super.key});

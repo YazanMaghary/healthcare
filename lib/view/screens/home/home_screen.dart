@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare/controller/doctors_controller.dart';
+import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/view/components/custom_card.dart';
+import 'package:healthcare/view/components/shimmer_wdget.dart';
 import 'package:healthcare/view/components/text_button.dart';
+import 'package:shimmer/shimmer.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
+  final DoctorsController doctorsController = Get.put(DoctorsController());
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  List<String> imagesPath = [
-    'assets/images/listviewItem1.png',
-    'assets/images/listviewItem2.png',
-    'assets/images/listviewItem3.png'
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
@@ -179,27 +174,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               smallSpace,
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  mySpeciailtyCard(
-                    speciailtyImagePath: 'assets/images/General.png',
-                    speciailtyType: 'General',
-                  ),
-                  mySpeciailtyCard(
-                    speciailtyImagePath: 'assets/images/ENT.png',
-                    speciailtyType: 'Neurologic',
-                  ),
-                  mySpeciailtyCard(
-                    speciailtyImagePath: 'assets/images/Pediatric.png',
-                    speciailtyType: 'Pediatric',
-                  ),
-                  mySpeciailtyCard(
-                    speciailtyImagePath: 'assets/images/Urologist.png',
-                    speciailtyType: 'Radiology',
-                  ),
-                ],
-              ),
+              GetBuilder(
+                  init: doctorsController,
+                  builder: (controller) {
+                    if (doctorsController.isCategoriesLoading ==true) {
+                      return SpecialityShimmer();
+                    }else {
+                      return ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: doctorsController.categoriesList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return mySpeciailtyCard(
+                          speciailtyImagePath:
+                              "${doctorsController.categoriesList[index].image}",
+                          speciailtyType:
+                              doctorsController.categoriesList[index].name!,
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(
+                          width: 5.w,
+                        );
+                      },
+                    );
+                
+                    }
+                    }),
               mediumSpace20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -219,85 +219,115 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               smallSpace,
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                itemCount: imagesPath.length,
-                separatorBuilder: (context, index) {
-                  return smallSpace;
-                },
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Get.offNamed('/Doctordetails');
-                    },
-                    child: Row(
-                      key: ValueKey(index),
-                      children: [
-                        Image.asset(imagesPath[index]),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Dr. Randy Wigham',
-                              style: semiBoldBlack16,
-                            ),
-                            smallSpace,
-                            Row(
-                              children: [
-                                Text(
-                                  'General',
-                                  style: smallNormalGrey,
-                                ),
-                                SizedBox(
-                                  width: 8.w,
-                                ),
-                                Text(
-                                  '|',
-                                  style: smallNormalGrey,
-                                ),
-                                SizedBox(
-                                  width: 8.w,
-                                ),
-                                Text(
-                                  'RSUD Gatot Subroto',
-                                  style: smallNormalGrey,
-                                )
-                              ],
-                            ),
-                            smallSpace,
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.star,
-                                  color: starsColor,
-                                  size: 12,
-                                ),
-                                SizedBox(
-                                  width: 4.w,
-                                ),
-                                Text(
-                                  '4.8',
-                                  style: smallNormalGrey,
-                                ),
-                                SizedBox(
-                                  width: 4.w,
-                                ),
-                                Text(
-                                  '(4,279 reviews)',
-                                  style: smallNormalGrey,
-                                )
-                              ],
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  );
+              GetBuilder<DoctorsController>(
+                init: doctorsController,
+                builder: (GetxController controller) {
+                  if (doctorsController.isDoctorsLoading) {
+                    //GradiantColor
+                    //Here
+                    return doctorCardShimmer();
+                  } else {
+                    return ListView.separated(
+                      key: UniqueKey(),
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                      itemCount: doctorsController.doctorsList.length,
+                      separatorBuilder: (context, index) {
+                        return smallSpace;
+                      },
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Get.offNamed('/Doctordetails');
+                          },
+                          child: Row(
+                            key: ValueKey(index),
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage(
+                                            "${ApiConstances.baseUrl}/${doctorsController.doctorsList[index].user?.image}")),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.r))),
+                                width: 110.w,
+                                height: 110.w,
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    doctorsController
+                                        .doctorsList[index].user!.name!,
+                                    style: semiBoldBlack16,
+                                  ),
+                                  smallSpace,
+                                  Row(
+                                    children: [
+                                      Text(
+                                        doctorsController.doctorsList[index]
+                                            .specialization!.name!,
+                                        style: smallNormalGrey,
+                                      ),
+                                      SizedBox(
+                                        width: 8.w,
+                                      ),
+                                      Text(
+                                        '|',
+                                        style: smallNormalGrey,
+                                      ),
+                                      SizedBox(
+                                        width: 8.w,
+                                      ),
+                                      Text(
+                                        doctorsController
+                                            .doctorsList[index].hospital!,
+                                        style: smallNormalGrey,
+                                      )
+                                    ],
+                                  ),
+                                  smallSpace,
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.star,
+                                        color: starsColor,
+                                        size: 12,
+                                      ),
+                                      SizedBox(
+                                        width: 4.w,
+                                      ),
+                                      Text(
+                                        doctorsController.doctorsList[index]
+                                            .rating!.averageRating
+                                            .toString(),
+                                        style: smallNormalGrey,
+                                      ),
+                                      SizedBox(
+                                        width: 4.w,
+                                      ),
+                                      Text(
+                                        doctorsController.doctorsList[index]
+                                            .rating!.numberOfReviews
+                                            .toString(),
+                                        style: smallNormalGrey,
+                                      )
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  }
                 },
               ),
             ],

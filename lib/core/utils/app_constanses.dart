@@ -99,4 +99,6 @@ TextStyle semiBoldBlack14 =
     GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold);
 TextStyle semiBoldBlack12 =
     GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold);
+TextStyle smallnormallBlack12 =
+    GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold);
 
