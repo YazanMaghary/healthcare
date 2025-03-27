@@ -127,9 +127,9 @@ class _BookingSummaryState extends State<BookingSummary> {
                     ),
                    
                   ],
-                ),smallSpace,
+                ),smallSpace4,
                  const Divider(indent: 10,endIndent: 10,),
-                     smallSpace,
+                     smallSpace4,
                  Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -144,7 +144,7 @@ class _BookingSummaryState extends State<BookingSummary> {
                     ),
                    
                   ],
-                ),smallSpace,
+                ),smallSpace4,
                  const Divider(indent: 10,endIndent: 10,),
                    largeSpace,
                 Text('Payment Information' ,style: semiBoldBlack16, ),

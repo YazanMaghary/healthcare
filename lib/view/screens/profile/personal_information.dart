@@ -13,12 +13,10 @@ import 'package:healthcare/view/components/primary_button.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 // ignore: must_be_immutable
-class PersonalInformation extends StatelessWidget {
+class PersonalInformation extends GetView {
   PersonalInformation({super.key});
   final profileController = Get.put(ProfileController());
-  final authController = Get.put(
-    AuthController(),
-  );
+  final authController = Get.find<AuthController>();
 
   User user = box?.read("User");
   TextEditingController userName =
@@ -175,13 +173,17 @@ class PersonalInformation extends StatelessWidget {
                             profileController.image == "") {
                           print("Edited succesfully");
                           await ProfileController().updateUserProfile(
-                              name: userName.text, phone: phone.text);
+                              name: userName.text, phone: phone.text).whenComplete(() async {
+                                    await authController.tookenExpired();
+                              },);
                         } else {
                           await ProfileController().updateUserProfileWithImage(
                               userName.text,
                               phone.text,
                               profileController.image,
-                              true);
+                              true).whenComplete(() async{
+                                    await authController.tookenExpired();
+                              },);
                         }
                       }),
 

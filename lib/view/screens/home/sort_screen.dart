@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:healthcare/controller/doctors_controller.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 
 class SortScreen extends StatefulWidget {
@@ -10,6 +12,7 @@ class SortScreen extends StatefulWidget {
 }
 
 class _SortScreenState extends State<SortScreen> {
+  DoctorsController doctorsController = Get.find<DoctorsController>();
   final List<String> specialities = [
     'General',
     'ENT',
@@ -26,7 +29,7 @@ class _SortScreenState extends State<SortScreen> {
   ];
 
   int _isSelectedSpeciality = 0;
-  int _isSelectedRaring = 0;
+  int _isSelectedRating = 0;
 
   int indexItem = 6;
 
@@ -65,12 +68,27 @@ class _SortScreenState extends State<SortScreen> {
               },
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: specialities.length + 1,
+              itemCount: doctorsController.categoriesList.length + 1,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
+                      //Filter Here need Get from Post Man for Better Searching Filtter
                       _isSelectedSpeciality = index;
+                      if (_isSelectedSpeciality - 1 < 0) {
+                        doctorsController.categoriesFilter("ALL");
+                      } else {
+                        print(doctorsController
+                            .categoriesList[_isSelectedSpeciality - 1].name!);
+
+                        doctorsController.categoriesFilter(
+                            doctorsController.categoriesList[index - 1].name!);
+                      }
+
+                      print(doctorsController.doctorsListFilter);
+                      for (var element in doctorsController.doctorsListFilter) {
+                          print(element.hospital);
+                        }
                     });
                   },
                   child: Container(
@@ -85,7 +103,9 @@ class _SortScreenState extends State<SortScreen> {
                       horizontal: 32,
                     ),
                     child: Text(
-                      index == 0 ? 'All' : specialities[index - 1],
+                      index == 0
+                          ? 'All'
+                          : doctorsController.categoriesList[index - 1].name!,
                       style: _isSelectedSpeciality != index
                           ? semiBoldGrey
                           : semiBoldWhite16,
@@ -111,13 +131,19 @@ class _SortScreenState extends State<SortScreen> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      _isSelectedRaring = index;
+                      _isSelectedRating = index;
+
+                      if (_isSelectedRating - 1 < 0) {
+                        doctorsController.ratingFilter(-1);
+                      } else {
+                        doctorsController.ratingFilter(indexItem - index);
+                      }
                     });
                   },
                   child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        color: _isSelectedRaring != index
+                        color: _isSelectedRating != index
                             ? greyBackground
                             : primaryColor,
                         borderRadius: BorderRadius.circular(25)),
@@ -129,7 +155,7 @@ class _SortScreenState extends State<SortScreen> {
                       children: [
                         Icon(
                           Icons.star,
-                          color: _isSelectedRaring != index
+                          color: _isSelectedRating != index
                               ? const Color(0xffC2C2C2)
                               : Colors.white,
                         ),
@@ -138,7 +164,7 @@ class _SortScreenState extends State<SortScreen> {
                         ),
                         Text(
                           index == 0 ? 'All' : '${indexItem - index}',
-                          style: _isSelectedRaring != index
+                          style: _isSelectedRating != index
                               ? semiBoldGrey
                               : semiBoldWhite16,
                         ),

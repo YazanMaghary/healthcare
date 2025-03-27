@@ -19,7 +19,7 @@ class DoctorsDataSource {
         ),
       );
       DoctorsModel doctors = DoctorsModel.fromJson(response.data);
-    
+
       return Right(doctors);
     } on DioException catch (e) {
       print("Dio Exception Error");
@@ -33,7 +33,34 @@ class DoctorsDataSource {
       return const Left('An unexpected error occurred');
     }
   }
-  //Create Category Model 
+
+  //get doctor by id
+  Future<Either<String, Doctor>> getDoctorById(String id) async {
+    try {
+      final response = await dio.get(
+        "${ApiConstances.getDoctors}$id",
+        options: Options(
+          headers: {
+            'Authorization': "Bearer ${box?.read("Token")}",
+          },
+        ),
+      );
+      Doctor doctor = Doctor.fromJson(response.data["data"]);
+      return Right(doctor);
+    } on DioException catch (e) {
+      print("Dio Exception Error");
+      ErrorModel errorModel = ErrorModel.fromJson(e.response?.data ??
+          {'message': "No Internet Connection", 'Error': "Internet related"});
+      print(errorModel.message);
+      return Left(errorModel.message ?? 'Connection Error');
+    } catch (e) {
+      print("Global catch Error");
+      print(e.toString());
+      return const Left('An unexpected error occurred');
+    }
+  }
+
+  //Create Category Model
   Future<Either<String, CategoryModel>> getDoctorsSpecality() async {
     try {
       final response = await dio.get(
@@ -45,7 +72,7 @@ class DoctorsDataSource {
         ),
       );
       CategoryModel categories = CategoryModel.fromJson(response.data);
-     
+
       return Right(categories);
     } on DioException catch (e) {
       print("Dio Exception Error");

@@ -4,10 +4,8 @@ import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/appBar.dart';
 import 'package:healthcare/view/components/appbar_button.dart';
-import 'package:healthcare/view/components/booking_stage.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/components/text_button.dart';
-import 'package:healthcare/view/screens/home/doctor_details.dart';
 
 class RescheduleScreen extends StatefulWidget {
   const RescheduleScreen({super.key});

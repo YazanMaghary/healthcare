@@ -11,15 +11,14 @@ class AuthController extends GetxController {
   bool remmeberPassword = false;
   bool showPassword = true;
   bool isButtonEnabled = true;
+  UserModel? userModel;
+  User? user;
   AuthDataSource authDataSource = AuthDataSource();
   @override
-  //make user controller class and move getMe fucntion form here to there to init the controller of the user and take the data from it
-  void onInit() {
+  void onInit() async{
     // TODO: implement onInit
-
     super.onInit();
   }
-
   void checkButton() {
     if (isButtonEnabled) {
       enableButton();
@@ -40,27 +39,29 @@ class AuthController extends GetxController {
   }
 
   Future<void> login(String email, String password) async {
+    // final db = FirebaseFirestore.instance;
     disableButton();
     Timer(const Duration(seconds: 1), () async {
       final result = await authDataSource
           .login({"email": email, "password": password}).whenComplete(
-        () {
+        () async {
           enableButton();
         },
       );
       result.fold((failure) {
+        print("Failed to login");
         failureWidget('Error', failure);
-      }, (success) {
-        // Handle successful login
-        print("success");
-
+      }, (success) async {
+        print("success to login");
         print(success.user?.name);
+        userModel = success;
         print(success.token);
-        if (remmeberPassword == true) {
-          box?.write("Token", success.token!);
-        } else {
-          box?.write("Token", "");
-        }
+        // db.collection("${success.user?.id}").doc("First Doctor");
+        //Here 1
+        box?.write("Token", success.token);
+        box?.write("remmeberPassword", remmeberPassword);
+        // box?.write("Token2", success.token);
+
         if (success.user?.isVerified == true) {
           Get.offAllNamed("/MainAppScreen")?.whenComplete(
             () {
@@ -214,54 +215,35 @@ class AuthController extends GetxController {
     );
   }
 
-  Future<void> tookenExpired() async {
-    final result = await authDataSource.getMe();
+  Future<User> tookenExpired() async {
+    final result = await authDataSource.getMe(box?.read("Token") ?? "");
     result.fold((failure) {
       // Show dialog on failure
-      print(failure);
-      if (box?.read("Token") != "" || box?.read("Token") != null) {
-        print("Here");
-        print(failure);
-        print(box?.read("Token"));
-        Get.dialog(
-          AlertDialog(
-            title: const Text('Error',
-                style:
-                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-            content: const Text(
-                'Your session has expired. Please log in again.',
-                style: TextStyle(color: Colors.black)),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            backgroundColor: Colors.white,
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Get.offAllNamed("/LoginScreen");
-                },
-                child: const Text('OK', style: TextStyle(color: Colors.blue)),
-              ),
-            ],
+
+      Get.dialog(
+        AlertDialog(
+          title: const Text('Error',
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+          content: const Text('Your session has expired. Please log in again.',
+              style: TextStyle(color: Colors.black)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
           ),
-          barrierDismissible: false,
-        );
-      }
-      box?.remove("Token");
+          backgroundColor: Colors.white,
+          actions: [
+            TextButton(
+              onPressed: () {
+                Get.offAllNamed("/LoginScreen");
+              },
+              child: const Text('OK', style: TextStyle(color: Colors.blue)),
+            ),
+          ],
+        ),
+        barrierDismissible: false,
+      );
     }, (success) {
       // Do nothing on success
       box?.write("User", success);
-      print("Tooken is not Expired");
-    });
-  }
-
-  Future<User> getMe() async {
-    User? user;
-    final result = await authDataSource.getMe();
-    result.fold((failure) {
-      return failureWidget("Error", failure);
-    }, (success) {
-      print(success.email);
       user = success;
       return user;
     });

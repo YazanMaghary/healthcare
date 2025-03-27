@@ -10,7 +10,7 @@ String doctorsModelToJson(DoctorsModel data) => json.encode(data.toJson());
 
 class DoctorsModel {
     String? message;
-    List<Doctors>? data;
+    List<Doctor>? data;
 
     DoctorsModel({
         this.message,
@@ -19,7 +19,7 @@ class DoctorsModel {
 
     factory DoctorsModel.fromJson(Map<String, dynamic> json) => DoctorsModel(
         message: json["message"],
-        data: json["data"] == null ? [] : List<Doctors>.from(json["data"]!.map((x) => Doctors.fromJson(x))),
+        data: json["data"] == null ? [] : List<Doctor>.from(json["data"]!.map((x) => Doctor.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -28,7 +28,7 @@ class DoctorsModel {
     };
 }
 
-class Doctors {
+class Doctor {
     String? id;
     Specialization? user;
     String? registrationNumber;
@@ -40,12 +40,12 @@ class Doctors {
     WorkingHours? workingHours;
     WorkingDays? workingDays;
     Location? location;
-    List<dynamic>? reviews;
+    List<Review>? reviews;
     List<dynamic>? appointments;
     DateTime? createdAt;
     DateTime? updatedAt;
 
-    Doctors({
+    Doctor({
         this.id,
         this.user,
         this.registrationNumber,
@@ -63,7 +63,7 @@ class Doctors {
         this.updatedAt,
     });
 
-    factory Doctors.fromJson(Map<String, dynamic> json) => Doctors(
+    factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
         id: json["_id"],
         user: json["user"] == null ? null : Specialization.fromJson(json["user"]),
         registrationNumber: json["registrationNumber"],
@@ -75,7 +75,7 @@ class Doctors {
         workingHours: json["workingHours"] == null ? null : WorkingHours.fromJson(json["workingHours"]),
         workingDays: json["workingDays"] == null ? null : WorkingDays.fromJson(json["workingDays"]),
         location: json["location"] == null ? null : Location.fromJson(json["location"]),
-        reviews: json["reviews"] == null ? [] : List<dynamic>.from(json["reviews"]!.map((x) => x)),
+        reviews: json["reviews"] == null ? [] : List<Review>.from(json["reviews"]!.map((x) => Review.fromJson(x))),
         appointments: json["appointments"] == null ? [] : List<dynamic>.from(json["appointments"]!.map((x) => x)),
         createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
         updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
@@ -93,7 +93,7 @@ class Doctors {
         "workingHours": workingHours?.toJson(),
         "workingDays": workingDays?.toJson(),
         "location": location?.toJson(),
-        "reviews": reviews == null ? [] : List<dynamic>.from(reviews!.map((x) => x)),
+        "reviews": reviews == null ? [] : List<dynamic>.from(reviews!.map((x) => x.toJson())),
         "appointments": appointments == null ? [] : List<dynamic>.from(appointments!.map((x) => x)),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
@@ -181,6 +181,38 @@ class Rating {
     Map<String, dynamic> toJson() => {
         "averageRating": averageRating,
         "numberOfReviews": numberOfReviews,
+    };
+}
+
+class Review {
+    String? id;
+    Specialization? user;
+    String? doctor;
+    double? rating;
+    String? comment;
+
+    Review({
+        this.id,
+        this.user,
+        this.doctor,
+        this.rating,
+        this.comment,
+    });
+
+    factory Review.fromJson(Map<String, dynamic> json) => Review(
+        id: json["_id"],
+        user: json["user"] == null ? null : Specialization.fromJson(json["user"]),
+        doctor: json["doctor"],
+        rating: json["rating"]?.toDouble(),
+        comment: json["comment"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "_id": id,
+        "user": user?.toJson(),
+        "doctor": doctor,
+        "rating": rating,
+        "comment": comment,
     };
 }
 

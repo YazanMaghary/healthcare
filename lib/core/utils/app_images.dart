@@ -26,4 +26,5 @@ const String lock = 'assets/images/icons/lock.png';
 const String logout = 'assets/images/icons/logout.png';
 const String messageQuestion = 'assets/images/icons/message-question.png';
 const String notification = 'assets/images/icons/notification.png';
+const String defaultProfile = 'assets/images/defaultProfile.jpg';
 

@@ -26,7 +26,7 @@ class OtpVerficationScreen extends StatelessWidget {
           children: [
             largeSpace,
             const RegisterTitle(text: "OTP Verification"),
-            smallSpace,
+            smallSpace4,
             const RegisterSupTitle(
                 text:
                     "Add a PIN number to make your account more secure and easy to sign in."),

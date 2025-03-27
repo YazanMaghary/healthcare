@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:healthcare/controller/doctors_controller.dart';
+import 'package:healthcare/core/binding/myBinding.dart';
+import 'package:healthcare/core/middleware/init_midlleware.dart';
 import 'package:healthcare/view/screens/appointment/appointment_reschedule_screen.dart';
 import 'package:healthcare/view/screens/appointment/reschedule_screen.dart';
 import 'package:healthcare/view/screens/auth/Otp_verfication.dart';
@@ -18,6 +19,7 @@ import 'package:healthcare/view/screens/home/home_screen.dart';
 import 'package:healthcare/view/screens/home/main_app_screen.dart';
 import 'package:healthcare/view/screens/home/notifications_screen.dart';
 import 'package:healthcare/view/screens/home/recommandation_doctor_screen.dart';
+import 'package:healthcare/view/screens/inbox/chat_screen.dart';
 
 import 'package:healthcare/view/screens/profile/medicalRecored_screen.dart';
 import 'package:healthcare/view/screens/profile/notificationSetting_screen.dart';
@@ -30,6 +32,11 @@ List<GetPage> getpage = [
   GetPage(
       name: '/LoginScreen',
       page: () => LoginScreen(),
+      transition: Transition.leftToRight),
+  GetPage(
+      name: '/OnBoardingScreen',
+      page: () => const OnboardingScreen(),
+      middlewares: <GetMiddleware>[InitMidlleware()],
       transition: Transition.leftToRight),
   GetPage(
       name: '/SignupScreen',
@@ -53,24 +60,20 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/MainAppScreen',
-      binding: BindingsBuilder(
-        () {
-          Get.put(DoctorsController());
-        },
-      ),
-      page: () => const MainAppScreen(),
+      page: () => const MainAppScreen(), 
       transition: Transition.leftToRight),
   GetPage(
       name: '/HomeScreen',
       page: () => HomeScreen(),
+      binding: InitBinding(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/DoctorSpeciality',
-      page: () =>  DoctorSpeciality(),
+      page: () => DoctorSpeciality(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/RecommandationDoctorScreen',
-      page: () =>  RecommandationDoctorScreen(),
+      page: () => RecommandationDoctorScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/Doctordetails',
@@ -127,5 +130,9 @@ List<GetPage> getpage = [
   GetPage(
       name: '/AppointmentRescheduleScreen',
       page: () => const AppointmentRescheduleScreen(),
+      transition: Transition.leftToRight),
+  GetPage(
+      name: '/ChatScreen',
+      page: () => ChatScreen(),
       transition: Transition.leftToRight),
 ];

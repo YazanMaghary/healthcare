@@ -23,7 +23,7 @@ class ProfileController extends GetxController {
       failureWidget('Error', failure);
     }, (success) async {
       successfullyWidget("Done", "User updated successfully");
-      await doctorsController.GetDoctors();
+      await doctorsController.getDoctors();
 
       Get.offAllNamed("/MainAppScreen");
     });

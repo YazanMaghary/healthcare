@@ -26,7 +26,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             children: [
               largeSpace,
               const RegisterTitle(text: "Forgot Password"),
-              smallSpace,
+              smallSpace4,
               const RegisterSupTitle(
                   text:
                       "At our app, we take the security of your information seriously."),

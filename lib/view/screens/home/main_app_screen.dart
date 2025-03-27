@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:healthcare/controller/auth_controller.dart';
+import 'package:healthcare/controller/doctors_controller.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/nav_bar_item.dart';
 import 'package:healthcare/view/screens/appointment/appointment_screen.dart';
@@ -21,12 +22,13 @@ class MainAppScreen extends StatefulWidget {
 class _MainAppScreenState extends State<MainAppScreen> {
   int _selectedIndex = 0;
   final authController = Get.put(AuthController());
+  final doctorsController = Get.put(DoctorsController());
   static final List<Widget> _screens = [
-     HomeScreen(),
-    const InboxScreen(),
+    HomeScreen(),
+    InboxScreen(),
     const SearchScreen(),
     const AppointmentScreen(),
-     const ProfileScreen(),
+    ProfileScreen(),
   ];
   @override
   void initState() {
@@ -106,7 +108,6 @@ class _MainAppScreenState extends State<MainAppScreen> {
                   icon: CupertinoIcons.profile_circled,
                   index: 4,
                 ),
-               
               ],
             ),
           ),

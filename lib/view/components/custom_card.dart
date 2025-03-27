@@ -24,15 +24,13 @@ class mySpeciailtyCard extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                    "${ApiConstances.baseUrl}/${speciailtyImagePath}",
+                    "${ApiConstances.baseUrl}/$speciailtyImagePath",
                   )),
               shape: BoxShape.circle,
               color: greyBackground),
           padding: EdgeInsets.all(24.h),
         ),
-        SizedBox(
-          height: 5.h,
-        ),
+       smallSpace12,
         Text(speciailtyType,style: smallnormallBlack12,)
       ],
     );

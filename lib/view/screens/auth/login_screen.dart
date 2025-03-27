@@ -11,7 +11,7 @@ import 'package:healthcare/view/components/register_sup_title.dart';
 import 'package:healthcare/view/components/register_title.dart';
 
 // ignore: must_be_immutable
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends GetView {
   LoginScreen({super.key});
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               largeSpace,
               const RegisterTitle(text: 'Welcome Back'),
-              smallSpace,
+              smallSpace4,
               const RegisterSupTitle(
                 text:
                     "We're excited to have you back, can't wait to see what you've been up to since you last logged in.",
@@ -116,8 +116,7 @@ class LoginScreen extends StatelessWidget {
                       } else {
                         box?.write("email", emailController.text);
                         box?.write("password", passwordController.text);
-                        print("test1");
-                        
+
                         await authController.login(
                             emailController.text, passwordController.text);
                         box?.write("register", false);
