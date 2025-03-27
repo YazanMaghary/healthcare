@@ -30,7 +30,7 @@ class AppointmentStatusCard extends StatelessWidget {
                   appointmentStatues,
                   style: statusColor,
                 ),
-                smallSpace,
+                smallSpace4,
                 RichText(
                   text: TextSpan(
                     children: [
@@ -81,12 +81,12 @@ class AppointmentStatusCard extends StatelessWidget {
                         "Dr.Randy Morton",
                         style: semiBoldBlack16,
                       ),
-                      smallSpace,
+                      smallSpace4,
                       Text(
                         "General Medical Checkup",
                         style: smallNormalGrey12,
                       ),
-                      smallSpace,
+                      smallSpace4,
                       Row(
                         children: [
                           Icon(
@@ -110,7 +110,7 @@ class AppointmentStatusCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      smallSpace
+                      smallSpace4
                     ],
                   )
                 ],

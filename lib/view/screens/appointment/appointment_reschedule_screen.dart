@@ -102,9 +102,9 @@ class _AppointmentRescheduleScreenState extends State<AppointmentRescheduleScree
                     Text('08.30 AM' ,style: smallNormalGrey12,),
                   ]),
               ],),
-              smallSpace,
+              smallSpace4,
               const Divider(indent: 10,endIndent: 10,),
-              smallSpace,
+              smallSpace4,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -117,11 +117,11 @@ class _AppointmentRescheduleScreenState extends State<AppointmentRescheduleScree
                       Text('In Person' ,style: smallNormalGrey12,),
                     ],), 
                     ],),
-              smallSpace,
+              smallSpace4,
               const Divider(indent: 10,endIndent: 10,),
               mediumSpace20,
               Text('Doctor Information' , style: semiBoldBlack16,),
-              smallSpace,
+              smallSpace4,
               Padding(
               padding:  EdgeInsets.symmetric(horizontal:  32.h , vertical: 18.h),
               child: Row(
@@ -143,7 +143,7 @@ class _AppointmentRescheduleScreenState extends State<AppointmentRescheduleScree
                         'Dr. Randy Wigham',
                         style: semiBoldBlack16,
                       ),
-                      smallSpace,
+                      smallSpace4,
                        Row(
                         children: [
                           Text('General' , style:  smallNormalGrey),
@@ -157,7 +157,7 @@ class _AppointmentRescheduleScreenState extends State<AppointmentRescheduleScree
                           Text('RSUD Gatot Subroto' , style: smallNormalGrey,)
                         ],
                       ),
-                      smallSpace,
+                      smallSpace4,
                        Row(
                         children: [
                           const Icon(

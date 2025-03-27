@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:healthcare/view/components/booking_stage.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/components/text_button.dart';
-import 'package:healthcare/view/screens/home/doctor_details.dart';
 
 import '../../../core/utils/app_constanses.dart';
 
@@ -21,7 +20,7 @@ class _BookingScreenState extends State<BookingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFFFFFF),
+        backgroundColor: const Color(0xFFFFFFFF),automaticallyImplyLeading: false,
         surfaceTintColor: const Color(0xFFFFFFFF),
         elevation: 0,
         leading: Row(
@@ -31,10 +30,7 @@ class _BookingScreenState extends State<BookingScreen> {
             ),
             GestureDetector(
               onTap: () {
-                Get.offAll(
-                  const Doctordetails(),
-                  transition: Transition.leftToRight,
-                );
+                Get.back();
               },
               child: Container(
                 padding: const EdgeInsets.all(8),

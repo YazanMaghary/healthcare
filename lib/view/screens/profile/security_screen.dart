@@ -28,7 +28,7 @@ class SecurityScreen extends StatelessWidget {
             SettingWidget(
                 onTap: () {},
                 title: "Remember Password",
-                style: largeNormalBlack14,
+                style: smallNormalBlack14,
                 trailingWidget: Transform.scale(
                   scale: 0.8,
                   child: SwitchWidget(
@@ -41,7 +41,7 @@ class SecurityScreen extends StatelessWidget {
             SettingWidget(
                 onTap: () {},
                 title: "PIN",
-                style: largeNormalBlack14,
+                style: smallNormalBlack14,
                 trailingWidget:  Transform.scale(scale: 0.8,
                   child: SwitchWidget(
                       onChanged: (p0) {

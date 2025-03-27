@@ -23,7 +23,7 @@ class ProfilePictureScreen extends StatelessWidget {
           children: [
             largeSpace,
             const RegisterTitle(text: "Profile Picture"),
-            smallSpace,
+            smallSpace4,
             const RegisterSupTitle(
                 text:
                     "Add a profile picture to make your account more secure and easy to sign in."),

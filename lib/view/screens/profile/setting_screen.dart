@@ -30,26 +30,26 @@ class SettingScreen extends StatelessWidget {
                   Get.toNamed("/notificationSettingScreen");
                 },
                 imageString: notification,
-                title: "Notification",style: largeNormalBlack14,
+                title: "Notification",style: smallNormalBlack14,
                 trailingWidget:const Icon(Icons.chevron_right)),
             divider,
             SettingWidget(
                 onTap: () {},
                 imageString: messageQuestion,
-                title: "FAQ",style: largeNormalBlack14,
+                title: "FAQ",style: smallNormalBlack14,
                 trailingWidget:const Icon(Icons.chevron_right)),
             divider,
             SettingWidget(
                 onTap: () {
                     Get.toNamed("/SecurityScreen");
                 },
-                imageString: lock,style: largeNormalBlack14,
+                imageString: lock,style: smallNormalBlack14,
                 title: "Security",
                 trailingWidget:const Icon(Icons.chevron_right)),
             divider,
             SettingWidget(
                 onTap: () {},
-                imageString: languageSquare,style: largeNormalBlack14,
+                imageString: languageSquare,style: smallNormalBlack14,
                 title: "Language",
                 trailingWidget:const Icon(Icons.chevron_right)),
             divider,

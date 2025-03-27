@@ -25,7 +25,7 @@ class BookingStage extends StatelessWidget {
           Text(stageNum , style:const TextStyle(color: Colors.white),
           )),
         ),
-        smallSpace,
+        smallSpace4,
         Text(stageName , style: style,)
       ],
     );

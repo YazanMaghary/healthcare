@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare/controller/auth_controller.dart';
 import 'package:healthcare/controller/doctors_controller.dart';
 import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
@@ -8,11 +9,11 @@ import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/view/components/custom_card.dart';
 import 'package:healthcare/view/components/shimmer_wdget.dart';
 import 'package:healthcare/view/components/text_button.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final DoctorsController doctorsController = Get.put(DoctorsController());
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +29,20 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Yazan Maghary",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
+              GetBuilder<AuthController>(
+                init: authController,
+                builder: (GetxController controller) {
+                  print("Test Test");
+                  print(authController.user?.name);
+                  print("Test Test");
+                  return Text(
+                    authController.user?.name ?? "",
+                    style: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                },
               ),
               Text(
                 'How Are you Today?',
@@ -74,10 +83,18 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {
+            onTap: () async {
               box?.remove("Token");
+              //for testing onBoardingPage routing setting
+              // box?.remove("firstTime");
+              box?.remove(
+                "email",
+              );
+              box?.remove("password");
+              box?.remove("register");
+
               Get.offNamed(
-                '/LoginScreen',
+                '/OnBoardingScreen',
               );
             },
             child: Container(
@@ -173,34 +190,53 @@ class HomeScreen extends StatelessWidget {
                       }),
                 ],
               ),
-              smallSpace,
+              smallSpace4,
               GetBuilder(
                   init: doctorsController,
                   builder: (controller) {
-                    if (doctorsController.isCategoriesLoading ==true) {
-                      return SpecialityShimmer();
-                    }else {
-                      return ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: doctorsController.categoriesList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return mySpeciailtyCard(
-                          speciailtyImagePath:
-                              "${doctorsController.categoriesList[index].image}",
-                          speciailtyType:
-                              doctorsController.categoriesList[index].name!,
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return SizedBox(
-                          width: 5.w,
-                        );
-                      },
-                    );
-                
+                    if (doctorsController.isCategoriesLoading == true) {
+                      return SizedBox(
+                        height: 120.h,
+                        child: ListView.separated(
+                          padding:
+                              EdgeInsets.only(left: 8.w, right: 8.w, top: 16.h),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 4,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return SpecialityShimmer();
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return SizedBox(width: 20.w);
+                          },
+                        ),
+                      );
+                    } else {
+                      return SizedBox(
+                        height: 120.h,
+                        child: ListView.separated(
+                          padding:
+                              EdgeInsets.only(left: 8.w, right: 8.w, top: 16.h),
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: doctorsController.categoriesList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return mySpeciailtyCard(
+                              speciailtyImagePath:
+                                  "${doctorsController.categoriesList[index].image}",
+                              speciailtyType:
+                                  doctorsController.categoriesList[index].name!,
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return SizedBox(
+                              width: 20.w,
+                            );
+                          },
+                        ),
+                      );
                     }
-                    }),
-              mediumSpace20,
+                  }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -218,39 +254,62 @@ class HomeScreen extends StatelessWidget {
                       }),
                 ],
               ),
-              smallSpace,
+              smallSpace4,
               GetBuilder<DoctorsController>(
                 init: doctorsController,
                 builder: (GetxController controller) {
                   if (doctorsController.isDoctorsLoading) {
                     //GradiantColor
                     //Here
-                    return doctorCardShimmer();
+                    return ListView.separated(
+                      shrinkWrap: true,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                      itemBuilder: (context, index) {
+                        return doctorCardShimmer();
+                      },
+                      separatorBuilder: (context, index) {
+                        return smallSpace4;
+                      },
+                      itemCount: 4,
+                    );
                   } else {
                     return ListView.separated(
                       key: UniqueKey(),
-                      shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                       padding:
                           EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                      itemCount: doctorsController.doctorsList.length,
+                      itemCount: 3,
                       separatorBuilder: (context, index) {
-                        return smallSpace;
+                        return mediumSpace24;
                       },
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {
-                            Get.offNamed('/Doctordetails');
+                          onTap: () async {
+                            //Here
+                            // Here  to make a good performance ui and fetch data faster fetch only one doctor from ppassing doctor id useing getDoctorById
+                            box?.write("doctorId",
+                                doctorsController.doctorsList[index].id);
+                            print("Doctor Id: ${box?.read("doctorId")}");
+
+                            Get.toNamed('/Doctordetails',
+                                arguments: {"index": index});
                           },
                           child: Row(
-                            key: ValueKey(index),
                             children: [
                               Container(
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                         fit: BoxFit.fill,
-                                        image: NetworkImage(
-                                            "${ApiConstances.baseUrl}/${doctorsController.doctorsList[index].user?.image}")),
+                                        image: doctorsController
+                                                    .doctorsList[index]
+                                                    .user!
+                                                    .image !=
+                                                null
+                                            ? NetworkImage(
+                                                "${ApiConstances.baseUrl}/${doctorsController.doctorsList[index].user?.image}")
+                                            : const AssetImage(defaultProfile)),
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(20.r))),
                                 width: 110.w,
@@ -267,7 +326,7 @@ class HomeScreen extends StatelessWidget {
                                         .doctorsList[index].user!.name!,
                                     style: semiBoldBlack16,
                                   ),
-                                  smallSpace,
+                                  smallSpace4,
                                   Row(
                                     children: [
                                       Text(
@@ -292,7 +351,7 @@ class HomeScreen extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  smallSpace,
+                                  smallSpace4,
                                   Row(
                                     children: [
                                       const Icon(
@@ -305,7 +364,7 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         doctorsController.doctorsList[index]
-                                            .rating!.averageRating
+                                            .rating!.averageRating!
                                             .toString(),
                                         style: smallNormalGrey,
                                       ),

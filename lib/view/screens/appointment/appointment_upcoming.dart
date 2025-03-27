@@ -43,12 +43,12 @@ class AppointmentUpcoming extends StatelessWidget {
                             "Dr.Randy Morton",
                             style: semiBoldBlack16,
                           ),
-                          smallSpace,
+                          smallSpace4,
                           Text(
                             "General Medical Checkup",
                             style: smallNormalGrey12,
                           ),
-                          smallSpace,
+                          smallSpace4,
                           RichText(
                             text: TextSpan(
                               children: [

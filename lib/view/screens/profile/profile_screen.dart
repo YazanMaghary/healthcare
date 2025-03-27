@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare/controller/auth_controller.dart';
 import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
@@ -8,13 +9,13 @@ import 'package:healthcare/view/components/appBar.dart';
 import 'package:healthcare/view/components/appbar_button.dart';
 import 'package:healthcare/view/components/customprofile_card.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-  // final AuthController authController = Get.put(AuthController());
+class ProfileScreen extends GetView {
+  ProfileScreen({super.key});
+  final AuthController authController = Get.find<AuthController>();
   // User user = box?.read("User");
   @override
   Widget build(BuildContext context) {
-    print(box?.read("User").image);
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: primaryColor,
@@ -56,14 +57,14 @@ class ProfileScreen extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.only(top: (32 + 50).w),
                     child: Text(
-                     "${box?.read("User").name}",
+                      authController.user?.name ?? "",
                       style: semiBoldBlack20,
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 8.h, bottom: 8.w),
                     child: Text(
-                      box?.read("User").email ?? '',
+                     authController.user?.email ?? "",
                       style: largeNormalGrey,
                     ),
                   ),
@@ -164,9 +165,10 @@ class ProfileScreen extends StatelessWidget {
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(100.r)),
                 child: ClipOval(
-                  child: box?.read("User").image != "" || box?.read("User").image != null
+                  child: box?.read("User").image != "" ||
+                          box?.read("User").image != null
                       ? Image.network(
-                          "${ApiConstances.baseUrl}/${box?.read("User").image}",
+                          "${ApiConstances.baseUrl}/${authController.user?.image}",
                           width: 120.w,
                           height: 120.w,
                           fit: BoxFit.fill,
@@ -175,7 +177,6 @@ class ProfileScreen extends StatelessWidget {
                           width: 120.w, height: 120.w, fit: BoxFit.fill),
                 ),
               ),
-           
             ]),
           )
         ],

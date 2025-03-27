@@ -23,7 +23,7 @@ class OnboardingScreen extends StatelessWidget {
             padding: mainPagePading,
             child: Column(
               children: [
-                smallSpace,
+                smallSpace4,
                 Expanded(
                   child: Stack(
                     fit: StackFit.expand,

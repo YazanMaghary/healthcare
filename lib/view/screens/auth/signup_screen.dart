@@ -38,7 +38,7 @@ class SignupScreen extends StatelessWidget {
                   children: [
                     largeSpace,
                     const RegisterTitle(text: 'Create an Account'),
-                    smallSpace,
+                    smallSpace4,
                     const RegisterSupTitle(
                       text:
                           "Sign up now and start exploring all that our app has to offer. We're excited to welcome you to our community!",

@@ -6,15 +6,20 @@ import 'package:healthcare/core/utils/app_images.dart';
 
 class SearchWidget extends StatelessWidget {
   final String? hintText;
-  const SearchWidget({super.key, this.hintText});
+  final void Function(String)? onChanged;
+  final TextEditingController? textController;
+  const SearchWidget(
+      {super.key, this.hintText, this.onChanged, this.textController});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 30.h),
       child: TextField(
+        controller: textController,
+        onChanged: onChanged,
         decoration: InputDecoration(
-          hintText:hintText,
+          hintText: hintText,
           hintStyle: GoogleFonts.inter(color: greyColor, fontSize: 12),
           prefixIcon: Image.asset(
             searchImage,

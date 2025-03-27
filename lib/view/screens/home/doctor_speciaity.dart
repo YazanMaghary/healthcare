@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/controller/doctors_controller.dart';
-import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/view/components/shimmer_wdget.dart';
 import '../../components/custom_card.dart';
 import 'main_app_screen.dart';

@@ -108,28 +108,24 @@ class AuthDataSource {
     }
   }
 
-  Future<Either<String, User>> getMe() async {
+  Future<Either<String, User>> getMe(String token) async {
+    // print("")
     try {
       final response = await dio.get(
         ApiConstances.getMe,
         options: Options(
           headers: {
-            'Authorization': "Bearer ${box?.read("Token")}",
+            'Authorization': "Bearer $token",
           },
         ),
       );
       User user = User.fromJson(response.data);
-      print(response.data);
       return Right(user);
     } on DioException catch (e) {
-      print("Dio Exception Error");
       ErrorModel errorModel = ErrorModel.fromJson(e.response?.data ??
           {'message': "No Internet Connection", 'Error': "Internet related"});
-      print(errorModel.message);
       return Left(errorModel.message ?? 'Connection Error');
     } catch (e) {
-      print("Global catch Error");
-      print(e.toString());
       return const Left('An unexpected error occurred');
     }
   }

@@ -28,7 +28,7 @@ class NotificationSettingScreen extends StatelessWidget {
             SettingWidget(
                 onTap: () {},
                 title: "Notification from FIT4U",
-                style: largeNormalBlack14,
+                style: smallNormalBlack14,
                 trailingWidget: Transform.scale(
                   scale: 0.8,
                   child: SwitchWidget(
@@ -41,7 +41,7 @@ class NotificationSettingScreen extends StatelessWidget {
             SettingWidget(
                 onTap: () {},
                 title: "Sound",
-                style: largeNormalBlack14,
+                style: smallNormalBlack14,
                 trailingWidget:  Transform.scale(scale: 0.8,
                   child: SwitchWidget(
                       onChanged: (p0) {
@@ -52,7 +52,7 @@ class NotificationSettingScreen extends StatelessWidget {
             divider,
             SettingWidget(
                 onTap: () {},
-                style: largeNormalBlack14,
+                style: smallNormalBlack14,
                 title: "Vibrate",
                 trailingWidget: Transform.scale(scale: 0.8,
                   child: SwitchWidget(
@@ -64,7 +64,7 @@ class NotificationSettingScreen extends StatelessWidget {
             divider,
             SettingWidget(
                 onTap: () {},
-                style: largeNormalBlack14,
+                style: smallNormalBlack14,
                 title: "App Updates",
                 trailingWidget: Transform.scale(
                   scale: 0.8,
@@ -77,7 +77,7 @@ class NotificationSettingScreen extends StatelessWidget {
             divider,
             SettingWidget(
                 onTap: () {},
-                style: largeNormalBlack14,
+                style: smallNormalBlack14,
                 title: "Special Offers",
                 trailingWidget: Transform.scale(
                   scale: 0.8,

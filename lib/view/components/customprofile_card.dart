@@ -30,7 +30,7 @@ class CustomprofileCard extends StatelessWidget {
               padding: EdgeInsets.only(left: 12.w),
               child: Text(
                 text,
-                style: largeNormalBlack14,
+                style: smallNormalBlack14,
               ),
             )
           ],
