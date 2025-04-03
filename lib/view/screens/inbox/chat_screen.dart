@@ -57,7 +57,7 @@ class ChatScreen extends GetView<ChatController> {
                     itemBuilder: (BuildContext context, int index) {
                       var msg = controller.messages[index];
                       // chats = msg['message'];
-                      print(msg);
+
                       Timestamp timestamp = msg["time"];
                       DateTime dateTime = timestamp.toDate();
                       String formattedDate = DateFormat.jm().format(dateTime);
@@ -134,7 +134,9 @@ class ChatScreen extends GetView<ChatController> {
                     ),
                     Expanded(
                       child: TextField(
-                        controller: controller.textFieldController,
+                        controller: controller.textFieldController,onChanged: (value) {
+                          controller.sendIconColorState();
+                        },
                         onTap: () {
                           controller.isEmojiPickerVisible =
                               false; // Hide emoji picker when typing
@@ -153,9 +155,11 @@ class ChatScreen extends GetView<ChatController> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.send, color: Colors.blue),
+                      icon: Icon(Icons.send,
+                          color: controller.sendIconColor),
                       onPressed: () async {
-                        if (controller.textFieldController.text.isNotEmpty) {
+                        if (controller.textFieldController.text
+                            .removeAllWhitespace.isNotEmpty) {
                           // chatController.scrollDown();
 
                           await controller
@@ -176,7 +180,7 @@ class ChatScreen extends GetView<ChatController> {
                           );
 
                           await controller
-                              .fetchData3(doctorController.doctorsList);
+                              .lastChatDataFetch(doctorController.doctorsList);
                           // controller.lastChat[Get.arguments["index"]] = {
                           //   "message": controller.textFieldController.text,
                           //   "time": Timestamp.now(),
