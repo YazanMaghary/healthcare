@@ -81,7 +81,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   setState(() {});
                 },
               ),
-              children: const [CardFormField()],
+              children: [
+                CardFormField(
+                  style: CardFormStyle(
+                      borderColor: greyColor3, textColor: Colors.black),
+                )
+              ],
             ),
             largeSpace,
             ExpansionTile(

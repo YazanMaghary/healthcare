@@ -1,4 +1,4 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,6 +22,7 @@ class InboxScreen extends GetView {
   final doctorsController = Get.put<DoctorsController>(DoctorsController());
   final sheetTextController = TextEditingController();
   final textController = TextEditingController();
+  final db = FirebaseFirestore.instance;
   List<String> ids = [];
   @override
   Widget build(BuildContext context) {
@@ -180,7 +181,7 @@ class InboxScreen extends GetView {
         child: GetBuilder<ChatController>(
             init: chatController,
             initState: (state) async {
-              await chatController.fetchData3(doctorsController.doctorsList);
+              await chatController.lastChatDataFetch(doctorsController.doctorsList);
             },
             builder: (controller) {
               return Column(
@@ -216,11 +217,9 @@ class InboxScreen extends GetView {
                         });
                       }, child: Obx(
                         () {
-                     
                           print(
                               "Last Chat Filter: ${chatController.lastChatFilter}");
-                          if (
-                              chatController.lastChatFilter.isEmpty ||
+                          if (chatController.lastChatFilter.isEmpty ||
                               index >= chatController.lastChatFilter.length) {
                             return Center(child: chatShimmerWidgeth());
                           } else {
@@ -241,7 +240,8 @@ class InboxScreen extends GetView {
                                   "${chatController.lastChatFilter[index]["specilaizationName"]}",
                               hospitalName:
                                   '${chatController.lastChatFilter[index]["hospitalName"]}',
-                              drCheck: chatController.lastChatFilter[index]['name'] ==
+                              drCheck: chatController.lastChatFilter[index]
+                                          ['name'] ==
                                       doctorsController
                                           .doctorsListFilter[index].user!.name!
                                   ? true

@@ -9,12 +9,21 @@ class ChatController extends GetxController {
   final db = FirebaseFirestore.instance;
   final TextEditingController textFieldController = TextEditingController();
   final ScrollController scrollController = ScrollController();
+   Color sendIconColor = greyColor;
   // final String doctorId = Get.arguments["doctorId"];
   RxList<Map<String, dynamic>> messages = <Map<String, dynamic>>[].obs;
   RxList<Map<String, dynamic>> lastChat = <Map<String, dynamic>>[].obs;
   RxList<Map<String, dynamic>> lastChatFilter = <Map<String, dynamic>>[].obs;
   // List<String> name = [];
   bool isEmojiPickerVisible = false; // To toggle emoji keyboard
+  void sendIconColorState() {
+    if (textFieldController.text.removeAllWhitespace.isNotEmpty) {
+      sendIconColor = primaryColor;
+    } else {
+      sendIconColor = greyColor;
+    }
+    update();
+  }
 
   void scrollDown() {
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -39,15 +48,19 @@ class ChatController extends GetxController {
         .snapshots()
         .listen(
       (snapshots) {
-        messages.value = snapshots.docs.map(
+        messages.value = snapshots.docs.where(
+          (element) {
+            if (element.id == "lastChat") {
+              return false;
+            } else {
+              return true;
+            }
+          },
+        ).map(
           (doc) {
             return doc.data();
           },
         ).toList();
-
-        if (messages.isNotEmpty) {
-          messages.removeLast();
-        }
 
         // print("Fetch Data");
         // print("${messages.value}");
@@ -57,7 +70,7 @@ class ChatController extends GetxController {
     );
   }
 
-  Future<void> fetchData3(List doctorsList) async {
+  Future<void> lastChatDataFetch(List doctorsList) async {
     lastChat.clear();
     lastChatFilter.clear();
 
@@ -104,32 +117,6 @@ class ChatController extends GetxController {
     }
     update();
   }
-  // void fetchData2(List<String> doctorsId) async {
-  //   print("Fetch Data");
-  //   for (String doctorId in doctorsId) {
-  //     db
-  //         .collection("users")
-  //         .doc(box?.read("User").email)
-  //         .collection(doctorId)
-  //         .orderBy("time", descending: false)
-  //         .snapshots()
-  //         .listen(
-  //       (snapshots) {
-  //         messages.value = snapshots.docs.map(
-  //           (doc) {
-  //             print(doc.data());
-  //             return doc.data();
-  //           },
-  //         ).toList();
-  //         messages.value.removeLast();
-  //         // print("Fetch Data");
-  //         // print("${messages.value}");
-  //         // print("Data Fetched successfully");
-  //         // scrollDown();
-  //       },
-  //     );
-  //   }
-  // }
 
   Future<void> sendMessage(
       {required String doctorId,
@@ -141,7 +128,6 @@ class ChatController extends GetxController {
       required String imagePath,
       required Timestamp time}) async {
     if (message.isNotEmpty) {
-      
       await db
           .collection("users")
           .doc(box?.read("User").email)
