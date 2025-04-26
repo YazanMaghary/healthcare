@@ -5,6 +5,7 @@ import 'package:healthcare/controller/auth_controller.dart';
 import 'package:healthcare/controller/profile_controller.dart';
 import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
+import 'package:healthcare/core/utils/app_images.dart';
 import 'package:healthcare/model/user_model.dart';
 import 'package:healthcare/view/components/appBar.dart';
 import 'package:healthcare/view/components/appbar_button.dart';
@@ -55,28 +56,16 @@ class PersonalInformation extends GetView {
                       init: ProfileController(),
                       builder: (controller) {
                         return ClipOval(
-                          child: controller.image != null
-                              ? Image.file(
-                                  controller.image!,
-                                  width: 120.w,
-                                  height: 120.w,
-                                  fit: BoxFit.fill,
-                                )
-                              : (box?.read("User").image != null ||
-                                      box?.read("User").image != "")
-                                  ? Image.network(
-                                      "${ApiConstances.baseUrl}/${box?.read("User").image}",
-                                      width: 120.w,
-                                      height: 120.w,
-                                      fit: BoxFit.fill,
-                                    )
-                                  : Image.asset(
-                                      "assets/images/defaultProfile.jpg",
-                                      width: 120.w,
-                                      height: 120.w,
-                                      fit: BoxFit.fill,
-                                    ),
-                        );
+                            child: Image.network(
+                          "${ApiConstances.baseUrl}/${authController.user?.image}",
+                          width: 120.w,
+                          height: 120.w,
+                          fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset(defaultProfile,
+                                width: 120.w, height: 120.w, fit: BoxFit.fill);
+                          },
+                        ));
                       }),
                 ),
                 Positioned(
@@ -92,9 +81,7 @@ class PersonalInformation extends GetView {
                         child: InkWell(
                           onTap: () {
                             profileController.pickImage();
-                            print(
-                                "Profile image : ${profileController.image};");
-                            print("Test");
+                           
                           },
                           child: Icon(
                             Icons.edit_outlined,
@@ -166,24 +153,28 @@ class PersonalInformation extends GetView {
                   PrimaryButton(
                       buttonText: "Save",
                       onPressed: () async {
-                        print(userName.text);
-                        print(phone.text);
-                        print(profileController.image);
+                      
                         if (profileController.image == null ||
+                            // ignore: unrelated_type_equality_checks
                             profileController.image == "") {
-                          print("Edited succesfully");
-                          await ProfileController().updateUserProfile(
-                              name: userName.text, phone: phone.text).whenComplete(() async {
-                                    await authController.tookenExpired();
-                              },);
+                        
+                          await ProfileController()
+                              .updateUserProfile(
+                                  name: userName.text, phone: phone.text)
+                              .whenComplete(
+                            () async {
+                              await authController.tookenExpired();
+                            },
+                          );
                         } else {
-                          await ProfileController().updateUserProfileWithImage(
-                              userName.text,
-                              phone.text,
-                              profileController.image,
-                              true).whenComplete(() async{
-                                    await authController.tookenExpired();
-                              },);
+                          await ProfileController()
+                              .updateUserProfileWithImage(userName.text,
+                                  phone.text, profileController.image, true)
+                              .whenComplete(
+                            () async {
+                              await authController.tookenExpired();
+                            },
+                          );
                         }
                       }),
 

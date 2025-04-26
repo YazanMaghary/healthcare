@@ -78,17 +78,9 @@ class _SortScreenState extends State<SortScreen> {
                       if (_isSelectedSpeciality - 1 < 0) {
                         doctorsController.categoriesFilter("ALL");
                       } else {
-                        print(doctorsController
-                            .categoriesList[_isSelectedSpeciality - 1].name!);
-
                         doctorsController.categoriesFilter(
                             doctorsController.categoriesList[index - 1].name!);
                       }
-
-                      print(doctorsController.doctorsListFilter);
-                      for (var element in doctorsController.doctorsListFilter) {
-                          print(element.hospital);
-                        }
                     });
                   },
                   child: Container(

@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -72,7 +73,7 @@ class ProfilePictureScreen extends StatelessWidget {
             PrimaryButton(
               buttonText: "Set Picture",
               onPressed: () async {
-                print("submit");
+               
 
                 await profilePictureController.updateUserProfileWithImage(
                     "", "", profilePictureController.image,false);

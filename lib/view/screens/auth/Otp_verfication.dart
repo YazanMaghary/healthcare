@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -70,9 +71,7 @@ class OtpVerficationScreen extends StatelessWidget {
                           otpCode = otpController
                               .map((controller) => controller.text)
                               .join('');
-                          print(otpController
-                              .map((controller) => controller.text)
-                              .join(''));
+                        
                         }
                       },
                       decoration: const InputDecoration(
@@ -90,9 +89,7 @@ class OtpVerficationScreen extends StatelessWidget {
             PrimaryButton(
               buttonText: "Submit",
               onPressed: () async {
-                print(otpCode);
-                print("email");
-               print( box?.read("email"));
+               
                 await authController.verficationCode(
                     box?.read("email"), otpCode);
               },

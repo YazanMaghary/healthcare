@@ -173,6 +173,7 @@ Widget chatShimmerWidgeth() {
   );
 }
 
+// ignore: non_constant_identifier_names
 Widget SpecialityShimmer() {
   return Column(
     children: [

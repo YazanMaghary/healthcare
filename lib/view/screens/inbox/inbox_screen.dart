@@ -15,6 +15,7 @@ import 'package:healthcare/view/components/shimmer_wdget.dart';
 import 'package:intl/intl.dart';
 
 //refactor widget
+// ignore: must_be_immutable
 class InboxScreen extends GetView {
   InboxScreen({super.key});
   // final db = FirebaseFirestore.instance;
@@ -26,7 +27,6 @@ class InboxScreen extends GetView {
   List<String> ids = [];
   @override
   Widget build(BuildContext context) {
-    print("doctor id for chat screen: ${box?.read("doctorId")}");
     // chatController.fetchData("${box?.read("doctorId")}");
     // chatController.fetchData3(doctorsController.doctorsList);
     // doctorsController.doctorsListFilter.forEach((element) {
@@ -43,22 +43,18 @@ class InboxScreen extends GetView {
       resizeToAvoidBottomInset: false,
       appBar: appBar(
         title: 'Message',
-        leadingWidget: AppBarButton(
-          margin: EdgeInsets.only(left: 16.w),
-          onTap: () {},
-          icon: Icons.chevron_left,
-        ),
         actions: [
-          AppBarButton(
-              onTap: () {
-                // textController.clear();
-                Get.bottomSheet(
-                  isScrollControlled: true,
-                  backgroundColor: scaffoldBackgroundColor,
-                  GetBuilder<DoctorsController>(
-                      init: doctorsController,
-                      builder: (controller) {
-                        return SizedBox(
+          GetBuilder<DoctorsController>(
+              init: doctorsController,
+              builder: (controller) {
+                return AppBarButton(
+                    onTap: () async {
+                      // textController.clear();
+              
+                      Get.bottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: scaffoldBackgroundColor,
+                        SizedBox(
                           height: Get.height * 0.95,
                           child: Column(
                             children: [
@@ -69,119 +65,138 @@ class InboxScreen extends GetView {
                                 // onChanged: contr,
                               ),
                               mediumSpace20,
-                              Expanded(
-                                child: ListView.builder(
-                                  itemCount:
-                                      controller.doctorsListFilter2.length,
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 16.w),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          box?.write(
-                                              "doctorId",
-                                              controller
-                                                  .doctorsListFilter2[index]
-                                                  .id);
-                                          Get.toNamed("/ChatScreen",
-                                              arguments: {
-                                                "doctorName": controller
-                                                    .doctorsListFilter2[index]
-                                                    .user
-                                                    ?.name,
-                                                "doctorId": controller
-                                                    .doctorsListFilter2[index]
-                                                    .id,
-                                                "imagePath": controller
-                                                        .doctorsListFilter2[
-                                                            index]
-                                                        .user
-                                                        ?.image ??
-                                                    "",
-                                                "specilaizationName": controller
-                                                    .doctorsListFilter2[index]
-                                                    .specialization
-                                                    ?.name,
-                                                "hospitalName": controller
-                                                    .doctorsListFilter2[index]
-                                                    .hospital,
-                                                "index": index,
-                                              });
-                                        },
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                              border: Border(
-                                                  bottom: BorderSide(
-                                                      width: 1,
-                                                      color: lightgreyColor))),
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 12.w,
-                                                    vertical: 16.w),
-                                                child: SizedBox(
-                                                  width: 50.w,
-                                                  height: 50.w,
-                                                  child: CircleAvatar(
-                                                    backgroundImage: controller
-                                                                .doctorsListFilter2[
-                                                                    index]
-                                                                .user
-                                                                ?.image !=
-                                                            null
-                                                        ? NetworkImage(
-                                                            "${ApiConstances.baseUrl}/${controller.doctorsListFilter2[index].user?.image}")
-                                                        : const AssetImage(
-                                                            defaultProfile),
-                                                  ),
-                                                ),
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
+                              controller.doctorsListFilter2.isNotEmpty
+                                  ? Expanded(
+                                      child: ListView.builder(
+                                        itemCount: controller
+                                            .doctorsListFilter2.length,
+                                        physics: const BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 16.w),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                box?.write(
+                                                    "doctorId",
                                                     controller
                                                         .doctorsListFilter2[
                                                             index]
-                                                        .user!
-                                                        .name!,
-                                                    style: semiBoldBlack14,
-                                                  ),
-                                                  Text(
-                                                    "${controller.doctorsListFilter2[index].specialization?.name} | ${controller.doctorsListFilter2[index].hospital}",
-                                                    style: smallNormalGrey,
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
+                                                        .id);
+                                                Get.toNamed("/ChatScreen",
+                                                    arguments: {
+                                                      "doctorName": controller
+                                                          .doctorsListFilter2[
+                                                              index]
+                                                          .user
+                                                          ?.name,
+                                                      "doctorId": controller
+                                                          .doctorsListFilter2[
+                                                              index]
+                                                          .id,
+                                                      "imagePath": controller
+                                                              .doctorsListFilter2[
+                                                                  index]
+                                                              .user
+                                                              ?.image ??
+                                                          "",
+                                                      "specilaizationName":
+                                                          controller
+                                                              .doctorsListFilter2[
+                                                                  index]
+                                                              .specialization
+                                                              ?.name,
+                                                      "hospitalName": controller
+                                                          .doctorsListFilter2[
+                                                              index]
+                                                          .hospital,
+                                                      "index": index,
+                                                    });
+                                              },
+                                              child: Container(
+                                                decoration: const BoxDecoration(
+                                                    border: Border(
+                                                        bottom: BorderSide(
+                                                            width: 1,
+                                                            color:
+                                                                lightgreyColor))),
+                                                child: Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 12.w,
+                                                              vertical: 16.w),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    12.r)),
+                                                        child: Image.network(
+                                                          "${ApiConstances.baseUrl}/${doctorsController.doctorsListFilter2[index].user?.image}",
+                                                          width: 50.h,
+                                                          height: 50.h,
+                                                          errorBuilder:
+                                                              (context, errorrz,
+                                                                  stackTrace) {
+                                                            return Image.asset(
+                                                              defaultProfile,
+                                                              width: 50.h,
+                                                              height: 50.h,
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          controller
+                                                              .doctorsListFilter2[
+                                                                  index]
+                                                              .user!
+                                                              .name!,
+                                                          style:
+                                                              semiBoldBlack14,
+                                                        ),
+                                                        Text(
+                                                          "${controller.doctorsListFilter2[index].specialization?.name} | ${controller.doctorsListFilter2[index].hospital}",
+                                                          style:
+                                                              smallNormalGrey,
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    );
-                                  },
-                                ),
-                              )
+                                    )
+                                  : const Center(
+                                      child: CircularProgressIndicator())
                               // ... existing body content ...
                             ],
                           ),
-                        );
-                      }),
-                );
-              },
-              icon: Icons.add_box_outlined,
-              margin: EdgeInsets.only(right: 16.w))
+                        ),
+                      );
+                    },
+                    icon: Icons.add_box_outlined,
+                    margin: EdgeInsets.only(right: 16.w));
+              })
         ],
       ),
       body: SafeArea(
         child: GetBuilder<ChatController>(
             init: chatController,
             initState: (state) async {
-              await chatController.lastChatDataFetch(doctorsController.doctorsList);
+              await chatController
+                  .lastChatDataFetch(doctorsController.doctorsList);
             },
             builder: (controller) {
               return Column(
@@ -192,8 +207,7 @@ class InboxScreen extends GetView {
                     textController: textController,
                   ),
                   mediumSpace20,
-                  Expanded(
-                      child: ListView.builder(
+                  ListView.builder(
                     itemCount: chatController.lastChatFilter.length,
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
@@ -217,8 +231,6 @@ class InboxScreen extends GetView {
                         });
                       }, child: Obx(
                         () {
-                          print(
-                              "Last Chat Filter: ${chatController.lastChatFilter}");
                           if (chatController.lastChatFilter.isEmpty ||
                               index >= chatController.lastChatFilter.length) {
                             return Center(child: chatShimmerWidgeth());
@@ -251,7 +263,7 @@ class InboxScreen extends GetView {
                         },
                       ));
                     },
-                  ))
+                  )
 
                   // ... existing body content ...
                 ],

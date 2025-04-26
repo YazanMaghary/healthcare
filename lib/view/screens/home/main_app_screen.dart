@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:healthcare/controller/auth_controller.dart';
@@ -8,9 +9,9 @@ import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/nav_bar_item.dart';
 import 'package:healthcare/view/screens/appointment/appointment_screen.dart';
 import 'package:healthcare/view/screens/home/home_screen.dart';
+import 'package:healthcare/view/screens/home/recommandation_doctor_screen.dart';
 import 'package:healthcare/view/screens/inbox/inbox_screen.dart';
 import 'package:healthcare/view/screens/profile/profile_screen.dart';
-import 'package:healthcare/view/screens/search/search_screen.dart';
 
 class MainAppScreen extends StatefulWidget {
   const MainAppScreen({super.key});
@@ -26,13 +27,12 @@ class _MainAppScreenState extends State<MainAppScreen> {
   static final List<Widget> _screens = [
     HomeScreen(),
     InboxScreen(),
-    const SearchScreen(),
-    const AppointmentScreen(),
+    RecommandationDoctorScreen(),
+    AppointmentScreen(),
     ProfileScreen(),
   ];
   @override
   void initState() {
-    // TODO: implement initState
     authController.tookenExpired();
     super.initState();
   }
@@ -49,7 +49,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
         backgroundColor: scaffoldBackgroundColor,
         body: _screens[_selectedIndex],
         floatingActionButton: InkWell(
-          onTap: () {
+          onTap: () async{
             setState(() {
               _selectedIndex = 2;
             });
@@ -62,9 +62,9 @@ class _MainAppScreenState extends State<MainAppScreen> {
                 color: primaryColor,
                 borderRadius: BorderRadius.circular(32),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(24.0),
-                child: Icon(
+              child: Padding(
+                padding: EdgeInsets.all(24.w),
+                child: const Icon(
                   CupertinoIcons.search,
                   size: 30,
                   color: Colors.white,

@@ -15,7 +15,6 @@ class ProfileScreen extends GetView {
   // User user = box?.read("User");
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: primaryColor,
@@ -23,12 +22,6 @@ class ProfileScreen extends GetView {
         title: "Profile",
         foregroundColor: Colors.white,
         tranparent: true,
-        leadingWidget: AppBarButton(
-            onTap: () {
-              Get.offAllNamed("/MainAppScreen", arguments: 0);
-            },
-            icon: Icons.chevron_left,
-            margin: EdgeInsets.only(left: 16.w)),
         actions: [
           AppBarButton(
               onTap: () {
@@ -64,7 +57,7 @@ class ProfileScreen extends GetView {
                   Container(
                     padding: EdgeInsets.only(top: 8.h, bottom: 8.w),
                     child: Text(
-                     authController.user?.email ?? "",
+                      authController.user?.email ?? "",
                       style: largeNormalGrey,
                     ),
                   ),
@@ -80,7 +73,7 @@ class ProfileScreen extends GetView {
                       children: [
                         InkWell(
                           onTap: () {
-                            print("object");
+                            Get.toNamed("/AppointmentScreen");
                           },
                           child: Container(
                             alignment: Alignment.center,
@@ -136,11 +129,6 @@ class ProfileScreen extends GetView {
                               image: personcard),
                           divider,
                           CustomprofileCard(
-                              onTap: () {},
-                              text: "My Test & Diagnostic",
-                              image: testicon),
-                          divider,
-                          CustomprofileCard(
                               onTap: () {
                                 // await  StripeServices.instance.initPaymentSheet();\
                                 //remove payment widget after test payment screen
@@ -160,23 +148,17 @@ class ProfileScreen extends GetView {
             top: 25.w,
             right: (MediaQuery.of(context).size.width / 2) - (120.w / 2),
             child: Stack(children: [
-              Container(
-                alignment: Alignment.topCenter,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(100.r)),
-                child: ClipOval(
-                  child: box?.read("User").image != "" ||
-                          box?.read("User").image != null
-                      ? Image.network(
-                          "${ApiConstances.baseUrl}/${authController.user?.image}",
-                          width: 120.w,
-                          height: 120.w,
-                          fit: BoxFit.fill,
-                        )
-                      : Image.asset("assets/images/defaultProfile.jpg",
-                          width: 120.w, height: 120.w, fit: BoxFit.fill),
-                ),
-              ),
+              ClipOval(
+                  child: Image.network(
+                "${ApiConstances.baseUrl}/${authController.user?.image}",
+                width: 120.w,
+                height: 120.w,
+                fit: BoxFit.fill,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(defaultProfile,
+                      width: 120.w, height: 120.w, fit: BoxFit.fill);
+                },
+              )),
             ]),
           )
         ],

@@ -1,63 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare/controller/appoinment_controller.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/appBar.dart';
 import 'package:healthcare/view/components/appbar_button.dart';
 import 'package:healthcare/view/components/primary_button.dart';
 import 'package:healthcare/view/components/text_button.dart';
+import 'package:intl/intl.dart';
 
-class RescheduleScreen extends StatefulWidget {
-  const RescheduleScreen({super.key});
+// ignore: must_be_immutable
+class RescheduleScreen extends StatelessWidget {
+  RescheduleScreen({super.key});
 
-  @override
-  State<RescheduleScreen> createState() => _RescheduleScreenState();
-}
-
-class _RescheduleScreenState extends State<RescheduleScreen> {
-  int _selectedIndex = 1;
-  int _selectedDay = 1;
-
-  List<String> days = [
-    "Sat\n08",
-    "Sun\n09",
-    "Mon\n10",
-    "Tue\n11",
-    "Wed\n12",
-    "Thu\n12",
-    "Fri\n12",
-  ];
-
-  final ScrollController _scrollController = ScrollController();
-  void scrolLeft() {
-    if (_selectedDay > 0) {
-      setState(() {
-        _selectedDay--;
-      });
-      _scrollToIndex(_selectedDay);
-    }
-  }
-
-  void scrolRight() {
-    if (_selectedDay < days.length - 1) {
-      setState(() {
-        _selectedDay++;
-      });
-
-      _scrollToIndex(_selectedDay);
-    }
-  }
-
-  void _scrollToIndex(int index) {
-    _scrollController.animateTo(
-      index * 80.0, // Adjust based on item width
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
-  }
-
+  final appointmentController = Get.find<AppoinmentController>();
+  String date = "";
   @override
   Widget build(BuildContext context) {
+    appointmentController.availableDate();
+    appointmentController.availableTime("8:00");
     return Scaffold(
       appBar: appBar(
           tranparent: true,
@@ -72,230 +33,295 @@ class _RescheduleScreenState extends State<RescheduleScreen> {
         padding: const EdgeInsets.all(8.0),
         child: PrimaryButton(
           buttonText: 'Reschedule',
-          onPressed: () {
-            Get.toNamed("/AppointmentRescheduleScreen");
+          onPressed: () async {
+            String formattedDate = DateFormat('yyyy-MM-dd').format(
+                appointmentController
+                    .allweekDays[appointmentController.selectedDay]);
+
+            if (date == "") {
+              await appointmentController.rescheduleAppointment(
+                  Get.arguments['id'],
+                  appointmentController
+                      .allweekDays[appointmentController.selectedDay]
+                      .toString(),
+                  appointmentController
+                      .availableTimes[appointmentController.selectedTimes],
+                  appointmentController.typeSelected);
+              await appointmentController.fetchAppoinments();
+              Get.toNamed("/AppointmentRescheduleScreen", arguments: {
+                "time": appointmentController
+                    .availableTimes[appointmentController.selectedTimes],
+                "date": formattedDate,
+                "doctorId": Get.arguments["doctorId"]
+              });
+            } else {
+              await appointmentController.rescheduleAppointment(
+                  Get.arguments['id'],
+                  date,
+                  appointmentController
+                      .availableTimes[appointmentController.selectedTimes],
+                  appointmentController.typeSelected);
+              Get.toNamed("/AppointmentRescheduleScreen", arguments: {
+                "time": appointmentController
+                    .availableTimes[appointmentController.selectedTimes],
+                "date": date,
+                "doctorId": Get.arguments["doctorId"]
+              });
+              await appointmentController.fetchAppoinments();
+            }
           },
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 32.h),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Select Date',
-                    style: semiBoldBlack16,
-                  ),
-                  CustumTextButton(
-                    title: 'Set Manual',
-                    onTap: () {
-                      showDatePicker(
-                          context: context,
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(2050));
-                    },
-                  ),
-                ],
-              ),
-              mediumSpace24,
-              Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                height: 65.h,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+      body: GetBuilder(
+          init: appointmentController,
+          builder: (controller) {
+            return Padding(
+              padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 32.h),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    InkWell(
-                        onTap: () {
-                          scrolLeft();
-                          print(_selectedDay);
-                        },
-                        child: Icon(
-                          Icons.chevron_left,
-                          size: 24.w,
-                        )),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: days.length,
-                        controller: _scrollController,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          // if _selectedIndex == index then isSelected true
-                          bool isSelected = _selectedDay == index;
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  _selectedIndex = index;
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12.r)),
-                                    color: isSelected
-                                        ? primaryColor
-                                        : searchBackground,
-                                  ),
-                                  width: isSelected ? 60.w : 45.w,
-                                  height: isSelected ? 75.h : 60.h,
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 5.w, horizontal: 8.h),
-                                  child: Text(
-                                    days[index],
-                                    textAlign: TextAlign.center,
-                                    style: isSelected
-                                        ? semiBoldWhite14
-                                        : smallboldGrey12,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                            ],
-                          );
-                        },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Select Date',
+                          style: semiBoldBlack16,
+                        ),
+                        CustumTextButton(
+                          title: 'Set Manual',
+                          onTap: () {
+                            showDatePicker(
+                                    context: context,
+                                    firstDate: DateTime.now(),
+                                    lastDate: DateTime(2050))
+                                .then(
+                              (value) {
+                                if (value != null) {
+                                  DateTime dateTime = DateTime.parse("$value");
+                                  String formattedDate =
+                                      DateFormat('yyyy-MM-dd').format(dateTime);
+                                  //get Date Formated as 2025-04-10
+                                  date = formattedDate;
+                                }
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    mediumSpace24,
+                    Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      height: 65.h,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                appointmentController.scrolLeft();
+                              },
+                              child: Icon(
+                                Icons.chevron_left,
+                                size: 24.w,
+                              )),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: appointmentController.weekDays.length,
+                              controller:
+                                  appointmentController.scrollController,
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                // if _selectedIndex == index then isSelected true
+                                bool isSelected =
+                                    appointmentController.selectedDay == index;
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        appointmentController.selectedIndex =
+                                            index;
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(12.r)),
+                                          color: isSelected
+                                              ? primaryColor
+                                              : searchBackground,
+                                        ),
+                                        width: isSelected ? 60.w : 45.w,
+                                        height: isSelected ? 75.h : 60.h,
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 5.w, horizontal: 8.h),
+                                        child: Text(
+                                          "${appointmentController.weekDays[index]}\n${appointmentController.weekDaysDate[index]}",
+                                          textAlign: TextAlign.center,
+                                          style: isSelected
+                                              ? semiBoldWhite14
+                                              : smallboldGrey12,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                          InkWell(
+                              onTap: () {
+                                appointmentController.scrolRight();
+                              },
+                              child: Icon(
+                                Icons.chevron_right,
+                                size: 24.w,
+                              ))
+                        ],
                       ),
                     ),
-                    InkWell(
-                        onTap: () {
-                          scrolRight();
-                          print(_selectedDay);
-                        },
-                        child: Icon(
-                          Icons.chevron_right,
-                          size: 24.w,
-                        ))
+                    largeSpace,
+                    Text(
+                      'Available time',
+                      style: semiBoldBlack16,
+                    ),
+                    mediumSpace20,
+                    GridView.builder(
+                      shrinkWrap: true,
+                      itemCount: appointmentController.availableTimes.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 3),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            appointmentController.sellectTime(index);
+                          },
+                          child: Container(
+                            height: 20.h,
+                            width: 20.w,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color:
+                                    appointmentController.selectedTimes != index
+                                        ? silverColor
+                                        : primaryColor,
+                                borderRadius: BorderRadius.circular(20.r)),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8.h, vertical: 16.w),
+                            child: Text(
+                              appointmentController.availableTimes[index],
+                              style:
+                                  appointmentController.selectedTimes != index
+                                      ? semiBoldGrey14
+                                      : semiBoldWhite14,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    largeSpace,
+                    Text(
+                      'Appointment Type',
+                      style: semiBoldBlack16,
+                    ),
+                    mediumSpace20,
+                    RadioListTile(
+                      activeColor: primaryColor,
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      value: appointmentController.selectedIndex,
+                      title: Row(
+                        children: [
+                          const Image(
+                              image: AssetImage('assets/images/inPerson.png')),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          Text(appointmentController.type[0]),
+                        ],
+                      ),
+                      groupValue: 1,
+                      onChanged: (value) {
+                        appointmentController.selectedIndex = 1;
+                        appointmentController.typeSelected =
+                            appointmentController.type[0];
+                        appointmentController.update();
+                      },
+                    ),
+                    Divider(
+                      indent: 20.w,
+                      endIndent: 20.w,
+                    ),
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      activeColor: primaryColor,
+                      value: appointmentController.selectedIndex,
+                      title: Row(
+                        children: [
+                          const Image(
+                              image: AssetImage('assets/images/vedioCall.png')),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          Text(appointmentController.type[1]),
+                        ],
+                      ),
+                      groupValue: 2,
+                      onChanged: (value) {
+                        appointmentController.selectedIndex = 2;
+                        appointmentController.typeSelected =
+                            appointmentController.type[1];
+                        appointmentController.update();
+                      },
+                    ),
+                    Divider(
+                      indent: 20.w,
+                      endIndent: 20.w,
+                    ),
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      activeColor: primaryColor,
+                      value: appointmentController.selectedIndex,
+                      title: Row(
+                        children: [
+                          const Image(
+                              image: AssetImage('assets/images/phoneCall.png')),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          Text(appointmentController.type[2]),
+                        ],
+                      ),
+                      groupValue: 3,
+                      onChanged: (value) {
+                        appointmentController.selectedIndex = 3;
+                        appointmentController.typeSelected =
+                            appointmentController.type[2];
+
+                        appointmentController.update();
+                      },
+                    ),
                   ],
                 ),
               ),
-              largeSpace,
-              Text(
-                'Available time',
-                style: semiBoldBlack16,
-              ),
-              mediumSpace20,
-              GridView.builder(
-                shrinkWrap: true,
-                itemCount: 6,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 3),
-                itemBuilder: (context, index) {
-                  return Container(
-                    height: 20.h,
-                    width: 20.w,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: index != 1 ? silverColor : primaryColor,
-                        borderRadius: BorderRadius.circular(20.r)),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 8.h, vertical: 16.w),
-                    child: Text(
-                      '08:00 AM',
-                      style: index != 1 ? semiBoldGrey14 : semiBoldWhite14,
-                    ),
-                  );
-                },
-              ),
-              largeSpace,
-              Text(
-                'Appointment Type',
-                style: semiBoldBlack16,
-              ),
-              mediumSpace20,
-              RadioListTile(
-                activeColor: primaryColor,
-                controlAffinity: ListTileControlAffinity.trailing,
-                value: _selectedIndex,
-                title: Row(
-                  children: [
-                    const Image(
-                        image: AssetImage('assets/images/inPerson.png')),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    const Text('In Person'),
-                  ],
-                ),
-                groupValue: 1,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedIndex = 1;
-                  });
-                },
-              ),
-              Divider(
-                indent: 20.w,
-                endIndent: 20.w,
-              ),
-              RadioListTile(
-                controlAffinity: ListTileControlAffinity.trailing,
-                activeColor: primaryColor,
-                value: _selectedIndex,
-                title: Row(
-                  children: [
-                    const Image(
-                        image: AssetImage('assets/images/vedioCall.png')),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    const Text('Vedio Call'),
-                  ],
-                ),
-                groupValue: 2,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedIndex = 2;
-                  });
-                },
-              ),
-              Divider(
-                indent: 20.w,
-                endIndent: 20.w,
-              ),
-              RadioListTile(
-                controlAffinity: ListTileControlAffinity.trailing,
-                activeColor: primaryColor,
-                value: _selectedIndex,
-                title: Row(
-                  children: [
-                    const Image(
-                        image: AssetImage('assets/images/phoneCall.png')),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    const Text('Phone Call'),
-                  ],
-                ),
-                groupValue: 3,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedIndex = 3;
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+            );
+          }),
     );
   }
 }

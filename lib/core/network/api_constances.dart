@@ -9,4 +9,5 @@ class ApiConstances {
   static const String updateUser = "$baseUrl/api/users"; 
   static const String getDoctors = "$baseUrl/api/doctors/"; 
   static const String getDoctorsSpecality = "$baseUrl/api/categories"; 
+  static const String getAppoinmentData = "$baseUrl/api/appointments"; 
 }

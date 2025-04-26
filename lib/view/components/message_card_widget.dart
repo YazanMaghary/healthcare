@@ -10,7 +10,7 @@ class ChatCardWidget extends StatelessWidget {
   final String specilaizationName;
   final String hospitalName;
   final String imagePath;
-  final bool drCheck ; 
+  final bool drCheck;
   const ChatCardWidget({
     super.key,
     required this.doctorName,
@@ -18,12 +18,12 @@ class ChatCardWidget extends StatelessWidget {
     required this.time,
     required this.imagePath,
     required this.specilaizationName,
-    required this.hospitalName, required this.drCheck,
+    required this.hospitalName,
+    required this.drCheck,
   });
 
   @override
   Widget build(BuildContext context) {
-    print("Image Source: $imagePath");
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.w),
       child: Container(
@@ -42,7 +42,9 @@ class ChatCardWidget extends StatelessWidget {
                 height: 50.w,
                 child: CircleAvatar(
                   radius: 20,
-                  backgroundImage:imagePath != "" ? NetworkImage(imagePath) : const AssetImage(defaultProfile),
+                  backgroundImage: imagePath != ""
+                      ? NetworkImage(imagePath)
+                      : const AssetImage(defaultProfile),
                 ),
               ),
             ),
@@ -87,7 +89,7 @@ class ChatCardWidget extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text(
                       textAlign: TextAlign.center,
-                      drCheck==true ? "Dr" : "You",
+                      drCheck == true ? "Dr" : "You",
                       style: smallNormalWhite10,
                     ),
                   ),

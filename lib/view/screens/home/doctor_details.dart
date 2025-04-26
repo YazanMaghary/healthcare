@@ -23,7 +23,7 @@ class Doctordetails extends StatefulWidget {
 class _DoctordetailsState extends State<Doctordetails>
     with TickerProviderStateMixin {
   late TabController _tabController;
-  DoctorsController doctorsController = Get.put(
+  DoctorsController doctorsController = Get.put<DoctorsController>(
     DoctorsController(),
   );
   @override
@@ -43,7 +43,7 @@ class _DoctordetailsState extends State<Doctordetails>
     return GetBuilder<DoctorsController>(
         init: doctorsController,
         initState: (state) async {
-          await doctorsController.getDoctorById(box?.read("doctorId"));
+          await doctorsController.getDoctorById(Get.arguments["doctorId"]);
         },
         builder: (controller) {
           if (doctorsController.doctor == null) {
@@ -109,16 +109,24 @@ class _DoctordetailsState extends State<Doctordetails>
                       EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
                   child: Row(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
-                            image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image:doctorsController.doctor!.user?.image!=null ? NetworkImage(
-                                    "${ApiConstances.baseUrl}/${doctorsController.doctor!.user?.image}"):const AssetImage(defaultProfile))),
-                        width: 80.w,
-                        height: 80.w,
-                      ),
+                      ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(12.r)),
+                          child: Image.network(
+                            "${ApiConstances.baseUrl}/${doctorsController.doctor?.user?.image}",
+                            loadingBuilder: (context, child, loadingProgress) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            },
+                            width: 80.h,
+                            height: 80.h,
+                            errorBuilder: (context, errorrz, stackTrace) {
+                              return Image.asset(
+                                defaultProfile,
+                                width: 80.h,
+                                height: 80.h,
+                              );
+                            },
+                          )),
                       const SizedBox(
                         width: 16,
                       ),
@@ -178,6 +186,7 @@ class _DoctordetailsState extends State<Doctordetails>
                           )
                         ],
                       ),
+                      const Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 16.0, left: 16),
                         child: Image.asset(messageText),
@@ -291,18 +300,30 @@ class _DoctordetailsState extends State<Doctordetails>
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      CircleAvatar(
-                                        radius: 20,
-                                        backgroundImage: doctorsController
-                                                    .doctor!
-                                                    .reviews?[index]
-                                                    .user
-                                                    ?.image !=
-                                                null
-                                            ? NetworkImage(
-                                                "${ApiConstances.baseUrl}/${doctorsController.doctor!.reviews?[index].user?.image}")
-                                            : const AssetImage(defaultProfile),
-                                      ),
+                                      ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(50.r)),
+                                          child: Image.network(
+                                            "${ApiConstances.baseUrl}/${doctorsController.doctor!.reviews?[index].user?.image}",
+                                            loadingBuilder: (context, child,
+                                                loadingProgress) {
+                                              return const Center(
+                                                  child:
+                                                      CircularProgressIndicator());
+                                            },
+                                            width: 50.h,
+                                            fit: BoxFit.cover,
+                                            height: 50.h,
+                                            errorBuilder:
+                                                (context, errorrz, stackTrace) {
+                                              return Image.asset(
+                                                defaultProfile,
+                                                width: 50.h,
+                                                fit: BoxFit.cover,
+                                                height: 50.h,
+                                              );
+                                            },
+                                          )),
                                       const SizedBox(
                                         width: 8,
                                       ),
@@ -314,11 +335,14 @@ class _DoctordetailsState extends State<Doctordetails>
                                           ),
                                           smallSpace4,
                                           StartRating(
+                                            index: index,
                                             doctorsController:
                                                 doctorsController,
                                             startRating: doctorsController
-                                                .doctor!.rating!.averageRating!
-                                                .toDouble(),
+                                                    .doctor
+                                                    ?.reviews?[index]
+                                                    .rating ??
+                                                5,
                                           )
                                         ],
                                       ),
@@ -356,7 +380,9 @@ class _DoctordetailsState extends State<Doctordetails>
                   child: PrimaryButton(
                     buttonText: 'Make An Appointment',
                     onPressed: () {
-                      Get.toNamed('/BookingScreen');
+                      Get.toNamed('/BookingScreen', arguments: {
+                        "doctorId": doctorsController.doctor?.id
+                      });
                     },
                   ),
                 ),

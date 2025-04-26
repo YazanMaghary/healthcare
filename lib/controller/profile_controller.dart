@@ -28,27 +28,6 @@ class ProfileController extends GetxController {
       Get.offAllNamed("/MainAppScreen");
     });
   }
-  // Future<User> getUserData() async {
-  //   final result = await AuthDataSource().getMe();
-  //   User? user;
-
-  //   result.fold((failure) {
-  //     failureWidget('Error', failure);
-  //   }, (success) {
-  //     user = success;
-  //   });
-  //   return user!;
-  // }
-  // Future<void> updateUserData(String? name, String? phone) async {
-  //   UserDataSource userDataSource = UserDataSource();
-  //   final result =
-  //       await userDataSource.updateUserData({"name": name, "phone": phone ,"image" : null});
-  //   result.fold((failure){
-  //     failureWidget("Error", failure);
-  //   },(success){
-  //     print("User updated Successfully");
-  //   });
-  // }
 
   void pickImage() async {
     Get.bottomSheet(
@@ -97,14 +76,10 @@ class ProfileController extends GetxController {
 
       if (pickedFile != null) {
         image = File(pickedFile.path);
-        // print('Image picked successfully');
-        // print('Image path: ${image?.path}');
-        // print('Image size: ${await image?.length()} bytes');
       }
       Get.back(); // Close the bottom sheet
       update();
     } catch (e) {
-      print('Error picking image: $e');
       failureWidget("Error", e.toString());
     }
   }
@@ -122,13 +97,6 @@ class ProfileController extends GetxController {
         if (name != null && name.isNotEmpty) 'name': name,
         if (phone != null && phone.isNotEmpty) 'phone': phone,
       };
-
-      // print('Updating profile with:');
-      // print('Name: $name');
-      // print('Phone: $phone');
-      // print('Image path: ${file.path}');
-      // print('Image exists: ${await file.exists()}');
-      // print('Image size: ${await file.length()} bytes');
 
       final result = await userDataSource.updateUserProfileWithImage(
           userData, file.path, logedIn);
@@ -150,7 +118,6 @@ class ProfileController extends GetxController {
         },
       );
     } catch (e) {
-      print('Error in updateUserProfile: $e');
       failureWidget("Error", "An unexpected error occurred");
     }
   }

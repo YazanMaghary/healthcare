@@ -92,24 +92,31 @@ class SignupScreen extends StatelessWidget {
                           hintText: 'Your Number',
                         )),
                     mediumSpace20,
-
                     PrimaryButton(
                         buttonText: "Create Account",
                         onPressed: () async {
                           box?.write("email", emailController.text);
                           if (_formKey.currentState!.validate()) {
-                            await authController.register(
+                 
+                            await authController
+                                .register(
                               nameController.text,
                               emailController.text,
                               passwordController.text,
                               phoneController.text,
+                            )
+                                .then(
+                              (value) {
+                                if (value == true) {
+                                  Get.toNamed("/OtpVerficationScreen");
+                                }
+                              },
                             );
 
                             box?.write("register", true);
                           }
                         }),
                     mediumSpace20,
-
                     const Spacer(),
                     Center(
                       child: RichText(
