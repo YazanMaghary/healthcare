@@ -10,10 +10,11 @@ import 'package:intl/intl.dart';
 
 class ChatScreen extends GetView<ChatController> {
   ChatScreen({super.key});
-  final chatController = Get.put<ChatController>(ChatController());
+  final chatController = Get.put<ChatController>(ChatController(),permanent: true);
   final doctorController = Get.find<DoctorsController>();
   // List<String> chats = [];
   // To toggle emoji keyboard
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ChatController>(
@@ -46,8 +47,8 @@ class ChatScreen extends GetView<ChatController> {
               Expanded(child: Obx(
                 // Stram Builder replacing
                 () {
-                  print("test");
                   return ListView.separated(
+                    key: const PageStorageKey("chatListView"),
                     controller: controller.scrollController,
                     shrinkWrap: true,
                     physics: const AlwaysScrollableScrollPhysics(),
@@ -134,7 +135,8 @@ class ChatScreen extends GetView<ChatController> {
                     ),
                     Expanded(
                       child: TextField(
-                        controller: controller.textFieldController,onChanged: (value) {
+                        controller: controller.textFieldController,
+                        onChanged: (value) {
                           controller.sendIconColorState();
                         },
                         onTap: () {
@@ -155,8 +157,7 @@ class ChatScreen extends GetView<ChatController> {
                       ),
                     ),
                     IconButton(
-                      icon: Icon(Icons.send,
-                          color: controller.sendIconColor),
+                      icon: Icon(Icons.send, color: controller.sendIconColor),
                       onPressed: () async {
                         if (controller.textFieldController.text
                             .removeAllWhitespace.isNotEmpty) {

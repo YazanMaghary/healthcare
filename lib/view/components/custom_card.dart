@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
+import 'package:healthcare/core/utils/app_images.dart';
 
-class mySpeciailtyCard extends StatelessWidget {
+class MySpeciailtyCard extends StatelessWidget {
   final String speciailtyImagePath;
   final String speciailtyType;
 
-  const mySpeciailtyCard({
+  const MySpeciailtyCard({
     super.key,
     required this.speciailtyImagePath,
     required this.speciailtyType,
@@ -17,21 +17,26 @@ class mySpeciailtyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: 50.w,
-          height: 50.w,
-          decoration:  BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                    "${ApiConstances.baseUrl}/$speciailtyImagePath",
-                  )),
-              shape: BoxShape.circle,
-              color: greyBackground),
-          padding: EdgeInsets.all(24.h),
+        ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(50.r)),
+          child: Image.network(
+            speciailtyImagePath,
+            width: 50.w,
+            height: 50.w,
+            errorBuilder: (context, errorrz, stackTrace) {
+              return Image.asset(
+                histologistImage,
+                width: 50.w,
+                height: 50.w,
+              );
+            },
+          ),
         ),
-       smallSpace12,
-        Text(speciailtyType,style: smallnormallBlack12,)
+        smallSpace12,
+        Text(
+          speciailtyType,
+          style: smallnormallBlack12,
+        )
       ],
     );
   }

@@ -8,6 +8,7 @@ import 'package:healthcare/model/error_model.dart';
 
 class DoctorsDataSource {
   final dio = Dio();
+  // ignore: non_constant_identifier_names
   Future<Either<String, DoctorsModel>> GetDoctors() async {
     try {
       final response = await dio.get(
@@ -22,14 +23,13 @@ class DoctorsDataSource {
 
       return Right(doctors);
     } on DioException catch (e) {
-      print("Dio Exception Error");
+ 
       ErrorModel errorModel = ErrorModel.fromJson(e.response?.data ??
           {'message': "No Internet Connection", 'Error': "Internet related"});
-      print(errorModel.message);
+    
       return Left(errorModel.message ?? 'Connection Error');
     } catch (e) {
-      print("Global catch Error");
-      print(e.toString());
+  
       return const Left('An unexpected error occurred');
     }
   }
@@ -48,14 +48,13 @@ class DoctorsDataSource {
       Doctor doctor = Doctor.fromJson(response.data["data"]);
       return Right(doctor);
     } on DioException catch (e) {
-      print("Dio Exception Error");
+
       ErrorModel errorModel = ErrorModel.fromJson(e.response?.data ??
           {'message': "No Internet Connection", 'Error': "Internet related"});
-      print(errorModel.message);
+      
       return Left(errorModel.message ?? 'Connection Error');
     } catch (e) {
-      print("Global catch Error");
-      print(e.toString());
+    
       return const Left('An unexpected error occurred');
     }
   }
@@ -75,14 +74,13 @@ class DoctorsDataSource {
 
       return Right(categories);
     } on DioException catch (e) {
-      print("Dio Exception Error");
+     
       ErrorModel errorModel = ErrorModel.fromJson(e.response?.data ??
           {'message': "No Internet Connection", 'Error': "Internet related"});
-      print(errorModel.message);
+     
       return Left(errorModel.message ?? 'Connection Error');
     } catch (e) {
-      print("Global catch Error");
-      print(e.toString());
+  
       return const Left('An unexpected error occurred');
     }
   }

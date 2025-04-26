@@ -7,29 +7,6 @@ import 'package:healthcare/model/error_model.dart';
 //permission problem
 
 class UserDataSource {
-  // Future<Either<String, void>> updateUserData(Map<String, dynamic> data) async {
-  //   final dio = Dio();
-  //   try {
-  //     print("id");
-  //     print(box?.read("User").id);
-  //     print(box?.read("Token"));
-  //     print("id");
-  //     final response = await dio
-  //         .put("${ApiConstances.updateUser}/${box?.read("User").id}", data: data,options: Options(headers: {
-  //         'Authorization': "Bearer ${box?.read("Token")}"
-  //         }));
-  //     print("successful updated data");
-  //     return const Right(null);
-  //   } on DioException catch (e) {
-  //     print("Dio Exception error");
-  //     ErrorModel errorModel = ErrorModel.fromJson(e.response?.data ??
-  //         {'message': "No Internet Connection", 'Error': "Internet related"});
-  //     return left(errorModel.message ?? "Connection error");
-  //   } catch (e) {
-  //     return left(e.toString());
-  //   }
-  // }
-
   Future<Either<String, void>> updateUserProfileWithImage(
       Map<String, dynamic> data, String? path, bool logedIn) async {
     try {
@@ -69,13 +46,6 @@ class UserDataSource {
         if (data.containsKey('phone')) 'phone': data['phone'],
       });
 
-      // Print debug information
-      // print('Uploading file:');
-      // print('Path: $path');
-      // print('Exists: ${await file.exists()}');
-      // print('Size: ${await file.length()} bytes');
-      // print('Mime Type: $mimeType');
-
       final dio = Dio();
 
       // Add logging interceptor
@@ -86,8 +56,7 @@ class UserDataSource {
         responseHeader: true,
       ));
       if (logedIn == false) {}
-      print("id :${box?.read("id")}");
-      print("Token :${box?.read("Token")}");
+
       final response = await dio.put(
         logedIn
             ? "${ApiConstances.updateUser}/${box?.read("User").id}"
@@ -113,18 +82,10 @@ class UserDataSource {
           return const Left(
               'You do not have permission to access this resource');
         }
-        print('Status Code: ${response.statusCode}');
-        print('Response Data: ${response.data}');
+
         return Left(response.data['message'] ?? 'Update failed');
       }
     } on DioException catch (e) {
-      print('=== Dio Exception Details ===');
-      print('Status code: ${e.response?.statusCode}');
-      print('Error message: ${e.message}');
-      print('Error data: ${e.response?.data}');
-      // print('Request path: ${e.requestOptions.path}');
-      // print('Request headers: ${e.requestOptions.headers}');
-
       if (e.response != null) {
         ErrorModel errorModel2 = ErrorModel.fromJson(e.response?.data ??
             {'message': "No Internet Connection", 'Error': "Internet related"});
@@ -140,8 +101,7 @@ class UserDataSource {
     Map<String, String> data,
   ) async {
     try {
-      var datafordio =
-          FormData.fromMap(data);
+      var datafordio = FormData.fromMap(data);
       final dio = Dio();
       final response = await dio.put(
           "${ApiConstances.updateUser}/${box?.read("User").id}",
@@ -153,11 +113,6 @@ class UserDataSource {
       }
       return const Right(null);
     } on DioException catch (e) {
-      print('=== Dio Exception Details ===');
-      print('Status code: ${e.response?.statusCode}');
-      print('Error message: ${e.message}');
-      print('Error data: ${e.response?.data}');
-
       if (e.response != null) {
         ErrorModel errorModel2 = ErrorModel.fromJson(e.response?.data ??
             {'message': "No Internet Connection", 'Error': "Internet related"});

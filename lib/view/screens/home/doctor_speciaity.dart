@@ -6,6 +6,7 @@ import 'package:healthcare/view/components/shimmer_wdget.dart';
 import '../../components/custom_card.dart';
 import 'main_app_screen.dart';
 
+// ignore: must_be_immutable
 class DoctorSpeciality extends StatelessWidget {
   DoctorSpeciality({super.key});
   DoctorsController doctorsController = Get.put(DoctorsController());
@@ -62,6 +63,9 @@ class DoctorSpeciality extends StatelessWidget {
         ),
         child: GetBuilder(
             init: doctorsController,
+            initState: (state) async {
+              doctorsController.getCategories();
+            },
             builder: (controller) {
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -75,7 +79,7 @@ class DoctorSpeciality extends StatelessWidget {
                   } else {
                     return Column(
                       children: [
-                        mySpeciailtyCard(
+                        MySpeciailtyCard(
                           speciailtyImagePath:
                               doctorsController.categoriesList[index].image!,
                           speciailtyType:

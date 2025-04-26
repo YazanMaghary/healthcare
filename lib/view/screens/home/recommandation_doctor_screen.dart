@@ -12,7 +12,8 @@ class RecommandationDoctorScreen extends GetView {
 
   final TextEditingController _controller = TextEditingController();
 
-  final DoctorsController doctorsController = Get.put(DoctorsController());
+  final DoctorsController doctorsController =
+      Get.put<DoctorsController>(DoctorsController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,67 +23,45 @@ class RecommandationDoctorScreen extends GetView {
         backgroundColor: scaffoldBackgroundColor,
         surfaceTintColor: scaffoldBackgroundColor,
         elevation: 0,
-        leading: Row(
-          children: [
-            const SizedBox(
-              width: 8,
-            ),
-            GestureDetector(
-              onTap: () {
-                Get.offNamed('/MainAppScreen');
-              },
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey.shade300, width: 1),
-                ),
-                child: const Row(
-                  children: [
-                    SizedBox(
-                      width: 4,
-                    ),
-                    Icon(
-                      Icons.arrow_back_ios,
-                      size: 20,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        centerTitle: true,
-        title: Text('Recommendation Doctor', style: semiBoldBlack18),
-        actions: [
-          Row(
-            children: [
-              const SizedBox(
-                width: 8,
-              ),
-              GestureDetector(
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey.shade300, width: 1),
+        leading: Get.currentRoute != "/MainAppScreen"
+            ? Row(
+                children: [
+                  const SizedBox(
+                    width: 8,
                   ),
-                  child: const Row(
-                    children: [
-                      Icon(
-                        Icons.more_horiz,
-                        size: 20,
+                  GestureDetector(
+                    onTap: () {
+                      if (Get.currentRoute != "/MainAppScreen") {
+                        Get.offNamed('/MainAppScreen');
+                      } else {}
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border:
+                            Border.all(color: Colors.grey.shade300, width: 1),
                       ),
-                    ],
+                      child: const Row(
+                        children: [
+                          SizedBox(
+                            width: 4,
+                          ),
+                          Icon(
+                            Icons.arrow_back_ios,
+                            size: 20,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            width: 16,
-          )
-        ],
+                ],
+              )
+            : const SizedBox(),
+        centerTitle: true,
+        title: Get.currentRoute != "/MainAppScreen"
+            ? Text('Recommendation Doctor', style: semiBoldBlack18)
+            : Text('Search Screen', style: semiBoldBlack18),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -136,6 +115,9 @@ class RecommandationDoctorScreen extends GetView {
             mediumSpace20,
             GetBuilder(
               init: doctorsController,
+              initState: (state) async {
+                await doctorsController.getDoctors();
+              },
               builder: (GetxController controller) {
                 return Expanded(
                     child: ListView.separated(
@@ -149,8 +131,11 @@ class RecommandationDoctorScreen extends GetView {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Get.toNamed('/Doctordetails',
-                            arguments: {"index": index});
+                        Get.toNamed('/Doctordetails', arguments: {
+                          "index": index,
+                          "doctorId":
+                              doctorsController.doctorsListFilter[index].id
+                        });
                       },
                       child: Material(
                         shadowColor: greyBackground,
@@ -161,22 +146,26 @@ class RecommandationDoctorScreen extends GetView {
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: doctorsController
-                                                    .doctorsListFilter[index]
-                                                    .user
-                                                    ?.image !=
-                                                null
-                                            ? NetworkImage(
-                                                "${ApiConstances.baseUrl}/${doctorsController.doctorsListFilter[index].user?.image}")
-                                            : const AssetImage(defaultProfile)),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(20.r))),
-                                width: 110.w,
-                                height: 110.w,
+                              ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12.r)),
+                                child: Image.network(
+                                  "${ApiConstances.baseUrl}/${doctorsController.doctorsListFilter[index].user?.image}",
+                                  width: 110.h,
+                                  height: 110.h,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  },
+                                  errorBuilder: (context, errorrz, stackTrace) {
+                                    return Image.asset(
+                                      defaultProfile,
+                                      width: 110.h,
+                                      height: 110.h,
+                                    );
+                                  },
+                                ),
                               ),
                               const SizedBox(
                                 width: 16,
@@ -184,10 +173,13 @@ class RecommandationDoctorScreen extends GetView {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(width: 150.w,height: 25.h,
+                                  SizedBox(
+                                    width: 150.w,
+                                    height: 25.h,
                                     child: Text(
                                       doctorsController
-                                          .doctorsListFilter[index].user!.name!,overflow: TextOverflow.ellipsis,
+                                          .doctorsListFilter[index].user!.name!,
+                                      overflow: TextOverflow.ellipsis,
                                       style: semiBoldBlack18,
                                     ),
                                   ),

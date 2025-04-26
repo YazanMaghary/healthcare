@@ -10,10 +10,11 @@ import 'package:healthcare/view/components/custom_card.dart';
 import 'package:healthcare/view/components/shimmer_wdget.dart';
 import 'package:healthcare/view/components/text_button.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends GetView {
   HomeScreen({super.key});
-  final DoctorsController doctorsController = Get.put(DoctorsController());
-  final authController = Get.find<AuthController>();
+  final DoctorsController doctorsController =
+      Get.put<DoctorsController>(DoctorsController());
+  final authController = Get.put<AuthController>(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +32,10 @@ class HomeScreen extends StatelessWidget {
             children: [
               GetBuilder<AuthController>(
                 init: authController,
+                initState: (state) {
+                  authController.tookenExpired();
+                },
                 builder: (GetxController controller) {
-                  print("Test Test");
-                  print(authController.user?.name);
-                  print("Test Test");
                   return Text(
                     authController.user?.name ?? "",
                     style: const TextStyle(
@@ -91,8 +92,10 @@ class HomeScreen extends StatelessWidget {
                 "email",
               );
               box?.remove("password");
+              box?.remove("remmeberPassword");
+              box?.remove("User");
               box?.remove("register");
-
+              // box?.erase();
               Get.offNamed(
                 '/OnBoardingScreen',
               );
@@ -136,30 +139,9 @@ class HomeScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(25),
                         color: primaryColor,
                       ),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Book and \nschedule with \nnearest doctor',
-                                  style: semiBoldWhite18),
-                              mediumSpace20,
-                              ElevatedButton(
-                                onPressed: () {},
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 12.h, vertical: 16.w),
-                                  child: const Text(
-                                    'Find Nearby',
-                                    style: TextStyle(
-                                        color: primaryColor, fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer()
-                        ],
+                      child: Container(alignment: Alignment.centerLeft,
+                        child: Text('Book and \nschedule with \nnearest doctor',
+                            style: semiBoldWhite18),
                       ),
                     ),
                   ),
@@ -191,8 +173,11 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               smallSpace4,
-              GetBuilder(
+              GetBuilder<DoctorsController>(
                   init: doctorsController,
+                  initState: (state) async {
+                    await doctorsController.getCategories();
+                  },
                   builder: (controller) {
                     if (doctorsController.isCategoriesLoading == true) {
                       return SizedBox(
@@ -221,7 +206,7 @@ class HomeScreen extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: doctorsController.categoriesList.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return mySpeciailtyCard(
+                            return MySpeciailtyCard(
                               speciailtyImagePath:
                                   "${doctorsController.categoriesList[index].image}",
                               speciailtyType:
@@ -257,6 +242,9 @@ class HomeScreen extends StatelessWidget {
               smallSpace4,
               GetBuilder<DoctorsController>(
                 init: doctorsController,
+                initState: (state) async {
+                  await doctorsController.getDoctors();
+                },
                 builder: (GetxController controller) {
                   if (doctorsController.isDoctorsLoading) {
                     //GradiantColor
@@ -291,29 +279,30 @@ class HomeScreen extends StatelessWidget {
                             // Here  to make a good performance ui and fetch data faster fetch only one doctor from ppassing doctor id useing getDoctorById
                             box?.write("doctorId",
                                 doctorsController.doctorsList[index].id);
-                            print("Doctor Id: ${box?.read("doctorId")}");
 
-                            Get.toNamed('/Doctordetails',
-                                arguments: {"index": index});
+                            Get.toNamed('/Doctordetails', arguments: {
+                              "index": index,
+                              "doctorId":
+                                  doctorsController.doctorsList[index].id
+                            });
                           },
                           child: Row(
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: doctorsController
-                                                    .doctorsList[index]
-                                                    .user!
-                                                    .image !=
-                                                null
-                                            ? NetworkImage(
-                                                "${ApiConstances.baseUrl}/${doctorsController.doctorsList[index].user?.image}")
-                                            : const AssetImage(defaultProfile)),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(20.r))),
-                                width: 110.w,
-                                height: 110.w,
+                              ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12.r)),
+                                child: Image.network(
+                                  "${ApiConstances.baseUrl}/${doctorsController.doctorsList[index].user?.image}",
+                                  width: 110.h,
+                                  height: 110.h,
+                                  errorBuilder: (context, errorrz, stackTrace) {
+                                    return Image.asset(
+                                      defaultProfile,
+                                      width: 110.h,
+                                      height: 110.h,
+                                    );
+                                  },
+                                ),
                               ),
                               const SizedBox(
                                 width: 16,

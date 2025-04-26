@@ -116,9 +116,22 @@ class LoginScreen extends GetView {
                       } else {
                         box?.write("email", emailController.text);
                         box?.write("password", passwordController.text);
-
-                        await authController.login(
-                            emailController.text, passwordController.text);
+                        await authController
+                            .login(
+                                emailController.text, passwordController.text)
+                            .then(
+                          (value) {
+                            if (value == true) {
+                              if (box?.read("role") == "doctor") {
+                                Get.offAllNamed("/DoctorMainScreen");
+                              } else {
+                                Get.offAllNamed("/MainAppScreen");
+                              }
+                            } else {
+                              Get.toNamed("/OtpVerficationScreen");
+                            }
+                          },
+                        );
                         box?.write("register", false);
                       }
                     }

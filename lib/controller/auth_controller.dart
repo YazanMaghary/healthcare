@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/datasource/auth_data_source.dart';
@@ -11,14 +11,12 @@ class AuthController extends GetxController {
   bool remmeberPassword = false;
   bool showPassword = true;
   bool isButtonEnabled = true;
+  bool isLogedin = false;
+
   UserModel? userModel;
   User? user;
-  AuthDataSource authDataSource = AuthDataSource();
-  @override
-  void onInit() async{
-    // TODO: implement onInit
-    super.onInit();
-  }
+  AuthDataSource authDataSource = AuthDataSource(dio: Dio());
+
   void checkButton() {
     if (isButtonEnabled) {
       enableButton();
@@ -38,74 +36,64 @@ class AuthController extends GetxController {
     update();
   }
 
-  Future<void> login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     // final db = FirebaseFirestore.instance;
     disableButton();
-    Timer(const Duration(seconds: 1), () async {
-      final result = await authDataSource
-          .login({"email": email, "password": password}).whenComplete(
-        () async {
-          enableButton();
-        },
-      );
-      result.fold((failure) {
-        print("Failed to login");
-        failureWidget('Error', failure);
-      }, (success) async {
-        print("success to login");
-        print(success.user?.name);
-        userModel = success;
-        print(success.token);
-        // db.collection("${success.user?.id}").doc("First Doctor");
-        //Here 1
-        box?.write("Token", success.token);
-        box?.write("remmeberPassword", remmeberPassword);
-        // box?.write("Token2", success.token);
-
-        if (success.user?.isVerified == true) {
-          Get.offAllNamed("/MainAppScreen")?.whenComplete(
-            () {
-              print("ok route me");
-            },
-          );
-        } else {
-          Get.toNamed("/OtpVerficationScreen");
-        }
-
-        // Get.offAllNamed('/home');  // or whatever route you want
-      });
-    });
-  }
-
-  Future<void> register(
-      String name, String email, String password, String phone) async {
-    disableButton();
-    Timer(
+    bool loginSuccess = false;
+    await Future.delayed(
       const Duration(seconds: 1),
+    );
+    final result = await authDataSource
+        .login({"email": email, "password": password}).whenComplete(
       () async {
-        print(email);
-        final result = await authDataSource.register({
-          "name": name,
-          "email": email,
-          "password": password,
-          "phone": phone
-        }).whenComplete(
-          () {
-            enableButton();
-          },
-        );
-        result.fold((failure) {
-          failureWidget('Error', failure);
-        }, (success) {
-          // Handle successful login
-          print(success.user?.id);
-          box?.write("id", success.user!.id!);
-          print("success");
-          Get.toNamed("/OtpVerficationScreen");
-          // Get.offAllNamed('/home');  // or whatever route you want
-        });
+        enableButton();
       },
     );
+    result.fold((failure) {
+      failureWidget('Error', failure);
+      loginSuccess = false;
+    }, (success) async {
+      isLogedin = true;
+      userModel = success;
+
+      box?.write("role", success.user?.role ?? "user");
+      box?.write("Token", success.token);
+      box?.write("remmeberPassword", remmeberPassword);
+      loginSuccess = success.user?.isVerified ?? false;
+    });
+    return loginSuccess;
+  }
+
+  Future<bool> register(
+      String name, String email, String password, String phone) async {
+    disableButton();
+
+    bool registerSuccess = false;
+    await Future.delayed(
+      const Duration(seconds: 1),
+    );
+    final result = await authDataSource.register({
+      "name": name,
+      "email": email,
+      "password": password,
+      "phone": phone
+    }).whenComplete(
+      () {
+        enableButton();
+      },
+    );
+    result.fold((failure) {
+      registerSuccess = false;
+      failureWidget('Error', failure);
+    }, (success) {
+      // Handle successful login
+
+      registerSuccess = true;
+      box?.write("id", success.user!.id!);
+
+      // Get.offAllNamed('/home');  // or whatever route you want
+    });
+    return registerSuccess;
   }
 
   void checkBoxState() {
@@ -115,7 +103,6 @@ class AuthController extends GetxController {
       remmeberPassword = false;
     }
     update();
-    print(remmeberPassword);
   }
 
   String? validateEmail(String? value) {
@@ -176,7 +163,6 @@ class AuthController extends GetxController {
         );
         result.fold((failure) {
           enableButton();
-          print("object");
           failureWidget('Error', failure);
         }, (success) {
           if (box?.read("register") == true) {
@@ -204,7 +190,6 @@ class AuthController extends GetxController {
         );
 
         result.fold((failure) {
-          print("object");
           failureWidget('Error', failure);
         }, (success) async {
           successfullyWidget(

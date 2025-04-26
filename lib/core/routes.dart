@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:healthcare/core/binding/myBinding.dart';
 import 'package:healthcare/core/middleware/init_midlleware.dart';
 import 'package:healthcare/view/screens/appointment/appointment_reschedule_screen.dart';
+import 'package:healthcare/view/screens/appointment/appointment_screen.dart';
 import 'package:healthcare/view/screens/appointment/reschedule_screen.dart';
 import 'package:healthcare/view/screens/auth/Otp_verfication.dart';
 import 'package:healthcare/view/screens/auth/forgot_password_screen.dart';
@@ -60,7 +61,7 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/MainAppScreen',
-      page: () => const MainAppScreen(), 
+      page: () => const MainAppScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/HomeScreen',
@@ -81,7 +82,7 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/BookingScreen',
-      page: () => const BookingScreen(),
+      page: () => BookingScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/BookingPay',
@@ -97,7 +98,7 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/NotificationsScreen',
-      page: () => const NotificationsScreen(),
+      page: () => NotificationsScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/SettingScreen',
@@ -125,11 +126,15 @@ List<GetPage> getpage = [
       transition: Transition.leftToRight),
   GetPage(
       name: '/RescheduleScreen',
-      page: () => const RescheduleScreen(),
+      page: () => RescheduleScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/AppointmentRescheduleScreen',
-      page: () => const AppointmentRescheduleScreen(),
+      page: () =>  AppointmentRescheduleScreen(),
+      transition: Transition.leftToRight),
+  GetPage(
+      name: '/AppointmentScreen',
+      page: () => AppointmentScreen(),
       transition: Transition.leftToRight),
   GetPage(
       name: '/ChatScreen',

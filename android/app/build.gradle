@@ -9,6 +9,7 @@ plugins {
 dependencies {
   // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:33.10.0')
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
 
 
   // TODO: Add the dependencies for Firebase products you want to use
@@ -17,16 +18,17 @@ dependencies {
 }
 android {
     namespace = "com.mohndinfo.healthcare"
-    compileSdk = 34
+    compileSdk = 35
     ndkVersion = "25.1.8937393"
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = '17'
     }
 
     defaultConfig {

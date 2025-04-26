@@ -17,14 +17,6 @@ class DoctorsController extends GetxController {
   List<Doctor> doctorsListFilter = [];
   List<Doctor> doctorsListFilter2 = [];
   Doctor? doctor;
-  @override
-  void onInit() async {
-    // TODO: implement onInit
-    await getCategories();
-    await getDoctors();
-    update();
-    super.onInit();
-  }
 
   @override
   void onClose() {
@@ -66,7 +58,6 @@ class DoctorsController extends GetxController {
       for (var i = 0; i < doctorsList.length; i++) {
         if (doctorsList[i].rating!.averageRating!.round() == rating) {
           doctorsListFilter.add(doctorsList[i]);
-          print(doctorsListFilter.length);
         }
       }
     }
@@ -76,7 +67,7 @@ class DoctorsController extends GetxController {
 
   void handleSearch(String input) {
     doctorsListFilter.clear();
-    print("object");
+
     for (var i = 0; i < doctorsList.length; i++) {
       if (doctorsList[i]
           .user!
@@ -84,17 +75,14 @@ class DoctorsController extends GetxController {
           .toLowerCase()
           .contains(input.toLowerCase())) {
         doctorsListFilter.add(doctorsList[i]);
-        print("TestTEst");
-      } else {
-        // doctorsListFilter.clear();
-      }
+      } else {}
     }
     update();
   }
 
   void handleSearch2(String input) {
     doctorsListFilter2.clear();
-    print("object");
+
     for (var i = 0; i < doctorsList.length; i++) {
       if (doctorsList[i]
           .user!
@@ -102,15 +90,15 @@ class DoctorsController extends GetxController {
           .toLowerCase()
           .contains(input.toLowerCase())) {
         doctorsListFilter2.add(doctorsList[i]);
-        print("TestTEst");
-      } else {
-        // doctorsListFilter.clear();
-      }
+      } else {}
     }
     update();
   }
 
   Future<void> getDoctors() async {
+    doctorsListFilter2.clear();
+    doctorsListFilter.clear();
+
     final result = await doctorsDataSource.GetDoctors();
     result.fold((failure) {
       failureWidget("Error", failure);
@@ -119,11 +107,6 @@ class DoctorsController extends GetxController {
       doctorsList = doctors.data!;
       doctorsListFilter.addAll(doctorsList);
       doctorsListFilter2.addAll(doctorsList);
-      print("doctorsList.toString()");
-      for (var element in doctorsList) {
-        print(element.user?.name);
-      }
-      print("doctorsList.toString()");
     });
     update();
   }
@@ -135,34 +118,19 @@ class DoctorsController extends GetxController {
     }, (doctorById) {
       isDoctorsLoading = false;
       doctor = doctorById;
-      print("doctor name by get doctorID:\t${doctorById.user?.name}");
-      print("doctor name by get doctorID:\t${doctorById.id}");
     });
     update();
   }
 
   Future<void> getCategories() async {
     final result = await doctorsDataSource.getDoctorsSpecality();
+
     result.fold((failure) {
       failureWidget("Error", failure);
     }, (categories) {
       isCategoriesLoading = false;
       categoriesList = categories.data!;
-      print("Categories");
-
-      for (var element in categoriesList) {
-        print(element.name);
-      }
-      print("Categories");
     });
     update();
   }
 }
-
-
-
-//  if (doctorsList[i].specialization!.name == "test") {
-//         print("Test");
-//         print(doctorsList[i]);
-//         print("Test");
-//       } else

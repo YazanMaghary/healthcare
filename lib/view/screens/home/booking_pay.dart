@@ -4,8 +4,8 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/view/components/booking_stage.dart';
+import 'package:healthcare/view/components/bottomsheet.dart';
 import 'package:healthcare/view/components/primary_button.dart';
-import 'package:healthcare/view/screens/home/booking_screen.dart';
 
 class BookingPay extends StatefulWidget {
   const BookingPay({super.key});
@@ -22,8 +22,10 @@ class _BookingPayState extends State<BookingPay> {
   ExpansionTileController cardController = ExpansionTileController();
   ExpansionTileController bankTransfeerController = ExpansionTileController();
   ExpansionTileController paybalController = ExpansionTileController();
+  CardFormEditController cardFormEditController = CardFormEditController();
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFFFF),
@@ -36,10 +38,7 @@ class _BookingPayState extends State<BookingPay> {
             ),
             GestureDetector(
               onTap: () {
-                Get.offAll(
-                  const BookingScreen(),
-                  transition: Transition.leftToRight,
-                );
+                Get.offAndToNamed("/MainAppScreen");
               },
               child: Container(
                 padding: const EdgeInsets.all(8),
@@ -72,7 +71,21 @@ class _BookingPayState extends State<BookingPay> {
         child: PrimaryButton(
           buttonText: 'Continue',
           onPressed: () {
-            Get.offAllNamed('/BookingSummary');
+            final details = cardFormEditController.details;
+            String? last4Digits = details.last4;
+           
+            if (details.complete) {
+              Get.toNamed('/BookingSummary', arguments: {
+                "doctorId":Get.arguments["doctorId"],
+                "dateTime": Get.arguments["dateTime"] ,
+                "time": Get.arguments["time"],
+                "type": Get.arguments["type"],
+                "paymentMethod": _selectedOption,
+                "last4":last4Digits 
+              });
+            } else {
+              failureWidget("Error", "Unkown");
+            }
           },
         ),
       ),
@@ -141,7 +154,8 @@ class _BookingPayState extends State<BookingPay> {
                     style: semiBoldBlack16,
                   ),
                   mediumSpace20,
-                  ExpansionTile( controller: cardController,
+                  ExpansionTile(
+                    controller: cardController,
                     tilePadding: const EdgeInsets.symmetric(horizontal: 0),
                     shape: Border.all(width: 0),
                     onExpansionChanged: (value) {
@@ -149,10 +163,10 @@ class _BookingPayState extends State<BookingPay> {
                       _isPayPalExpanded = false;
                       _isBankTransferExpanded = false;
                       bankTransfeerController.collapse();
-                   
+
                       paybalController.collapse();
                       if (value) {
-                        _selectedOption = "card";
+                        _selectedOption = "CARD";
                       } else {
                         _selectedOption = "";
                       }
@@ -163,7 +177,7 @@ class _BookingPayState extends State<BookingPay> {
                       style: semiBoldBlack14,
                     ),
                     leading: Radio(
-                      value: "card",
+                      value: "CARD",
                       groupValue: _selectedOption,
                       onChanged: (value) {
                         _selectedOption = value!;
@@ -173,10 +187,13 @@ class _BookingPayState extends State<BookingPay> {
                         setState(() {});
                       },
                     ),
-                    children: const [CardFormField()],
+                    children: [
+                      CardFormField(controller: cardFormEditController)
+                    ],
                   ),
                   largeSpace,
-                  ExpansionTile(controller: bankTransfeerController,
+                  ExpansionTile(
+                    controller: bankTransfeerController,
                     shape: Border.all(width: 0),
                     tilePadding: const EdgeInsets.symmetric(horizontal: 0),
                     onExpansionChanged: (value) {
@@ -185,9 +202,9 @@ class _BookingPayState extends State<BookingPay> {
                       _isCardExpanded = false;
                       cardController.collapse();
                       paybalController.collapse();
-                   
+
                       if (value) {
-                        _selectedOption = "BankTransfer";
+                        _selectedOption = "CASH";
                       } else {
                         _selectedOption = "";
                       }
@@ -214,7 +231,8 @@ class _BookingPayState extends State<BookingPay> {
                     ],
                   ),
                   largeSpace,
-                  ExpansionTile(controller: paybalController,
+                  ExpansionTile(
+                    controller: paybalController,
                     shape: Border.all(width: 0),
                     tilePadding: const EdgeInsets.symmetric(horizontal: 0),
                     onExpansionChanged: (value) {
@@ -224,7 +242,7 @@ class _BookingPayState extends State<BookingPay> {
                       bankTransfeerController.collapse();
                       cardController.collapse();
                       if (value) {
-                        _selectedOption = "PayPal";
+                        _selectedOption = "PAYPAL";
                       } else {
                         _selectedOption = "";
                       }

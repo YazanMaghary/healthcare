@@ -9,7 +9,7 @@ class ChatController extends GetxController {
   final db = FirebaseFirestore.instance;
   final TextEditingController textFieldController = TextEditingController();
   final ScrollController scrollController = ScrollController();
-   Color sendIconColor = greyColor;
+  Color sendIconColor = greyColor;
   // final String doctorId = Get.arguments["doctorId"];
   RxList<Map<String, dynamic>> messages = <Map<String, dynamic>>[].obs;
   RxList<Map<String, dynamic>> lastChat = <Map<String, dynamic>>[].obs;
@@ -26,20 +26,17 @@ class ChatController extends GetxController {
   }
 
   void scrollDown() {
-    Future.delayed(const Duration(milliseconds: 300), () {
-      if (scrollController.hasClients) {
-        scrollController.animateTo(
-          scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
-      }
-    });
+    scrollController.jumpTo(
+      scrollController.position.maxScrollExtent,
+      // duration: const Duration(milliseconds: 0),
+      // curve: Curves.easeOut,
+    );
+    // Future.delayed(const Duration(milliseconds: 300), () {
+    //   if (scrollController.hasClients) {}
+    // });
   }
 
   Future<void> fetchData(String doctorId) async {
-    // print("Fetch Data");
-
     db
         .collection("users")
         .doc(box?.read("User").email)
@@ -62,9 +59,6 @@ class ChatController extends GetxController {
           },
         ).toList();
 
-        // print("Fetch Data");
-        // print("${messages.value}");
-        // print("Data Fetched successfully");
         scrollDown();
       },
     );
@@ -83,34 +77,27 @@ class ChatController extends GetxController {
           .get()
           .then((value) {
         if (value.exists) {
-          // print("object");
-
           lastChat.add(value.data()!);
           lastChatFilter.add(value.data()!);
-          // print(lastChat[0]);
-          // Prints the document data
-        } else {
-          print("Document 'lastChat' does not exist.");
-        }
+        } else {}
       });
       lastChat.sort(
           (a, b) => (b["time"] as Timestamp).compareTo(a["time"] as Timestamp));
+      lastChatFilter.sort(
+          (a, b) => (b["time"] as Timestamp).compareTo(a["time"] as Timestamp));
 
       update();
-      // print(lastChat.length);
     }
   }
 
   void handleSearch(String input) {
     lastChatFilter.clear();
-    print("object");
+
     for (var i = 0; i < lastChat.length; i++) {
       if (lastChat[i]['doctorName']
           .toLowerCase()
           .contains(input.toLowerCase())) {
         lastChatFilter.add(lastChat[i]);
-        print("Result");
-        print(lastChatFilter);
       } else {
         // doctorsListFilter.clear();
       }

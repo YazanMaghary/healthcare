@@ -1,14 +1,28 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healthcare/core/network/api_constances.dart';
 import 'package:healthcare/core/utils/app_constanses.dart';
 import 'package:healthcare/core/utils/app_images.dart';
 
 class AppointmentStatusCard extends StatelessWidget {
-  final String appointmentStatues ;
-  final TextStyle? statusColor; 
+  final String appointmentStatues;
+  final TextStyle? statusColor;
+  final String doctorName;
+  final String specializationName;
+  final String date;
+  final String time;
+  final String image;
+  final String review ; 
+  final String rating; 
   const AppointmentStatusCard({
-    super.key, required this.appointmentStatues, this.statusColor,
+    super.key,
+    required this.appointmentStatues,
+    this.statusColor,
+    required this.doctorName,
+    required this.specializationName,
+    required this.date,
+    required this.time,
+    required this.image, required this.review, required this.rating,
   });
 
   @override
@@ -35,11 +49,13 @@ class AppointmentStatusCard extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "Wed, 17 May",
+                        //Wed, 17 May
+                        text: date,
                         style: smallNormalGrey12,
                       ),
                       TextSpan(
-                        text: " | 08.30 AM",
+                        //08.30 AM
+                        text: " | $time",
                         style: smallNormalGrey12,
                       ),
                     ],
@@ -65,10 +81,20 @@ class AppointmentStatusCard extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    listviewItem1,
-                    width: 70.w,
-                    height: 70.w,
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(12.r)),
+                    child: Image.network(
+                      "${ApiConstances.baseUrl}/$image",
+                      width: 70.w,
+                      height: 70.w,
+                      errorBuilder: (context, errorrz, stackTrace) {
+                        return Image.asset(
+                          defaultProfile,
+                          width: 70.w,
+                          height: 70.w,
+                        );
+                      },
+                    ),
                   ),
                   SizedBox(
                     width: 16.w,
@@ -78,12 +104,12 @@ class AppointmentStatusCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Dr.Randy Morton",
+                        doctorName,
                         style: semiBoldBlack16,
                       ),
                       smallSpace4,
                       Text(
-                        "General Medical Checkup",
+                        specializationName,
                         style: smallNormalGrey12,
                       ),
                       smallSpace4,
@@ -98,14 +124,15 @@ class AppointmentStatusCard extends StatelessWidget {
                             width: 4.w,
                           ),
                           Text(
-                            "4.8",
+                            
+                            rating,
                             style: smallNormalGrey12,
                           ),
                           SizedBox(
                             width: 4.w,
                           ),
                           Text(
-                            "(4,279 reviews)",
+                            "($review reviews)",
                             style: smallNormalGrey12,
                           ),
                         ],

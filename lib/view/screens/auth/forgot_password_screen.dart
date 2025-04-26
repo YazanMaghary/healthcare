@@ -44,7 +44,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                       buttonText:
                           "Reset Password", //there is error when handlion one time press
                       onPressed: () async {
-                        print(authController.isButtonEnabled);
                         if (_formKey.currentState!.validate()) {
                           await authController
                               .forgotPassword(emailController.text);
