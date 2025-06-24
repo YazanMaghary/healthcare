@@ -1,16 +1,29 @@
-# healthcare
+# Health_Care App
+# A doctor appiontment project
+
+### Screenshots:
+<h1>
+  Some ui/ux design from the project 
+</h1>
+
+<div style="display: flex; overflow-x: auto; gap: 10px;">
+  <h4>Auth</h4>
+  <img src="screenShots/Onboarding.png" width="300" />
+  <img src="screenShots/Sign In.png" width="300" />
+  <img src="screenShots/Sign Up.png" width="300" />
+  <h4>Home</h4>
+  <img src="screenShots/Homepage.png" width="300" />
+  <h4>Doctors</h4>
+  <img src="screenShots/Doctor Speciality Screen.png" width="300" />
+  <img src="screenShots/Review" width="300" />
+  <h4>Booking</h4>
+  <img src="screenShots/Booking Details.png" width="300" />
+  <h4>inbox</h4>
+   <img src="screenShots/Conversation.png" width="300" />
+  <h4>Profile</h4>
+   <img src="screenShots/Profile.png" width="300" />
+   <img src="screenShots/Medical Record.png" width="300" />
+   <img src="screenShots/Payment.png" width="300" />
+</div>
 
 A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
