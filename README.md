@@ -78,7 +78,7 @@ cd healthcare</code></pre>
       </td>
       <td><img src="screenShots/Homepage.png" width="150"/>
       </td>
-      <td><img src="screenShots/screenShots/Review.png" width="150"/></td>
+      <td><img src="screenShots/Review.png" width="150"/></td>
       <td><img src="screenShots/Conversation.png" width="150"/></td>
       <td><img src="screenShots/Booking Details.png" width="150"/></td>
       <td><img src="screenShots/Profile.png" width="150"/></td>
