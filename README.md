@@ -58,7 +58,8 @@ cd healthcare</code></pre>
   <thead>
     <tr>
       <th>on-boarding</th>
-      <th>Auth</th>
+      <th>Auth(Sign in)</th>
+      <th>Auth(Sign up)</th>
       <th>Home</th>
       <th>Doctor Reivew</th>
       <th>Chat screen</th>
@@ -68,17 +69,19 @@ cd healthcare</code></pre>
   </thead>
   <tbody>
     <tr>
-      <td><img src="screenShots/Onboarding.png" width="200"/>
+      <td><img src="screenShots/Onboarding.png" width="150"/>
       </td>
-      <td><img src="screenShots/Sign In.png" width="200"/>
-      <img src="screenShots/Sign Up.png" width="200"/>
+      <td><img src="screenShots/Sign In.png" width="150"/>
       </td>
-      <td><img src="screenShots/Homepage.png" width="200"/>
       </td>
-      <td><img src="screenShots/screenShots/Review.png" width="200"/></td>
-      <td><img src="screenShots/Conversation.png" width="200"/></td>
-      <td><img src="screenShots/Booking Details.png" width="200"/></td>
-      <td><img src="screenShots/Profile.png" width="200"/></td>
+      <td> <img src="screenShots/Sign Up.png" width="150"/>
+      </td>
+      <td><img src="screenShots/Homepage.png" width="150"/>
+      </td>
+      <td><img src="screenShots/screenShots/Review.png" width="150"/></td>
+      <td><img src="screenShots/Conversation.png" width="150"/></td>
+      <td><img src="screenShots/Booking Details.png" width="150"/></td>
+      <td><img src="screenShots/Profile.png" width="150"/></td>
     </tr>
   </tbody>
 </table>
